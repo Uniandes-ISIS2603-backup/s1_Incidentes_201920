@@ -19,6 +19,10 @@ public class EmpleadoEntity extends BaseEntity implements Serializable  {
     private String tipo;
     private Boolean incidenteAbierto;
     private Integer numIncidentes;
+    
+    public EmpleadoEntity(){
+        
+    }
 
     /**
      * @return the nombre
