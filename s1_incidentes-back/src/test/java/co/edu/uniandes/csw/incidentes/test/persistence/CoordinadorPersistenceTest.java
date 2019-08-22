@@ -6,10 +6,15 @@
 package co.edu.uniandes.csw.incidentes.test.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
-import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistance;
+import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import junit.framework.Assert;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -21,10 +26,22 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 
 @RunWith(Arquillian.class)
-public class CoordinadorPersistanceTest {
-
+public class CoordinadorPersistenceTest {
+    
     @Inject
-    CoordinadorPersistance cp;
+    CoordinadorPersistence cp;
+    
+    @PersistenceContext
+    private EntityManager em;
+    
+    @Deployment
+    public static JavaArchive createDeployment(){
+        return ShrinkWrap.create(JavaArchive.class).addClass(CoordinadorEntity.class)
+                .addClass(CoordinadorPersistence.class)
+                .addAsManifestResource("META-INF/persistence.xml","persistence.xml")
+                .addAsManifestResource("META-INF/beans.xml");
+                
+    }
     
     @Test
     public void createTest(){
@@ -32,7 +49,7 @@ public class CoordinadorPersistanceTest {
         CoordinadorEntity coordinador = factory.manufacturePojo(CoordinadorEntity.class);
         
         CoordinadorEntity result = cp.create(coordinador);
-        
         Assert.assertNotNull(result);
-    }   
+        
+    }
 }

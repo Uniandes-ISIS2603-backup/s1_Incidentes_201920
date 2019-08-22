@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.incidentes.persistence;
 
-import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
+import co.edu.uniandes.csw.incidentes.entities.UserEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,26 +15,27 @@ import javax.persistence.PersistenceContext;
  * @author Juan Camilo Castiblanco
  */
 @Stateless
-public class CoordinadorPersistence {
+public class UserPersistence {
     
     @PersistenceContext(unitName = "incidentesPU")
     protected EntityManager em;
-    
-    public CoordinadorEntity create(CoordinadorEntity coordinador){
-        em.persist(coordinador);
+     
+    public UserEntity create(UserEntity user){
+        em.persist(user);
         //throw new java.lang.UnsupportedOperationException("Not suported yet");
-        return coordinador;
+        return user;
     }
     
-    public CoordinadorEntity search(CoordinadorEntity coordinador){
+    public UserEntity search(UserEntity user){
         throw new java.lang.UnsupportedOperationException("Not suported yet");
     }
     
-    public CoordinadorEntity modify(CoordinadorEntity coordinador){
+    public UserEntity modify(UserEntity user){
         throw new java.lang.UnsupportedOperationException("Not suported yet");
     }
     
-    public CoordinadorEntity delete(CoordinadorEntity coordinador){
+    public UserEntity delete(UserEntity user){
         throw new java.lang.UnsupportedOperationException("Not suported yet");
     }
+    
 }
