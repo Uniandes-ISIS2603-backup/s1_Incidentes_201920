@@ -13,9 +13,21 @@ import javax.ejb.Stateless;
  * @author Juan Camilo Castiblanco
  */
 @Stateless
-public class CoordinadorPersistance {
+public class CoordinadorPersistence {
     
     public CoordinadorEntity create(CoordinadorEntity coordinador){
+        throw new java.lang.UnsupportedOperationException("Not suported yet");
+    }
+    
+    public CoordinadorEntity search(CoordinadorEntity coordinador){
+        throw new java.lang.UnsupportedOperationException("Not suported yet");
+    }
+    
+    public CoordinadorEntity modify(CoordinadorEntity coordinador){
+        throw new java.lang.UnsupportedOperationException("Not suported yet");
+    }
+    
+    public CoordinadorEntity delete(CoordinadorEntity coordinador){
         throw new java.lang.UnsupportedOperationException("Not suported yet");
     }
 }

@@ -11,16 +11,17 @@ import javax.persistence.Entity;
  *
  * @author Juan Camilo Castiblanco
  */
-public class CoordinadorEntity {
+@Entity
+public class CoordinadorEntity extends BaseEntity implements Serializable{
     
-    private Integer id;
+    private String name;
     
-    public int getId(){
-    return id;
+    public String getName(){
+    return name;
     }
     
-    public void setId(int pId){
-        this.id = pId;
+    public void setName(String pName){
+        this.name = pName;
     }
 }
 

@@ -19,6 +19,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author Juan Camilo Castiblanco
  */
+
 @RunWith(Arquillian.class)
 public class CoordinadorPersistanceTest {
 
@@ -31,6 +32,7 @@ public class CoordinadorPersistanceTest {
         CoordinadorEntity coordinador = factory.manufacturePojo(CoordinadorEntity.class);
         
         CoordinadorEntity result = cp.create(coordinador);
+        
         Assert.assertNotNull(result);
     }   
 }
