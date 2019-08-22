@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class CoordinadorPersistance {
+    
     public CoordinadorEntity create(CoordinadorEntity coordinador){
         throw new java.lang.UnsupportedOperationException("Not suported yet");
     }
