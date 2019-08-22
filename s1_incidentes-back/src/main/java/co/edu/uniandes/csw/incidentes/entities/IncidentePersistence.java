@@ -29,6 +29,7 @@ public class IncidentePersistence {
     public IncidenteEntity find(Long incidenteId)
     {
         return em.find(IncidenteEntity.class, incidenteId);
+        
     }
     public List<IncidenteEntity> findAll()
     {
