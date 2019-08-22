@@ -20,7 +20,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class EmpleadoPersistence {
     
-    @PersistenceContext(unitName = "booksPU")
+    @PersistenceContext(unitName = "incidentesPU")
     protected EntityManager em;
     
     public EmpleadoEntity create(EmpleadoEntity empleado){
