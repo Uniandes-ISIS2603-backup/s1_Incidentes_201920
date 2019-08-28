@@ -7,7 +7,7 @@ package co.edu.uniandes.csw.incidentes.test.persistence;
 
 
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
-import co.edu.uniandes.csw.incidentes.entities.IncidentePersistence;
+import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -50,6 +50,11 @@ public class IncidentePersistenceTest {
        IncidenteEntity result = ip.create(incidente);
        Assert.assertNotNull(result);
        IncidenteEntity entity = em.find(IncidenteEntity.class, result.getId());
-        Assert.assertEquals(incidente.getDescripcion(), entity.getDescripcion());     
+        Assert.assertEquals(incidente.getDescripcion(), entity.getDescripcion());
+        Assert.assertEquals(incidente.getEquipo(), entity.getEquipo());
+        Assert.assertEquals(incidente.getPrioridad(),entity.getPrioridad());
+        Assert.assertEquals(incidente.getReabrir(),entity.getReabrir());
+        Assert.assertEquals(incidente.getSolucionado(),entity.getSolucionado());
+        Assert.assertEquals(incidente.getTipo(),entity.getTipo());
    }
 }

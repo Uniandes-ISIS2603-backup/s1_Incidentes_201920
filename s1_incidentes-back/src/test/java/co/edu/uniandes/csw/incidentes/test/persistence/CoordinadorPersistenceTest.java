@@ -51,5 +51,9 @@ public class CoordinadorPersistenceTest {
         CoordinadorEntity result = cp.create(coordinador);
         Assert.assertNotNull(result);
         
+        CoordinadorEntity entity = em.find(CoordinadorEntity.class, result.getId());
+                
+        Assert.assertEquals(coordinador.getId(), entity.getId());
+        
     }
 }

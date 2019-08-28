@@ -53,7 +53,7 @@ public class UserPersistenceTest {
         
         UserEntity entity = em.find(UserEntity.class, result.getId());
                 
-        Assert.assertNotNull(entity);
+        Assert.assertEquals(user.getId(), entity.getId());
     } 
    /* 
     @Test
