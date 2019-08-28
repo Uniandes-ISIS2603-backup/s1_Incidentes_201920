@@ -6,9 +6,11 @@
 package co.edu.uniandes.csw.incidentes.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,8 +28,13 @@ public class CoordinadorPersistence {
         return coordinador;
     }
     
-    public CoordinadorEntity search(CoordinadorEntity coordinador){
-        throw new java.lang.UnsupportedOperationException("Not suported yet");
+    public CoordinadorEntity find(Long coordinadorId){
+        return em.find(CoordinadorEntity.class, coordinadorId);
+    }
+    
+    public List<CoordinadorEntity> listAll(){
+        TypedQuery<CoordinadorEntity>  query = em.createQuery("select u from EmpleadoEntity u", CoordinadorEntity.class);
+        return query.getResultList();
     }
     
     public CoordinadorEntity modify(CoordinadorEntity coordinador){

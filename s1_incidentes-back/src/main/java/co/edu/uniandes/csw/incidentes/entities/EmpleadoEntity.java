@@ -20,6 +20,8 @@ public class EmpleadoEntity extends BaseEntity implements Serializable  {
     private Boolean incidenteAbierto;
     private Integer numIncidentes;
     
+    
+
     public EmpleadoEntity(){
         
     }
