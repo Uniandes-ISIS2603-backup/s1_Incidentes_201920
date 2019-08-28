@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.incidentes.persistence;
 
+
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 
@@ -36,7 +38,14 @@ public class IncidentePersistence {
         TypedQuery query=em.createQuery("select u from IncidenteEntity u", IncidenteEntity.class);
         return query.getResultList();
     }
+    public IncidenteEntity update(IncidenteEntity inciEntity) {
+        return em.merge(inciEntity);
+    }
 
+    public void delete(Long inciId) {
+        IncidenteEntity inciEntity = em.find(IncidenteEntity.class, inciId);
+        em.remove(inciEntity);
+    }
     
     
     
