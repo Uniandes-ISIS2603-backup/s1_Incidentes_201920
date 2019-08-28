@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  * @author Estudiante Diana Alejandra Silva Alvarez
  */
 @Stateless
-public class TecnicoPersistance {
+public class TecncicoPersistance {
     
     @PersistenceContext(unitName = "incidentesPU")
     protected EntityManager em;
