@@ -6,9 +6,11 @@
 package co.edu.uniandes.csw.incidentes.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.UserEntity;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,8 +28,13 @@ public class UserPersistence {
         return user;
     }
     
-    public UserEntity search(UserEntity user){
-        throw new java.lang.UnsupportedOperationException("Not suported yet");
+    public UserEntity find(Long userId){
+        return em.find(UserEntity.class, userId);
+    }
+    
+    public List<UserEntity> listAll(){
+        TypedQuery<UserEntity>  query = em.createQuery("select u from EmpleadoEntity u", UserEntity.class);
+        return query.getResultList();
     }
     
     public UserEntity modify(UserEntity user){
