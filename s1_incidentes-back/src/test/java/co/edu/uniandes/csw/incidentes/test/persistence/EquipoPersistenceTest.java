@@ -54,4 +54,24 @@ public class EquipoPersistenceTest {
         
         Assert.assertEquals(newEntity.getIdEquipo(), entity.getIdEquipo());
     }
+    
+    @Test
+    public void findEquipoTest() {
+        
+    }
+    
+    @Test
+    public void findAllEquipoTest() {
+        
+    }
+    
+    @Test
+    public void updateEquipoTest() {
+        
+    }
+    
+    @Test
+    public void deleteEquipoTest() {
+        
+    }
 }
