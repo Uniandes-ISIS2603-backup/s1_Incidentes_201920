@@ -48,42 +48,54 @@ public class UserPersistenceTest {
         UserEntity user = factory.manufacturePojo(UserEntity.class);
         
         UserEntity result = up.create(user);
-        
         Assert.assertNotNull(result);
         
-        UserEntity entity = em.find(UserEntity.class, result.getId());
-                
-        Assert.assertEquals(user.getId(), entity.getId());
+        UserEntity entity= em.find(UserEntity.class, result.getId());                
     } 
-   /* 
+   
     @Test
-    public void searchTest(){
+    public void findTest(){
         PodamFactory factory = new PodamFactoryImpl();
         UserEntity user = factory.manufacturePojo(UserEntity.class);
         
-        UserEntity entity = em.find(UserEntity.class, result.get)
-        
+        UserEntity result = up.create(user);
         Assert.assertNotNull(result);
+        
+        UserEntity entity = em.find(UserEntity.class, result.getId());
+        Assert.assertEquals(user.getId(), entity.getId());
     }
     
+    @Test
+    public void listAllTest(){
+        PodamFactory factory = new PodamFactoryImpl();
+        UserEntity user = factory.manufacturePojo(UserEntity.class);
+        
+        UserEntity result = up.create(user);
+        Assert.assertNotNull(result);
+        
+        // COntinuar implementación luego ...
+    }
+ /*   
     @Test
     public void modifyTest(){
         PodamFactory factory = new PodamFactoryImpl();
         UserEntity user = factory.manufacturePojo(UserEntity.class);
         
-        UserEntity result = up.modify(user);
-        
+        UserEntity result = up.create(user);
         Assert.assertNotNull(result);
+        
+        //UserEntity entity = em.modify(user);
+        //Assert.assertNotNull(result);
     }
-    
+   */ 
     @Test
-    public void deleteTest(){
+    public void removeTest(){
         PodamFactory factory = new PodamFactoryImpl();
         UserEntity user = factory.manufacturePojo(UserEntity.class);
-        
-        UserEntity result = up.delete(user);
-        
+        UserEntity result = up.create(user);
         Assert.assertNotNull(result);
+        
+        em.remove(result);
+        Assert.assertNull(result);
     }
-*/
 }
