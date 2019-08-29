@@ -54,7 +54,7 @@ public class EquipoPersistenceTest {
         
         Assert.assertEquals(newEntity.getIdEquipo(), entity.getIdEquipo());
     }
-    
+    /**
     @Test
     public void findEquipoTest() {
         
@@ -73,5 +73,5 @@ public class EquipoPersistenceTest {
     @Test
     public void deleteEquipoTest() {
         
-    }
+    }*/
 }

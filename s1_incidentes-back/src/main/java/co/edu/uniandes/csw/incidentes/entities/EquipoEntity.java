@@ -12,11 +12,11 @@ import javax.persistence.Entity;
  * @author Julian Jaimes
  */
 @Entity
-public class EquipoEntity extends BaseEntity implements Serializable{
+public class EquipoEntity extends BaseEntity implements Serializable {
     private int idEquipo;
     @javax.persistence.OneToOne(
     )
-    EmpleadoEntity empleado;
+    private EmpleadoEntity empleado;
 
     public EquipoEntity() {
         
@@ -34,6 +34,20 @@ public class EquipoEntity extends BaseEntity implements Serializable{
      */
     public void setIdEquipo(int idEquipo) {
         this.idEquipo = idEquipo;
+    }
+
+    /**
+     * @return the empleado
+     */
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
+
+    /**
+     * @param empleado the empleado to set
+     */
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
     }
     
 }
