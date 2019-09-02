@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  * @author Estudiante Diana Alejandra Silva Alvarez
  */
 @Stateless
-public class TecncicoPersistance {
+public class TecnicoPersistence {
     
     @PersistenceContext(unitName = "incidentesPU")
     protected EntityManager em;
@@ -34,7 +34,15 @@ public class TecncicoPersistance {
     
     public List<TecnicoEntity> findAll()
     {
-       TypedQuery<TecnicoEntity> query = em.createQuery("", TecnicoEntity.class);
+       TypedQuery query=em.createQuery("select u from TecnicoEntity u", TecnicoEntity.class);
         return query.getResultList();
+    }
+    public TecnicoEntity update(TecnicoEntity inciEntity) {
+        return em.merge(inciEntity);
+    }
+
+    public void delete(Long inciId) {
+        TecnicoEntity inciEntity = em.find(TecnicoEntity.class, inciId);
+        em.remove(inciEntity);
     }
 }
