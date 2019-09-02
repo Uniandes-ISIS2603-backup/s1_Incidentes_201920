@@ -122,19 +122,18 @@ public class EquipoPersistenceTest {
         }
     }*/
     
-    /**@Test
+    @Test
     public void updateEquipoEntity() {
         PodamFactory factory = new PodamFactoryImpl();
+        EquipoEntity ee = factory.manufacturePojo(EquipoEntity.class);
+        ee = ep.create(ee);
         EquipoEntity newEntity = factory.manufacturePojo(EquipoEntity.class);
-        EquipoEntity ee = ep.create(newEntity);
-        EquipoEntity entity = factory.manufacturePojo(EquipoEntity.class);
+        ee.setIdEquipo(newEntity.getIdEquipo());
         
-        ep.update(newEntity);
+        ep.update(ee);
 
-       // EquipoEntity resp = em.find(EquipoEntity.class, entity.getId());
-
-       // Assert.assertEquals(newEntity.getIdEquipo(), resp.getIdEquipo());
-    }*/
+       Assert.assertEquals(ee.getIdEquipo(), newEntity.getIdEquipo());
+    }
     
     @Test
     public void deleteEquipoEntity() {
