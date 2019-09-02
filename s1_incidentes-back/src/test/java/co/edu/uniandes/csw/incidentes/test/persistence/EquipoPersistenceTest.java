@@ -72,7 +72,7 @@ public class EquipoPersistenceTest {
     }
 
     private void clearData() {
-        em.createQuery("delete from IncidenteEntity").executeUpdate();
+        em.createQuery("delete from EquipoEntity").executeUpdate();
     }
     
     private void insertData() {
@@ -98,7 +98,7 @@ public class EquipoPersistenceTest {
         Assert.assertNotNull(entity);
         Assert.assertEquals(newEntity.getIdEquipo(), entity.getIdEquipo());
     }
-    /**
+    
     @Test
     public void findEquipoEntity() {
         EquipoEntity entity = data.get(0);
@@ -120,7 +120,7 @@ public class EquipoPersistenceTest {
             }
             Assert.assertTrue(found);
         }
-    }*/
+    }
     
     @Test
     public void updateEquipoEntity() {
