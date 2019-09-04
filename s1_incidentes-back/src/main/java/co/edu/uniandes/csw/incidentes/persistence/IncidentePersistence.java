@@ -30,8 +30,7 @@ public class IncidentePersistence {
     }
     public IncidenteEntity find(Long incidenteId)
     {
-        return em.find(IncidenteEntity.class, incidenteId);
-        
+        return em.find(IncidenteEntity.class, incidenteId);   
     }
     public List<IncidenteEntity> findAll()
     {
@@ -41,13 +40,9 @@ public class IncidentePersistence {
     public IncidenteEntity update(IncidenteEntity inciEntity) {
         return em.merge(inciEntity);
     }
-
     public void delete(Long inciId) {
         IncidenteEntity inciEntity = em.find(IncidenteEntity.class, inciId);
         em.remove(inciEntity);
-    }
-    
-    
-    
+    }   
 }
 
