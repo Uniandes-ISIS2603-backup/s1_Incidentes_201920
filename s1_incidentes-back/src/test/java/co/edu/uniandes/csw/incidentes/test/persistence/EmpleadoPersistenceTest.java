@@ -120,6 +120,8 @@ public class EmpleadoPersistenceTest {
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
         Assert.assertEquals(entity.getTipo(), newEntity.getTipo());
+        Assert.assertEquals(entity.getIncidenteAbierto(), newEntity.getIncidenteAbierto());
+        Assert.assertEquals(entity.getNumIncidentes(), newEntity.getNumIncidentes());
     }
     
     
