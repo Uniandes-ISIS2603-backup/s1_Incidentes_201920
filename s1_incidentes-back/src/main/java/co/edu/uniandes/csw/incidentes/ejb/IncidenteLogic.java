@@ -37,6 +37,18 @@ public class IncidenteLogic {
         {
             throw new BusinessLogicException("La fecha del incidente es nula");
         }
+        if(incidente.getTipo()==null)
+        {
+            throw new BusinessLogicException("El tipo del incidente es nula");
+        }
+        if(!incidente.getReabrir())
+        {
+            throw new BusinessLogicException("El incidente aun no se puede reabrir");
+        }
+        if(!incidente.getSolucionado())
+        {
+            throw new BusinessLogicException("El incidente aun no se puede solucionar");
+        }
         incidente = persistence.create(incidente);
         return incidente;
     }

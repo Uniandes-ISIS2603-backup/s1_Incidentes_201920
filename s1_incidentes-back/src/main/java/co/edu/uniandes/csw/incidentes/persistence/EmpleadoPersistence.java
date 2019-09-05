@@ -25,7 +25,6 @@ public class EmpleadoPersistence {
     
     public EmpleadoEntity create(EmpleadoEntity empleado){
         em.persist(empleado);
-        //throw new java.lang.UnsupportedOperationException("Not supported yet.");
         return empleado;
     }
     

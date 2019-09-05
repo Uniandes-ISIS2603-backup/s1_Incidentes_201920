@@ -5,10 +5,10 @@
  */
 package co.edu.uniandes.csw.incidentes.test.logic;
 
-import co.edu.uniandes.csw.incidentes.ejb.UserLogic;
-import co.edu.uniandes.csw.incidentes.entities.UserEntity;
+import co.edu.uniandes.csw.incidentes.ejb.CoordinadorLogic;
+import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.incidentes.persistence.UserPersistence;
+import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,12 +31,11 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Juan Camilo Castiblanco
  */
 @RunWith(Arquillian.class)
-public class UserLogicTest {
-    
+public class CoordinadorLogicTest {
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private UserLogic ul;
+    private CoordinadorLogic cl;
 
     @PersistenceContext
     private EntityManager em;
@@ -44,14 +43,14 @@ public class UserLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<UserEntity> data = new ArrayList<>();
+    private List<CoordinadorEntity> data = new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(UserEntity.class.getPackage())
-                .addPackage(UserLogic.class.getPackage())
-                .addPackage(UserPersistence.class.getPackage())
+                .addPackage(CoordinadorEntity.class.getPackage())
+                .addPackage(CoordinadorLogic.class.getPackage())
+                .addPackage(CoordinadorPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -80,36 +79,28 @@ public class UserLogicTest {
 
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            UserEntity entity = factory.manufacturePojo(UserEntity.class);
+            CoordinadorEntity entity = factory.manufacturePojo(CoordinadorEntity.class);
             em.persist(entity);
-            entity.setUsername(new String());
+            entity.setName(new String());
             data.add(entity);
         } 
     }
 
     @Test
     public void createUserTest() throws BusinessLogicException{
-        UserEntity newEntity = factory.manufacturePojo(UserEntity.class);
-        UserEntity result = ul.createUser(newEntity);
+        CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
+        CoordinadorEntity result = cl.createUser(newEntity);
         Assert.assertNotNull(result);
-        UserEntity entity = em.find(UserEntity.class, result.getId());
+        CoordinadorEntity entity = em.find(CoordinadorEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getUsername(), entity.getUsername());
-        Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
+        Assert.assertEquals(newEntity.getName(), entity.getName());
     }
 
     @Test (expected = BusinessLogicException.class)
-    public void createUserUsernameNull()throws BusinessLogicException{
-        UserEntity newEntity=factory.manufacturePojo(UserEntity.class);
-        newEntity.setUsername(null);
-        UserEntity resultado= ul.createUser(newEntity);
+    public void createCoordinadorNameNull()throws BusinessLogicException{
+        CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
+        newEntity.setName(null);
+        CoordinadorEntity resultado= cl.createUser(newEntity);
     }
     
-    @Test (expected = BusinessLogicException.class)
-    public void createIUserPasswordNull()throws BusinessLogicException{
-        UserEntity newEntity=factory.manufacturePojo(UserEntity.class);
-        newEntity.setPassword(null);
-        UserEntity resultado= ul.createUser(newEntity);
-    }
-
 }
