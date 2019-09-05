@@ -17,6 +17,9 @@ public class UserEntity extends BaseEntity implements Serializable{
     private String username;
     
     private String password;
+
+    public UserEntity() {
+    }
     
     public String getUsername(){
     return username;
