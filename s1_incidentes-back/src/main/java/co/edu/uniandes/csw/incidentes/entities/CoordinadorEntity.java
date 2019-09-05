@@ -18,10 +18,6 @@ public class CoordinadorEntity extends BaseEntity implements Serializable{
 
     public CoordinadorEntity() {
     }
-
-    public CoordinadorEntity(String name) {
-        this.name = name;
-    }
     
     public String getName(){
     return name;
