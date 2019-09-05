@@ -15,6 +15,13 @@ import javax.persistence.Entity;
 public class CoordinadorEntity extends BaseEntity implements Serializable{
     
     private String name;
+
+    public CoordinadorEntity() {
+    }
+
+    public CoordinadorEntity(String name) {
+        this.name = name;
+    }
     
     public String getName(){
     return name;
@@ -24,5 +31,3 @@ public class CoordinadorEntity extends BaseEntity implements Serializable{
         this.name = pName;
     }
 }
-
-

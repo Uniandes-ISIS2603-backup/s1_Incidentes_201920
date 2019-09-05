@@ -21,27 +21,26 @@ public class CoordinadorPersistence {
     
     @PersistenceContext(unitName = "incidentesPU")
     protected EntityManager em;
-    
-    public CoordinadorEntity create(CoordinadorEntity coordinador){
+    public CoordinadorEntity create(CoordinadorEntity coordinador)
+    {
         em.persist(coordinador);
-        //throw new java.lang.UnsupportedOperationException("Not suported yet");
         return coordinador;
     }
-    
-    public CoordinadorEntity find(Long coordinadorId){
+    public CoordinadorEntity find(Long coordinadorId)
+    {
         return em.find(CoordinadorEntity.class, coordinadorId);
     }
-    
-    public List<CoordinadorEntity> listAll(){
-        TypedQuery<CoordinadorEntity>  query = em.createQuery("select u from EmpleadoEntity u", CoordinadorEntity.class);
+    public List<CoordinadorEntity> findAll()
+    {
+        TypedQuery query=em.createQuery("select u from CoordinadorEntity u", CoordinadorEntity.class);
         return query.getResultList();
     }
-    
-    public CoordinadorEntity modify(CoordinadorEntity coordinador){
-        throw new java.lang.UnsupportedOperationException("Not suported yet");
+    public CoordinadorEntity update(CoordinadorEntity coordinadorEntity) {
+        return em.merge(coordinadorEntity);
     }
-    
-    public CoordinadorEntity delete(CoordinadorEntity coordinador){
-        throw new java.lang.UnsupportedOperationException("Not suported yet");
+
+    public void delete(Long coordinadorId) {
+        CoordinadorEntity coordinadorEntity = em.find(CoordinadorEntity.class, coordinadorId);
+        em.remove(coordinadorEntity);
     }
 }

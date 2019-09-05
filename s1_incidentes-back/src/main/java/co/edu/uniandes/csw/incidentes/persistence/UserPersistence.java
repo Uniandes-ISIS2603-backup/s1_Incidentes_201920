@@ -18,31 +18,32 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class UserPersistence {
-    
     @PersistenceContext(unitName = "incidentesPU")
     protected EntityManager em;
-     
-    public UserEntity create(UserEntity user){
-        em.persist(user);
-        //throw new java.lang.UnsupportedOperationException("Not suported yet");
-        return user;
+    
+    public UserEntity create(UserEntity incidente)
+    {
+        em.persist(incidente);
+        return incidente;
     }
     
-    public UserEntity find(Long userId){
-        return em.find(UserEntity.class, userId);
+    public UserEntity find(Long incidenteId)
+    {
+        return em.find(UserEntity.class, incidenteId);   
     }
     
-    public List<UserEntity> listAll(){
-        TypedQuery<UserEntity>  query = em.createQuery("select u from EmpleadoEntity u", UserEntity.class);
+    public List<UserEntity> findAll()
+    {
+        TypedQuery query=em.createQuery("select u from UserEntity u", UserEntity.class);
         return query.getResultList();
     }
     
-    public UserEntity modify(UserEntity user){
-        throw new java.lang.UnsupportedOperationException("Not suported yet");
+    public UserEntity update(UserEntity userEntity) {
+        return em.merge(userEntity);
     }
     
-    public UserEntity delete(UserEntity user){
-        throw new java.lang.UnsupportedOperationException("Not suported yet");
-    }
-    
+    public void delete(Long userId) {
+        UserEntity userEntity = em.find(UserEntity.class, userId);
+        em.remove(userEntity);
+    }     
 }
