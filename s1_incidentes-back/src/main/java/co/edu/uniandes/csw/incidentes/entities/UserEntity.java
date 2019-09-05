@@ -18,11 +18,6 @@ public class UserEntity extends BaseEntity implements Serializable{
     
     private String password;
 
-    public UserEntity(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
     public UserEntity() {
     }
     
