@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.incidentes.test.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistance;
-import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -18,6 +17,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 import javax.persistence.EntityManager;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.junit.Assert;
+import javax.inject.Inject;
 import javax.persistence.PersistenceContext;
 
 /**
