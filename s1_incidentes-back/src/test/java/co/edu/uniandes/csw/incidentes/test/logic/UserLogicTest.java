@@ -106,7 +106,7 @@ public class UserLogicTest {
     }
     
     @Test (expected = BusinessLogicException.class)
-    public void createIncidenteEquipoNull()throws BusinessLogicException{
+    public void createIUserPasswordNull()throws BusinessLogicException{
         UserEntity newEntity=factory.manufacturePojo(UserEntity.class);
         newEntity.setPassword(null);
         UserEntity resultado= ul.createUser(newEntity);
