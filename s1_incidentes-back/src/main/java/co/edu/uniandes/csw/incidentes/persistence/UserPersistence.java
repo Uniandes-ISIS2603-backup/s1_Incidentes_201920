@@ -20,23 +20,28 @@ import javax.persistence.TypedQuery;
 public class UserPersistence {
     @PersistenceContext(unitName = "incidentesPU")
     protected EntityManager em;
+    
     public UserEntity create(UserEntity incidente)
     {
         em.persist(incidente);
         return incidente;
     }
+    
     public UserEntity find(Long incidenteId)
     {
         return em.find(UserEntity.class, incidenteId);   
     }
+    
     public List<UserEntity> findAll()
     {
         TypedQuery query=em.createQuery("select u from UserEntity u", UserEntity.class);
         return query.getResultList();
     }
+    
     public UserEntity update(UserEntity userEntity) {
         return em.merge(userEntity);
     }
+    
     public void delete(Long userId) {
         UserEntity userEntity = em.find(UserEntity.class, userId);
         em.remove(userEntity);
