@@ -123,6 +123,23 @@ public class IncidenteLogicTest {
         newEntity.setFecha(null);
         IncidenteEntity resultado= iL.createIncidente(newEntity);
     }
-
+    @Test (expected = BusinessLogicException.class)
+    public void createIncidenteTipoNull()throws BusinessLogicException{
+        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+        newEntity.setTipo(null);
+        IncidenteEntity resultado= iL.createIncidente(newEntity);
+    }
+    @Test (expected = BusinessLogicException.class)
+    public void createIncidenteSolucionadoTrue()throws BusinessLogicException{
+        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+        newEntity.setSolucionado(false);
+        IncidenteEntity resultado= iL.createIncidente(newEntity);
+    }
+    @Test (expected = BusinessLogicException.class)
+    public void createIncidenteReabrirTrue()throws BusinessLogicException{
+        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+        newEntity.setReabrir(false);
+        IncidenteEntity resultado= iL.createIncidente(newEntity);
+    }
     
 }
