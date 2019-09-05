@@ -16,11 +16,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -28,6 +30,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author Juan Camilo Castiblanco
  */
+@RunWith(Arquillian.class)
 public class UserLogicTest {
     
     private PodamFactory factory = new PodamFactoryImpl();
@@ -72,7 +75,7 @@ public class UserLogicTest {
     }
 
     private void clearData() {
-        em.createQuery("delete from UserEntity").executeUpdate();
+        em.createQuery("delete from IncidenteEntity").executeUpdate();
     }
 
     private void insertData() {
@@ -81,13 +84,11 @@ public class UserLogicTest {
             em.persist(entity);
             entity.setUsername(new String());
             data.add(entity);
-        }
-        
+        } 
     }
 
-    /*
     @Test
-    public void createIUserTest() throws BusinessLogicException{
+    public void createUserTest() throws BusinessLogicException{
         UserEntity newEntity = factory.manufacturePojo(UserEntity.class);
         UserEntity result = ul.createUser(newEntity);
         Assert.assertNotNull(result);
@@ -103,11 +104,12 @@ public class UserLogicTest {
         newEntity.setUsername(null);
         UserEntity resultado= ul.createUser(newEntity);
     }
+    
     @Test (expected = BusinessLogicException.class)
-    public void createUserPasswordNull()throws BusinessLogicException{
+    public void createIncidenteEquipoNull()throws BusinessLogicException{
         UserEntity newEntity=factory.manufacturePojo(UserEntity.class);
         newEntity.setPassword(null);
         UserEntity resultado= ul.createUser(newEntity);
     }
-*/
+
 }
