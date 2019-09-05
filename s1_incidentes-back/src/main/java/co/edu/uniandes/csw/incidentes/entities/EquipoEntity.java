@@ -13,14 +13,14 @@ import javax.persistence.Entity;
  */
 @Entity
 public class EquipoEntity extends BaseEntity implements Serializable {
-    private int idEquipo;
+    private int idEquipo;/**
     @javax.persistence.OneToOne(
     )
     private EmpleadoEntity empleado;
 
     public EquipoEntity() {
         
-    }
+    }*/
 
     /**
      * @return the idEquipo
@@ -38,16 +38,16 @@ public class EquipoEntity extends BaseEntity implements Serializable {
 
     /**
      * @return the empleado
-     */
+     */ /**
     public EmpleadoEntity getEmpleado() {
         return empleado;
-    }
+    }*/
 
     /**
      * @param empleado the empleado to set
-     */
+     *//**
     public void setEmpleado(EmpleadoEntity empleado) {
         this.empleado = empleado;
     }
-    
+    */
 }

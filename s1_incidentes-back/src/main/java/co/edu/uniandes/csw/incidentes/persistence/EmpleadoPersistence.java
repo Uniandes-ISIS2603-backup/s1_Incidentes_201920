@@ -39,4 +39,13 @@ public class EmpleadoPersistence {
         return query.getResultList();
     }
     
+    public EmpleadoEntity update(EmpleadoEntity inciEntity) {
+        return em.merge(inciEntity);
+    }
+
+    public void delete(Long inciId) {
+        EmpleadoEntity inciEntity = em.find(EmpleadoEntity.class, inciId);
+        em.remove(inciEntity);
+    }
+    
 }
