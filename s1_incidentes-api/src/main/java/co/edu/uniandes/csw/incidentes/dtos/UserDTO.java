@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author TAURET
+ * @author Juan Camilo Castiblanco
  */
 public class UserDTO implements Serializable{
     
