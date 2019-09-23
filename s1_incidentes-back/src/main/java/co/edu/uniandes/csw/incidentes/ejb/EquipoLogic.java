@@ -39,12 +39,9 @@ public class EquipoLogic {
         return pEquipo.findAll();
     }
     
-    public EquipoEntity updateEquipo(Long equipoID,EquipoEntity equipoE) throws BusinessLogicException {
-        if(equipoE.getIdEquipo() < 0) {
-            throw new BusinessLogicException("El id del equipo no es válido");
-        }
-        equipoE = pEquipo.update(equipoE);
-        return equipoE;
+    public EquipoEntity updateEquipo(EquipoEntity equipoE){
+        EquipoEntity newEntity = pEquipo.update(equipoE);
+        return newEntity;
     }
     
     public void deleteEquipo(Long equipoId) {

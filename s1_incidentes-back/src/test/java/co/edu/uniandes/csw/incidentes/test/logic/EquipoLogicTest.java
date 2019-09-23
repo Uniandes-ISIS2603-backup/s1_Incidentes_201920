@@ -127,26 +127,13 @@ public class EquipoLogicTest {
     }
     
     @Test
-    public void updateEquipo() throws BusinessLogicException {
+    public void updateEquipo(){
         EquipoEntity entity=data.get(0);
         EquipoEntity ee = factory.manufacturePojo(EquipoEntity.class);
         ee.setId(entity.getId());
-        equipo.updateEquipo(ee.getId(),ee);
+        equipo.updateEquipo(ee);
         EquipoEntity resp= em.find(EquipoEntity.class,entity.getId());
-        
        Assert.assertEquals(ee.getIdEquipo(), resp.getIdEquipo());
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void updateEquipo0() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
-        EquipoEntity ee = factory.manufacturePojo(EquipoEntity.class);
-        ee = equipo.createEquipo(ee);
-        EquipoEntity newEntity = factory.manufacturePojo(EquipoEntity.class);
-        newEntity.setIdEquipo(-1);
-        ee.setIdEquipo(newEntity.getIdEquipo());
-        
-        equipo.updateEquipo(ee.getId(),ee);
     }
     
     @Test
