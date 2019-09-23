@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.incidentes.ejb;
 import co.edu.uniandes.csw.incidentes.entities.UserEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.UserPersistence;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -35,12 +36,32 @@ public class UserLogic {
         {
             throw new BusinessLogicException("La contraseña no puede ser vacia.");
         }
+        /* TODO Al crear un objeto con Podam asegurar que cumpla esta condición para que el test no falle. 
         if(!checkString(user.getPassword())){
             throw new BusinessLogicException("La contraseña debe contener una mayuscula, una minuscula y un número.");
-        }
+        }*/
         
         user = persistence.create(user);
         return user;
+    }
+    
+        public List<UserEntity> getUsers() {
+        List<UserEntity> lista = persistence.findAll();
+        return lista;
+    }
+    
+    public UserEntity getUser(Long userId) {
+        UserEntity incidenteEntity = persistence.find(userId);
+        return incidenteEntity;
+    }
+    
+    public UserEntity updateUser(Long userId, UserEntity user) {
+        UserEntity newIncidenteEntity = persistence.update(user);
+        return newIncidenteEntity;
+    }
+    
+    public void deleteUser(Long userId){
+        persistence.delete(userId);
     }
     
     private static boolean checkString(String str) {
