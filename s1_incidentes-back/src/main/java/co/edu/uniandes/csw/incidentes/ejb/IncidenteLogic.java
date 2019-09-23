@@ -9,6 +9,9 @@ import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
 import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import javax.ejb.Stateless;
@@ -51,6 +54,11 @@ public class IncidenteLogic {
         if(!incidente.getSolucionado())
         {
             throw new BusinessLogicException("El incidente aun no se puede solucionar");
+        }
+        
+        if(incidente.getFecha().toString().compareTo("1950-09-15")<0)
+        {
+            throw new BusinessLogicException("El incidente tiene una fecha inválida");
         }
         incidente = persistence.create(incidente);
         return incidente;

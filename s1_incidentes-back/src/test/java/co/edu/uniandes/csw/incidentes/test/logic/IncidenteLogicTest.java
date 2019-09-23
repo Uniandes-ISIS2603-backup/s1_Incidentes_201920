@@ -9,7 +9,10 @@ import co.edu.uniandes.csw.incidentes.ejb.IncidenteLogic;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -169,7 +172,7 @@ public class IncidenteLogicTest {
 
     
     @Test
-    public void updatIncidenteTest() {
+    public void updateIncidenteTest() {
         IncidenteEntity entity = data.get(0);
         IncidenteEntity pojoEntity = factory.manufacturePojo(IncidenteEntity.class);
 
