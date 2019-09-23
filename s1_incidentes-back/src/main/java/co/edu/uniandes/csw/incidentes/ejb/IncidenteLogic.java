@@ -55,11 +55,6 @@ public class IncidenteLogic {
         {
             throw new BusinessLogicException("El incidente aun no se puede solucionar");
         }
-        
-        if(incidente.getFecha().toString().compareTo("1950-09-15")<0)
-        {
-            throw new BusinessLogicException("El incidente tiene una fecha inválida");
-        }
         incidente = persistence.create(incidente);
         return incidente;
     }
