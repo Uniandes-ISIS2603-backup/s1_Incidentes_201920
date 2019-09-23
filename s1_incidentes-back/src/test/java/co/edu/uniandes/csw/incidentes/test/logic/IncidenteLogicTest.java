@@ -141,5 +141,56 @@ public class IncidenteLogicTest {
         newEntity.setReabrir(false);
         IncidenteEntity resultado= iL.createIncidente(newEntity);
     }
+    @Test
+    public void getIncidentesTest() {
+        List<IncidenteEntity> list = iL.getIncidentes();
+        Assert.assertEquals(data.size(), list.size());
+        for (IncidenteEntity entity : list) {
+            boolean found = false;
+            for (IncidenteEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    
+    @Test
+    public void getIncidenteTest() {
+        IncidenteEntity entity = data.get(0);
+        IncidenteEntity resultEntity = iL.getIncidente(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
+        Assert.assertEquals(entity.getFecha(), resultEntity.getFecha());
+    }
+
+    
+    @Test
+    public void updatIncidenteTest() {
+        IncidenteEntity entity = data.get(0);
+        IncidenteEntity pojoEntity = factory.manufacturePojo(IncidenteEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        iL.updateIncidente(pojoEntity.getId(), pojoEntity);
+
+        IncidenteEntity resp = em.find(IncidenteEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
+        Assert.assertEquals(pojoEntity.getFecha(), resp.getFecha());
+    }
+
+    
+    @Test
+    public void deleteAuthorTest() throws BusinessLogicException {
+        IncidenteEntity entity = data.get(0);
+        iL.deleteIncidente(entity.getId());
+        IncidenteEntity deleted = em.find(IncidenteEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
     
 }
