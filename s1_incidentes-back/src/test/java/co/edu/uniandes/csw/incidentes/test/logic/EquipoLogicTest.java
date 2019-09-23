@@ -91,24 +91,24 @@ public class EquipoLogicTest {
     @Test
     public void createEquipo() throws BusinessLogicException {
         EquipoEntity entity = factory.manufacturePojo(EquipoEntity.class);
-        entity.setIdEquipo(1);
         EquipoEntity prueba = equipo.createEquipo(entity);
         Assert.assertNotNull(prueba);
     }
-    
     @Test (expected = BusinessLogicException.class)
-    public void createEquipo0() throws BusinessLogicException {
-        EquipoEntity entity = factory.manufacturePojo(EquipoEntity.class);
-        entity.setIdEquipo(-1);
-        entity = equipo.createEquipo(entity);
+    public void createEquipoTipoNull()throws BusinessLogicException{
+        EquipoEntity newEntity=factory.manufacturePojo(EquipoEntity.class);
+        newEntity.setTipo(null);
+        EquipoEntity resultado= equipo.createEquipo(newEntity);
     }
+    
+    
     
     @Test
     public void findEquipos() {
         EquipoEntity entity = data.get(0);
         EquipoEntity newEntity = equipo.findEquipo(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getIdEquipo(), newEntity.getIdEquipo());
+        Assert.assertEquals(entity.getId(), newEntity.getId());
     }
     
     @Test
@@ -133,7 +133,7 @@ public class EquipoLogicTest {
         ee.setId(entity.getId());
         equipo.updateEquipo(ee);
         EquipoEntity resp= em.find(EquipoEntity.class,entity.getId());
-       Assert.assertEquals(ee.getIdEquipo(), resp.getIdEquipo());
+       Assert.assertEquals(ee.getId(), resp.getId());
     }
     
     @Test
