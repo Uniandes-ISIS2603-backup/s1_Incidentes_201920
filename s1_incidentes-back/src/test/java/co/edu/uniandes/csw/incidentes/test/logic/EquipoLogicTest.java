@@ -137,19 +137,10 @@ public class EquipoLogicTest {
     }
     
     @Test
-    public void deleteEquipo() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
-        EquipoEntity newEntity = factory.manufacturePojo(EquipoEntity.class);
-        EquipoEntity ee = equipo.createEquipo(newEntity);
-        
-        Assert.assertNotNull(ee);
-        
-        EquipoEntity entity = em.find(EquipoEntity.class, ee.getId());
-        
-        Assert.assertNotNull(entity);
-        Assert.assertEquals(newEntity.getIdEquipo(), entity.getIdEquipo());
-        
-        equipo.deleteEquipo(ee.getId());
-        Assert.assertNull(em.find(EquipoEntity.class, ee.getId()));
+    public void deleteEquipo() {
+        EquipoEntity entity=data.get(0);
+        equipo.deleteEquipo(entity.getId());
+        EquipoEntity deleted=em.find(EquipoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
 }
