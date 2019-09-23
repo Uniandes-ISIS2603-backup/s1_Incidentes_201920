@@ -45,19 +45,19 @@ public class UserLogic {
         return user;
     }
     
-        public List<UserEntity> getUsers() {
+    public List<UserEntity> getUsers() {
         List<UserEntity> lista = persistence.findAll();
         return lista;
     }
     
     public UserEntity getUser(Long userId) {
-        UserEntity incidenteEntity = persistence.find(userId);
-        return incidenteEntity;
+        UserEntity userEntity = persistence.find(userId);
+        return userEntity;
     }
     
     public UserEntity updateUser(Long userId, UserEntity user) {
-        UserEntity newIncidenteEntity = persistence.update(user);
-        return newIncidenteEntity;
+        UserEntity newUserEntity = persistence.update(user);
+        return newUserEntity;
     }
     
     public void deleteUser(Long userId){
