@@ -53,4 +53,12 @@ public class IncidenteLogic {
         return incidente;
     }
     
+    public void cerrarIncidente(IncidenteEntity incidente) throws BusinessLogicException
+    {
+        if(incidente == null)
+            throw new BusinessLogicException("El incidente no existe");
+        if(incidente.getSolucionado())
+            throw new BusinessLogicException("El incidente ya estaba cerrado");
+    }
+    
 }
