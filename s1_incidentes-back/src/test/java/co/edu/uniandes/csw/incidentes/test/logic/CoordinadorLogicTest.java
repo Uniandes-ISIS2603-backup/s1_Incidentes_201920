@@ -103,4 +103,36 @@ public class CoordinadorLogicTest {
         CoordinadorEntity resultado= cl.createUser(newEntity);
     }
     
+    @Test
+    public void getCoordinadorTest() {
+        CoordinadorEntity entity = data.get(0);
+        CoordinadorEntity resultEntity = cl.getCoordinador(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getName(), resultEntity.getName());
+    }
+    
+    @Test
+    public void updateCoordinadorTest() {
+        CoordinadorEntity entity = data.get(0);
+        CoordinadorEntity pojoEntity = factory.manufacturePojo(CoordinadorEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        cl.updateCoordinador(pojoEntity.getId(), pojoEntity);
+
+        CoordinadorEntity resp = em.find(CoordinadorEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getName(), resp.getName());
+    }
+
+    
+    @Test
+    public void deleteCoordinadorTest() throws BusinessLogicException {
+        CoordinadorEntity entity = data.get(0);
+        cl.deleteCoordinador(entity.getId());
+        CoordinadorEntity deleted = em.find(CoordinadorEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
 }

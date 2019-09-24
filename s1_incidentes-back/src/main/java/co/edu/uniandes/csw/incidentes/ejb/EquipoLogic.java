@@ -24,8 +24,8 @@ public class EquipoLogic {
     private EquipoPersistence pEquipo;
     
     public EquipoEntity createEquipo(EquipoEntity equipo) throws BusinessLogicException {
-        if(equipo.getIdEquipo() < 0) {
-            throw new BusinessLogicException("El id del equipo no es válido");
+        if(equipo.getTipo()==null) {
+            throw new BusinessLogicException("El tipo del equipo es null");
         }
         equipo = pEquipo.create(equipo);
         return equipo;
@@ -39,12 +39,9 @@ public class EquipoLogic {
         return pEquipo.findAll();
     }
     
-    public EquipoEntity updateEquipo(EquipoEntity equipoE) throws BusinessLogicException {
-        if(equipoE.getIdEquipo() < 0) {
-            throw new BusinessLogicException("El id del equipo no es válido");
-        }
-        equipoE = pEquipo.update(equipoE);
-        return equipoE;
+    public EquipoEntity updateEquipo(EquipoEntity equipoE){
+        EquipoEntity newEntity = pEquipo.update(equipoE);
+        return newEntity;
     }
     
     public void deleteEquipo(Long equipoId) {

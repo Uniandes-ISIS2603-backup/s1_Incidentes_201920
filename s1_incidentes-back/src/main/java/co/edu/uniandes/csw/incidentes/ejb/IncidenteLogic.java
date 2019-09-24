@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.incidentes.ejb;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -53,12 +54,35 @@ public class IncidenteLogic {
         return incidente;
     }
     
+    public List<IncidenteEntity> getIncidentes() {
+        List<IncidenteEntity> lista = persistence.findAll();
+        return lista;
+    }
+
+    
+    public IncidenteEntity getIncidente(Long incidenteId) {
+        IncidenteEntity incidenteEntity = persistence.find(incidenteId);
+        return incidenteEntity;
+    }
+
+    
+    public IncidenteEntity updateIncidente(Long incidenteId, IncidenteEntity incidenteEntity) {
+        IncidenteEntity newIncidenteEntity = persistence.update(incidenteEntity);
+        return newIncidenteEntity;
+    }
+
+    
+    public void deleteIncidente(Long incidenteId){
+        persistence.delete(incidenteId);
+        }
     public void cerrarIncidente(IncidenteEntity incidente) throws BusinessLogicException
     {
         if(incidente == null)
             throw new BusinessLogicException("El incidente no existe");
         if(incidente.getSolucionado())
             throw new BusinessLogicException("El incidente ya estaba cerrado");
+        incidente.setSolucionado(Boolean.TRUE);
+        updateIncidente(incidente.getId(), incidente);
     }
     
 }

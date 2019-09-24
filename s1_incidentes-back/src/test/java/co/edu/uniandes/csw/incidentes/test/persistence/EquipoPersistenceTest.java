@@ -96,7 +96,7 @@ public class EquipoPersistenceTest {
         EquipoEntity entity = em.find(EquipoEntity.class, ee.getId());
         
         Assert.assertNotNull(entity);
-        Assert.assertEquals(newEntity.getIdEquipo(), entity.getIdEquipo());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
     }
     
     @Test
@@ -104,7 +104,7 @@ public class EquipoPersistenceTest {
         EquipoEntity entity = data.get(0);
         EquipoEntity newEntity = ep.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getIdEquipo(), newEntity.getIdEquipo());
+        Assert.assertEquals(entity.getId(), newEntity.getId());
     }
     
     @Test
@@ -128,11 +128,11 @@ public class EquipoPersistenceTest {
         EquipoEntity ee = factory.manufacturePojo(EquipoEntity.class);
         ee = ep.create(ee);
         EquipoEntity newEntity = factory.manufacturePojo(EquipoEntity.class);
-        ee.setIdEquipo(newEntity.getIdEquipo());
+        ee.setId(newEntity.getId());
         
         ep.update(ee);
 
-       Assert.assertEquals(ee.getIdEquipo(), newEntity.getIdEquipo());
+       Assert.assertEquals(ee.getId(), newEntity.getId());
     }
     
     @Test
@@ -146,7 +146,7 @@ public class EquipoPersistenceTest {
         EquipoEntity entity = em.find(EquipoEntity.class, ee.getId());
         
         Assert.assertNotNull(entity);
-        Assert.assertEquals(newEntity.getIdEquipo(), entity.getIdEquipo());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
         
         ep.delete(ee.getId());
         Assert.assertNull(em.find(EquipoEntity.class, ee.getId()));

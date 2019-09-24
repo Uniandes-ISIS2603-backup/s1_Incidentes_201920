@@ -91,24 +91,24 @@ public class EquipoLogicTest {
     @Test
     public void createEquipo() throws BusinessLogicException {
         EquipoEntity entity = factory.manufacturePojo(EquipoEntity.class);
-        entity.setIdEquipo(1);
         EquipoEntity prueba = equipo.createEquipo(entity);
         Assert.assertNotNull(prueba);
     }
-    
     @Test (expected = BusinessLogicException.class)
-    public void createEquipo0() throws BusinessLogicException {
-        EquipoEntity entity = factory.manufacturePojo(EquipoEntity.class);
-        entity.setIdEquipo(-1);
-        entity = equipo.createEquipo(entity);
+    public void createEquipoTipoNull()throws BusinessLogicException{
+        EquipoEntity newEntity=factory.manufacturePojo(EquipoEntity.class);
+        newEntity.setTipo(null);
+        EquipoEntity resultado= equipo.createEquipo(newEntity);
     }
+    
+    
     
     @Test
     public void findEquipos() {
         EquipoEntity entity = data.get(0);
         EquipoEntity newEntity = equipo.findEquipo(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getIdEquipo(), newEntity.getIdEquipo());
+        Assert.assertEquals(entity.getId(), newEntity.getId());
     }
     
     @Test
@@ -127,45 +127,20 @@ public class EquipoLogicTest {
     }
     
     @Test
-    public void updateEquipo() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
+    public void updateEquipo(){
+        EquipoEntity entity=data.get(0);
         EquipoEntity ee = factory.manufacturePojo(EquipoEntity.class);
-        ee = equipo.createEquipo(ee);
-        EquipoEntity newEntity = factory.manufacturePojo(EquipoEntity.class);
-        newEntity.setIdEquipo(1);
-        ee.setIdEquipo(newEntity.getIdEquipo());
-        
+        ee.setId(entity.getId());
         equipo.updateEquipo(ee);
-
-       Assert.assertEquals(ee.getIdEquipo(), newEntity.getIdEquipo());
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void updateEquipo0() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
-        EquipoEntity ee = factory.manufacturePojo(EquipoEntity.class);
-        ee = equipo.createEquipo(ee);
-        EquipoEntity newEntity = factory.manufacturePojo(EquipoEntity.class);
-        newEntity.setIdEquipo(-1);
-        ee.setIdEquipo(newEntity.getIdEquipo());
-        
-        equipo.updateEquipo(ee);
+        EquipoEntity resp= em.find(EquipoEntity.class,entity.getId());
+       Assert.assertEquals(ee.getId(), resp.getId());
     }
     
     @Test
-    public void deleteEquipo() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
-        EquipoEntity newEntity = factory.manufacturePojo(EquipoEntity.class);
-        EquipoEntity ee = equipo.createEquipo(newEntity);
-        
-        Assert.assertNotNull(ee);
-        
-        EquipoEntity entity = em.find(EquipoEntity.class, ee.getId());
-        
-        Assert.assertNotNull(entity);
-        Assert.assertEquals(newEntity.getIdEquipo(), entity.getIdEquipo());
-        
-        equipo.deleteEquipo(ee.getId());
-        Assert.assertNull(em.find(EquipoEntity.class, ee.getId()));
+    public void deleteEquipo() {
+        EquipoEntity entity=data.get(0);
+        equipo.deleteEquipo(entity.getId());
+        EquipoEntity deleted=em.find(EquipoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
 }
