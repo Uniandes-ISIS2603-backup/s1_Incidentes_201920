@@ -12,6 +12,8 @@
 package co.edu.uniandes.csw.incidentes.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -22,6 +24,10 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
    // private long id;
     private int incidenteASignado;
     private String especialidad;
+    
+    @PodamExclude
+    @ManyToOne
+    private CoordinadorEntity coordinador;
     
     public TecnicoEntity()
     {
@@ -73,5 +79,15 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     public void setIncidenteASignado(int incidenteASignado) {
         this.incidenteASignado = incidenteASignado;
     }
+
+    public CoordinadorEntity getCoordinador() {
+        return coordinador;
+    }
+
+    public void setCoordinador(CoordinadorEntity coordinador) {
+        this.coordinador = coordinador;
+    }
+    
+    
 }
 
