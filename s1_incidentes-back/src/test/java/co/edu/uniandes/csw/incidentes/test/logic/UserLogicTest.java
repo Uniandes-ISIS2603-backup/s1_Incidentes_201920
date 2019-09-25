@@ -75,7 +75,7 @@ public class UserLogicTest {
     }
 
     private void clearData() {
-        em.createQuery("delete from IncidenteEntity").executeUpdate();
+        em.createQuery("delete from UserEntity").executeUpdate();
     }
 
     private void insertData() {
@@ -83,6 +83,7 @@ public class UserLogicTest {
             UserEntity entity = factory.manufacturePojo(UserEntity.class);
             em.persist(entity);
             entity.setUsername(new String());
+            entity.setPassword(new String());
             data.add(entity);
         } 
     }
@@ -119,7 +120,6 @@ public class UserLogicTest {
         UserEntity resultado= ul.createUser(newEntity);
     }
     
-    /* TODO Revisar test. error espera 3 salen 9. (?)
     @Test
     public void getUsersTest() {
         List<UserEntity> list = ul.getUsers();
@@ -134,7 +134,6 @@ public class UserLogicTest {
             Assert.assertTrue(found);
         }
     }
-    */
     
     @Test
     public void getUserTest() {
