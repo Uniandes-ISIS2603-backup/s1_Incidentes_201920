@@ -7,7 +7,7 @@ package co.edu.uniandes.csw.incidentes.test.logic;
 
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistance;
+import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistence;
 import javax.ejb.Stateless;
 
 /**
@@ -17,7 +17,7 @@ import javax.ejb.Stateless;
 @Stateless
 public class TecnicoLogic {
     
-    private TecnicoPersistance persistance;
+    private TecnicoPersistence persistence;
     public TecnicoEntity createTecnico(TecnicoEntity tecnico) throws BusinessLogicException{
         
         if(tecnico.getId()== null)
@@ -25,7 +25,7 @@ public class TecnicoLogic {
             throw new BusinessLogicException("el ID del tecnico esta vacio");
         }
         
-        tecnico = persistance.create(tecnico);
+        tecnico = persistence.create(tecnico);
         return tecnico;
     }
     

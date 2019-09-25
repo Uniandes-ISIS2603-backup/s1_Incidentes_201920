@@ -7,8 +7,6 @@ package co.edu.uniandes.csw.incidentes.test.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 
-import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistance;
-
 import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +35,9 @@ import org.junit.Before;
 @RunWith(Arquillian.class)
 public class TecnicoPersistanceTest {
     
-      /**
-     * Configuración inicial de la prueba.
-     */
+    /**
+    * Configuración inicial de la prueba.
+    */
     @Before
     public void configTest() {
         try {
@@ -75,27 +73,6 @@ public class TecnicoPersistanceTest {
     UserTransaction utx;
 
     private List<TecnicoEntity> data = new ArrayList<>();
-   
-    /**
-     *configuracion inicial
-     */
-   // @Before
-   // public void configTest() {
-     //   try {
-     //       utx.begin();
-       //     em.joinTransaction();
-         //   clearData();
-           // insertData();
-    //        utx.commit();
-      //  } catch (Exception e) {
-        //    e.printStackTrace();
-          //  try {
-      //          utx.rollback();
-        //    } catch (Exception e1) {
-          //      e1.printStackTrace();
-            //}
-    //    }
-    //}
 
     private void clearData() {
         em.createQuery("delete from TecnicoEntity").executeUpdate();
