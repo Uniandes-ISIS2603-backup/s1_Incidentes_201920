@@ -49,7 +49,7 @@ public class UserPersistence {
     
     public UserEntity findByUsername(String nombre){
         UserEntity respuesta;
-        TypedQuery<UserEntity> query= em.createQuery("SELECT e FROM UserEntity e WHERE e.username =: name", UserEntity.class);
+        TypedQuery<UserEntity> query= em.createQuery("select e from UserEntity e where e.username =:name", UserEntity.class);
         query = query.setParameter("name", nombre);
         List<UserEntity> lista = query.getResultList();
         if(lista == null){
