@@ -41,13 +41,13 @@ public class EquipoResource {
         equipoentity = equipoLogic.createEquipo(equipoentity);
         return new EquipoDTO (equipoentity);
     }
-    
-     @GET
+    /*
+    @GET
     @Path("{equiposId: \\d+}")
-    public EquipoDTO getEquipo(@PathParam("equiposId") Long equiposId) throws WebApplicationException {
-        EquipoEntity equipoEntity = equipoLogic.findEquipo(equiposId);
+    public EquipoDTO getEquipo(@PathParam("equiposId") Long equipoId) throws WebApplicationException {
+        EquipoEntity equipoEntity = equipoLogic.findEquipo(equipoId);
         if (equipoEntity == null) {
-            throw new WebApplicationException("El recurso /equipos/" + equiposId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /equipos/" + equipoId + " no existe.", 404);
         }
         EquipoDTO detailDTO = new EquipoDTO(equipoEntity);
         return detailDTO;
@@ -72,5 +72,5 @@ public class EquipoResource {
             throw new WebApplicationException("El recurso /equipos/" + equiposId + " no existe.", 404);
         }
         equipoLogic.deleteEquipo(equiposId);
-    }
+    }**/
 }
