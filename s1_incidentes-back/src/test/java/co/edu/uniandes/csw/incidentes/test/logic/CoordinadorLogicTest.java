@@ -74,7 +74,7 @@ public class CoordinadorLogicTest {
     }
 
     private void clearData() {
-        em.createQuery("delete from IncidenteEntity").executeUpdate();
+        em.createQuery("delete from CoordinadorEntity").executeUpdate();
     }
 
     private void insertData() {
@@ -87,7 +87,7 @@ public class CoordinadorLogicTest {
     }
 
     @Test
-    public void createUserTest() throws BusinessLogicException{
+    public void createCoordinadorTest() throws BusinessLogicException{
         CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         CoordinadorEntity result = cl.createUser(newEntity);
         Assert.assertNotNull(result);
@@ -110,6 +110,21 @@ public class CoordinadorLogicTest {
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
+    }
+    
+    @Test
+    public void getCoordinadoresTest() {
+        List<CoordinadorEntity> list = cl.getCoordinadores();
+        Assert.assertEquals(data.size(), list.size());
+        for (CoordinadorEntity entity : list) {
+            boolean found = false;
+            for (CoordinadorEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
     }
     
     @Test

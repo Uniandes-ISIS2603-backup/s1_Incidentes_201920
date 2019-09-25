@@ -63,7 +63,7 @@ public class UserLogic {
     public void deleteUser(Long userId){
         persistence.delete(userId);
     }
-    
+    /*
     private static boolean checkString(String str) {
         char ch;
         boolean capitalFlag = false;
@@ -83,5 +83,5 @@ public class UserLogic {
                 return true;
         }
         return false;
-    }
+    }*/
 }
