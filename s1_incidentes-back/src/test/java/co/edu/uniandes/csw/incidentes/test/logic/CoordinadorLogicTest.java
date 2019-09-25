@@ -89,7 +89,7 @@ public class CoordinadorLogicTest {
     @Test
     public void createCoordinadorTest() throws BusinessLogicException{
         CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
-        CoordinadorEntity result = cl.createUser(newEntity);
+        CoordinadorEntity result = cl.createCoordinador(newEntity);
         Assert.assertNotNull(result);
         CoordinadorEntity entity = em.find(CoordinadorEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -100,7 +100,7 @@ public class CoordinadorLogicTest {
     public void createCoordinadorNameNull()throws BusinessLogicException{
         CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setName(null);
-        CoordinadorEntity resultado= cl.createUser(newEntity);
+        CoordinadorEntity resultado= cl.createCoordinador(newEntity);
     }
     
     @Test

@@ -22,7 +22,7 @@ import javax.ws.rs.Produces;
  * @author Juan Camilo Castiblanco
  */
 
-@Path("user")
+@Path("coordinador")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -35,11 +35,11 @@ public class CoordinadorResource {
     
     @POST
     public CoordinadorDTO createCoordinador(CoordinadorDTO coordinador)throws BusinessLogicException{ 
-       LOGGER.info("UserResource createUser: input: "+ coordinador.toString());
+       LOGGER.info("CoordinadorResource createCoordinador: input: "+ coordinador.toString());
        CoordinadorEntity coordinadorEntity = coordinador.toEntity();
-       CoordinadorEntity newCoordinadorEntity = coordinadorLogic.createUser(coordinadorEntity);
+       CoordinadorEntity newCoordinadorEntity = coordinadorLogic.createCoordinador(coordinadorEntity);
        CoordinadorDTO newCoordinadorDTO = new CoordinadorDTO(newCoordinadorEntity);
-       LOGGER.info("UserResource createUser: output: "+ newCoordinadorDTO.toString());
+       LOGGER.info("CoordinadorResource createCoordinador: output: "+ newCoordinadorDTO.toString());
        return newCoordinadorDTO;
     }
     

@@ -20,7 +20,7 @@ import javax.inject.Inject;
 public class CoordinadorLogic {
     @Inject
     private CoordinadorPersistence persistence;
-    public CoordinadorEntity createUser(CoordinadorEntity coordinador) throws BusinessLogicException
+    public CoordinadorEntity createCoordinador(CoordinadorEntity coordinador) throws BusinessLogicException
     {
         if(coordinador.getName()==null)
         {
