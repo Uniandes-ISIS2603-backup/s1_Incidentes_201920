@@ -6,8 +6,12 @@
 package co.edu.uniandes.csw.incidentes.resources;
 
 import co.edu.uniandes.csw.incidentes.dtos.UserDTO;
+import co.edu.uniandes.csw.incidentes.ejb.UserLogic;
+import co.edu.uniandes.csw.incidentes.entities.UserEntity;
+import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,11 +28,16 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class UserResource {
     
+    @Inject
+    private UserLogic logica;
+    
     private static final Logger LOGGER = Logger.getLogger(UserResource.class.getName());
     
     @POST
-    public UserDTO createUser(UserDTO user){
-       return user; 
+    public UserDTO createUser(UserDTO user)throws BusinessLogicException{
+        UserEntity userEntity = user.toEntity();
+        userEntity = logica.createUser(userEntity);
+       return null;//userDTO(userEntity); 
     }
     
     
