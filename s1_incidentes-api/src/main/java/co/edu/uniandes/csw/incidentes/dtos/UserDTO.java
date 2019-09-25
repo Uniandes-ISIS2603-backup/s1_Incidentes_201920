@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.incidentes.dtos;
 
 import co.edu.uniandes.csw.incidentes.entities.UserEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -34,6 +36,7 @@ public class UserDTO implements Serializable{
     
     public UserEntity toEntity() {
         UserEntity userEntity = new UserEntity();
+        userEntity.setId(this.id);
         userEntity.setUsername(this.username);
         userEntity.setPassword(this.password);
         return userEntity;
@@ -63,5 +66,8 @@ public class UserDTO implements Serializable{
         this.username = username;
     }
     
-    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }
