@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
  * @author Estudiante da.silvaa
  */
 @Stateless
-public class TecnicoLogic {
+public class TecnicoLogicTest {
     
     private TecnicoPersistence persistence;
     public TecnicoEntity createTecnico(TecnicoEntity tecnico) throws BusinessLogicException{
