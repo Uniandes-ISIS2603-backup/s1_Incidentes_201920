@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.incidentes.dtos;
 
+import co.edu.uniandes.csw.incidentes.entities.EquipoEntity;
 import java.io.Serializable;
 
 /**
@@ -13,23 +14,35 @@ import java.io.Serializable;
  */
 public class EquipoDTO implements Serializable {
     
-    private Integer idEquipo;
+    private String tipo;
     
     public EquipoDTO() {
         
     }
+    
+    public EquipoDTO(EquipoEntity entidad) {
+        if(entidad != null)
+            setTipo(entidad.getTipo());
+    }
 
-    /**
-     * @return the idEquipo
-     */
-    public Integer getIdEquipo() {
-        return idEquipo;
+    public EquipoEntity toEntity() {
+        EquipoEntity entidad = new EquipoEntity();
+        entidad.setTipo(this.getTipo());
+        return entidad;
     }
 
     /**
-     * @param idEquipo the idEquipo to set
+     * @return the tipo
      */
-    public void setIdEquipo(Integer idEquipo) {
-        this.idEquipo = idEquipo;
+    public String getTipo() {
+        return tipo;
     }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
 }

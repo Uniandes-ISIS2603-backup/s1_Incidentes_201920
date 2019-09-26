@@ -193,4 +193,24 @@ public class IncidenteLogicTest {
         Assert.assertNull(deleted);
     }
     
+    @Test
+    public void cerrarIncidente()throws BusinessLogicException{
+        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+        IncidenteEntity result = iL.createIncidente(newEntity);
+        iL.cerrarIncidente(result);
+        Assert.assertTrue(result.getSolucionado());
+    }
+    
+    @Test (expected = BusinessLogicException.class)
+    public void cerrarIncidenteNull()throws BusinessLogicException{
+        IncidenteEntity newEntity=null;
+        iL.cerrarIncidente(newEntity);
+    }
+    
+    @Test (expected = BusinessLogicException.class)
+    public void cerrarIncidenteSolucionado()throws BusinessLogicException{
+        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+        newEntity.setSolucionado(true);
+        iL.cerrarIncidente(newEntity);
+    }
 }
