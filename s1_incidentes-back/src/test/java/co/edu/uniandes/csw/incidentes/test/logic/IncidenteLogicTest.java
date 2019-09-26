@@ -197,6 +197,7 @@ public class IncidenteLogicTest {
     public void cerrarIncidente()throws BusinessLogicException{
         IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
         IncidenteEntity result = iL.createIncidente(newEntity);
+        result.setSolucionado(Boolean.FALSE);
         iL.cerrarIncidente(result);
         Assert.assertTrue(result.getSolucionado());
     }
