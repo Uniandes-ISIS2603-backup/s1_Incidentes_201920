@@ -45,5 +45,20 @@ public class UserPersistence {
     public void delete(Long userId) {
         UserEntity userEntity = em.find(UserEntity.class, userId);
         em.remove(userEntity);
-    }     
+    }
+    
+    public UserEntity findByUsername(String nombre){
+        UserEntity respuesta;
+        TypedQuery<UserEntity> query= em.createQuery("select e from UserEntity e where e.username =:name", UserEntity.class);
+        query = query.setParameter("name", nombre);
+        List<UserEntity> lista = query.getResultList();
+        if(lista == null){
+            respuesta = null;
+        } else if(lista.isEmpty()){
+            respuesta= null;
+        } else {
+            respuesta = lista.get(0);
+        }
+        return respuesta; 
+    }
 }

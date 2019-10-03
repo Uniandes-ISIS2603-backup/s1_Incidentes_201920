@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.incidentes.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
  * @author Juan Camilo Castiblanco
@@ -15,6 +19,10 @@ import javax.persistence.Entity;
 public class CoordinadorEntity extends BaseEntity implements Serializable{
     
     private String name;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "coordinador")
+    private List<TecnicoEntity> tecnicos = new ArrayList<TecnicoEntity>();
 
     public CoordinadorEntity() {
     }
@@ -25,5 +33,13 @@ public class CoordinadorEntity extends BaseEntity implements Serializable{
     
     public void setName(String pName){
         this.name = pName;
+    }
+
+    public List<TecnicoEntity> getTecnicos() {
+        return tecnicos;
+    }
+
+    public void setTecnicos(List<TecnicoEntity> tecnicos) {
+        this.tecnicos = tecnicos;
     }
 }

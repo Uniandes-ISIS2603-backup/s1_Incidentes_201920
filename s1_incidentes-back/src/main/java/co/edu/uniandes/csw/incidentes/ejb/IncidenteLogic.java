@@ -74,6 +74,15 @@ public class IncidenteLogic {
     
     public void deleteIncidente(Long incidenteId){
         persistence.delete(incidenteId);
+        }
+    public void cerrarIncidente(IncidenteEntity incidente) throws BusinessLogicException
+    {
+        if(incidente == null)
+            throw new BusinessLogicException("El incidente no existe");
+        if(incidente.getSolucionado())
+            throw new BusinessLogicException("El incidente ya estaba cerrado");
+        incidente.setSolucionado(Boolean.TRUE);
+        updateIncidente(incidente.getId(), incidente);
     }
     
 }

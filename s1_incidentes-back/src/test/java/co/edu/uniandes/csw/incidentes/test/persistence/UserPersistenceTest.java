@@ -142,4 +142,12 @@ public class UserPersistenceTest {
         UserEntity deleted = em.find(UserEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+    
+    @Test
+    public void getUserByUsernameTest() {
+        UserEntity entity = data.get(0);
+        UserEntity newEntity = up.findByUsername(entity.getUsername());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getPassword(), newEntity.getPassword());
+    }
 }

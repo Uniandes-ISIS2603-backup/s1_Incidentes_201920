@@ -75,7 +75,7 @@ public class UserLogicTest {
     }
 
     private void clearData() {
-        em.createQuery("delete from IncidenteEntity").executeUpdate();
+        em.createQuery("delete from UserEntity").executeUpdate();
     }
 
     private void insertData() {
@@ -83,6 +83,7 @@ public class UserLogicTest {
             UserEntity entity = factory.manufacturePojo(UserEntity.class);
             em.persist(entity);
             entity.setUsername(new String());
+            entity.setPassword(new String());
             data.add(entity);
         } 
     }
@@ -106,10 +107,66 @@ public class UserLogicTest {
     }
     
     @Test (expected = BusinessLogicException.class)
-    public void createIUserPasswordNull()throws BusinessLogicException{
+    public void createUserPasswordNull()throws BusinessLogicException{
         UserEntity newEntity=factory.manufacturePojo(UserEntity.class);
         newEntity.setPassword(null);
         UserEntity resultado= ul.createUser(newEntity);
     }
+ 
+    @Test (expected = BusinessLogicException.class)
+    public void createUserConMismoNombre()throws BusinessLogicException{
+        UserEntity newEntity=factory.manufacturePojo(UserEntity.class);
+        newEntity.setUsername(data.get(0).getUsername());
+        UserEntity resultado= ul.createUser(newEntity);
+    }
+    
+    @Test
+    public void getUsersTest() {
+        List<UserEntity> list = ul.getUsers();
+        Assert.assertEquals(data.size(), list.size());
+        for (UserEntity entity : list) {
+            boolean found = false;
+            for (UserEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    
+    @Test
+    public void getUserTest() {
+        UserEntity entity = data.get(0);
+        UserEntity resultEntity = ul.getUser(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getUsername(), resultEntity.getUsername());
+        Assert.assertEquals(entity.getPassword(), resultEntity.getPassword());
+    }
+    
+    @Test
+    public void updateUserTest() {
+        UserEntity entity = data.get(0);
+        UserEntity pojoEntity = factory.manufacturePojo(UserEntity.class);
 
+        pojoEntity.setId(entity.getId());
+
+        ul.updateUser(pojoEntity.getId(), pojoEntity);
+
+        UserEntity resp = em.find(UserEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getUsername(), resp.getUsername());
+        Assert.assertEquals(pojoEntity.getPassword(), resp.getPassword());
+    }
+
+    
+    @Test
+    public void deleteUserTest() throws BusinessLogicException {
+        UserEntity entity = data.get(0);
+        ul.deleteUser(entity.getId());
+        UserEntity deleted = em.find(UserEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
 }
