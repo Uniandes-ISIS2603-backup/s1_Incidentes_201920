@@ -14,7 +14,7 @@ import javax.persistence.Entity;
  */
 
 @Entity
-public class EmpleadoEntity extends BaseEntity implements Serializable  {
+public class EmpleadoEntity extends User2Entity implements Serializable  {
     private String nombre;
     private String tipo;
     private Boolean incidenteAbierto;

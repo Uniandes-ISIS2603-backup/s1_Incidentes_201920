@@ -16,7 +16,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Juan Camilo Castiblanco
  */
 @Entity
-public class CoordinadorEntity extends BaseEntity implements Serializable{
+public class CoordinadorEntity extends User2Entity implements Serializable{
     
     private String name;
     

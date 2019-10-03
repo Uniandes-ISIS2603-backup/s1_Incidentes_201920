@@ -26,6 +26,21 @@ public class CoordinadorLogic {
         {
             throw new BusinessLogicException("El nombre es nulo.");
         }
+        if(coordinador.getUsername()==null || coordinador.getUsername().isEmpty())
+        {
+            throw new BusinessLogicException("El usuario no puede ser vacio");
+        }
+        if(persistence.findByUsername(coordinador.getUsername()) != null){
+            throw new BusinessLogicException("Ya existe un ususario con ese nombre.");
+        }
+        if(coordinador.getPassword()==null || coordinador.getPassword().isEmpty())
+        {
+            throw new BusinessLogicException("La contraseña no puede ser vacia.");
+        }
+        /* TODO Al crear un objeto con Podam asegurar que cumpla esta condición para que el test no falle. 
+        if(!checkString(user.getPassword())){
+            throw new BusinessLogicException("La contraseña debe contener una mayuscula, una minuscula y un número.");
+        }*/
         
         coordinador = persistence.create(coordinador);
         return coordinador;
@@ -49,4 +64,26 @@ public class CoordinadorLogic {
     public void deleteCoordinador(Long coordinadorId){
         persistence.delete(coordinadorId);
     }
+    
+    /*
+    private static boolean checkString(String str) {
+        char ch;
+        boolean capitalFlag = false;
+        boolean lowerCaseFlag = false;
+        boolean numberFlag = false;
+        for(int i=0;i < str.length();i++) {
+            ch = str.charAt(i);
+            if( Character.isDigit(ch)) {
+                numberFlag = true;
+            }
+            else if (Character.isUpperCase(ch)) {
+                capitalFlag = true;
+            } else if (Character.isLowerCase(ch)) {
+                lowerCaseFlag = true;
+            }
+            if(numberFlag && capitalFlag && lowerCaseFlag)
+                return true;
+        }
+        return false;
+    }*/
 }

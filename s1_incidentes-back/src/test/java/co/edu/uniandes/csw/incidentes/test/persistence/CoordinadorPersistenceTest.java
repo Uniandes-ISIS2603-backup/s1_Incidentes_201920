@@ -90,6 +90,8 @@ public class CoordinadorPersistenceTest {
        Assert.assertNotNull(result);
        CoordinadorEntity entity = em.find(CoordinadorEntity.class, result.getId());
        Assert.assertEquals(coordinador.getName(), coordinador.getName());
+       Assert.assertEquals(coordinador.getPassword(), entity.getPassword());
+       Assert.assertEquals(coordinador.getUsername(), entity.getUsername());
    }
     @Test
     public void getCoordinadoresTest() {
@@ -112,6 +114,8 @@ public class CoordinadorPersistenceTest {
         CoordinadorEntity newEntity = cp.find(coordinador.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(coordinador.getName(), newEntity.getName());
+        Assert.assertEquals(coordinador.getPassword(), newEntity.getPassword());
+        Assert.assertEquals(coordinador.getUsername(), newEntity.getUsername());
     }
 
     @Test
@@ -127,6 +131,8 @@ public class CoordinadorPersistenceTest {
         CoordinadorEntity resp = em.find(CoordinadorEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
+        Assert.assertEquals(newEntity.getPassword(), resp.getPassword());
+        Assert.assertEquals(newEntity.getUsername(), resp.getUsername());
     }
     
     @Test
@@ -135,5 +141,13 @@ public class CoordinadorPersistenceTest {
         cp.delete(entity.getId());
         CoordinadorEntity deleted = em.find(CoordinadorEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+    @Test
+    public void getCoordinadorByUsernameTest() {
+        CoordinadorEntity entity = data.get(0);
+        CoordinadorEntity newEntity = cp.findByUsername(entity.getUsername());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getPassword(), newEntity.getPassword());
     }
 }

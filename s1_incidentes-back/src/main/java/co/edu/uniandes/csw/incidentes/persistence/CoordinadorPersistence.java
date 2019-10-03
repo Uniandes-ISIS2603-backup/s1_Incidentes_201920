@@ -43,4 +43,19 @@ public class CoordinadorPersistence {
         CoordinadorEntity coordinadorEntity = em.find(CoordinadorEntity.class, coordinadorId);
         em.remove(coordinadorEntity);
     }
+    
+    public CoordinadorEntity findByUsername(String nombre){
+        CoordinadorEntity respuesta;
+        TypedQuery<CoordinadorEntity> query= em.createQuery("select e from CoordinadorEntity e where e.username =:name", CoordinadorEntity.class);
+        query = query.setParameter("name", nombre);
+        List<CoordinadorEntity> lista = query.getResultList();
+        if(lista == null){
+            respuesta = null;
+        } else if(lista.isEmpty()){
+            respuesta= null;
+        } else {
+            respuesta = lista.get(0);
+        }
+        return respuesta; 
+    }
 }
