@@ -36,7 +36,7 @@ public class TecnicoLogicTest {
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private TecnicoLogic authorLogic;
+    private TecnicoLogic tL;
 
     @PersistenceContext
     private EntityManager em;
@@ -87,54 +87,35 @@ public class TecnicoLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from PrizeEntity").executeUpdate();
-        em.createQuery("delete from BookEntity").executeUpdate();
-        em.createQuery("delete from AuthorEntity").executeUpdate();
+        em.createQuery("delete from TecnicoEntity").executeUpdate();
     }
 
-    /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las
-     * pruebas.
-     */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             TecnicoEntity entity = factory.manufacturePojo(TecnicoEntity.class);
             em.persist(entity);
-           // entity.setBooks(new ArrayList<>());
+            entity.setEspecialidad(new String());
             data.add(entity);
         }
-        TecnicoEntity author = data.get(2);
-        //BookEntity entity = factory.manufacturePojo(BookEntity.class);
-        //entity.getAuthors().add(author);
-        //em.persist(entity);
-        //author.getBooks().add(entity);
-
-        //PrizeEntity prize = factory.manufacturePojo(PrizeEntity.class);
-        //prize.setAuthor(data.get(1));
-        //em.persist(prize);
-        //data.get(1).getPrizes().add(prize);
+        
     }
 
-    /**
-     * Prueba para crear un Author.
-     */
+
     @Test
-    public void createAuthorTest() {
+    public void createTecnicoTest() {
         TecnicoEntity newEntity = factory.manufacturePojo(TecnicoEntity.class);
-        TecnicoEntity result = authorLogic.createTecnico(newEntity);
+        TecnicoEntity result = tL.createTecnico(newEntity);
         Assert.assertNotNull(result);
         TecnicoEntity entity = em.find(TecnicoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
-        //Assert.assertEquals(newEntity.getName(), entity.getName());
-        //Assert.assertEquals(newEntity.getBirthDate(), entity.getBirthDate());
+        Assert.assertEquals(newEntity.getEspecialidad(), entity.getEspecialidad());
+        Assert.assertEquals(newEntity.getIncidenteASignado(), entity.getIncidenteASignado());
     }
 
-    /**
-     * Prueba para consultar la lista de Authors.
-     */
+    
     @Test
-    public void getAuthorsTest() {
-        List<TecnicoEntity> list = authorLogic.getTecnicos();
+    public void getTecnicosTest() {
+        List<TecnicoEntity> list = tL.getTecnicos();
         Assert.assertEquals(data.size(), list.size());
         for (TecnicoEntity entity : list) {
             boolean found = false;
@@ -147,50 +128,44 @@ public class TecnicoLogicTest {
         }
     }
 
-    /**
-     * Prueba para consultar un Author.
-     */
+    
     @Test
-    public void getAuthorTest() {
+    public void getTecnicoTest() {
         TecnicoEntity entity = data.get(0);
-        TecnicoEntity resultEntity = authorLogic.getTecnico(entity.getId());
+        TecnicoEntity resultEntity = tL.getTecnico(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
-        //Assert.assertEquals(entity.getName(), resultEntity.getName());
-        //Assert.assertEquals(entity.getBirthDate(), resultEntity.getBirthDate());
+        Assert.assertEquals(entity.getEspecialidad(), resultEntity.getEspecialidad());
+        Assert.assertEquals(entity.getIncidenteASignado(), resultEntity.getIncidenteASignado());
     }
 
-    /**
-     * Prueba para actualizar un Author.
-     */
+    
     @Test
-    public void updateAuthorTest() {
+    public void updateTecnicoTest() {
         TecnicoEntity entity = data.get(0);
         TecnicoEntity pojoEntity = factory.manufacturePojo(TecnicoEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        authorLogic.updateTecnico(pojoEntity.getId(), pojoEntity);
-
+        tL.updateTecnico(entity.getId(), pojoEntity);
+        
         TecnicoEntity resp = em.find(TecnicoEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        //Assert.assertEquals(pojoEntity.getName(), resp.getName());
-        //Assert.assertEquals(pojoEntity.getBirthDate(), resp.getBirthDate());
-    }
-
-    /**
-     * Prueba para eliminar un Author
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
-    @Test
-    public void deleteAuthorTest() throws BusinessLogicException {
-        TecnicoEntity entity = data.get(0);
-        authorLogic.deleteAuthor(entity.getId());
-        TecnicoEntity deleted = em.find(TecnicoEntity.class, entity.getId());
-        Assert.assertNull(deleted);
+      
+        Assert.assertEquals(pojoEntity.getIncidenteASignado(), resp.getIncidenteASignado());
     }
 
     
+    @Test
+    public void deleteTecnicoTest(){
+        TecnicoEntity entity = data.get(0);
+        tL.deleteTecnico(entity.getId());
+        TecnicoEntity deleted = em.find(TecnicoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+    
+   
+    
+   
 }
