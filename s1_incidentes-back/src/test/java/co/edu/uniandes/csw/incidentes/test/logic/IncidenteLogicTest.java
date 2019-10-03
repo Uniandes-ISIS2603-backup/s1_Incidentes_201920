@@ -186,7 +186,7 @@ public class IncidenteLogicTest {
 
     
     @Test
-    public void deleteAuthorTest() throws BusinessLogicException {
+    public void deleteIncidenteTest() throws BusinessLogicException {
         IncidenteEntity entity = data.get(0);
         iL.deleteIncidente(entity.getId());
         IncidenteEntity deleted = em.find(IncidenteEntity.class, entity.getId());

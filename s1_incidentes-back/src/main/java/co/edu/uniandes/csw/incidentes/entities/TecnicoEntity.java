@@ -35,10 +35,7 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     }
     
     
-    public int getIncidenteAsignado()
-    {
-        return getIncidenteASignado();
-    }
+
     
     public String getEspecialidad()
     {

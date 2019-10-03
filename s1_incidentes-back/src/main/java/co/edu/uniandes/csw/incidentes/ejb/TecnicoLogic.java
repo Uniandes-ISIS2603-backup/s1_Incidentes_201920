@@ -75,11 +75,8 @@ public class TecnicoLogic {
         return newTecnicoEntity;
     }
     
-    public void deleteAuthor(Long tecnicosIdLong) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "inicia el proceso para borrar el autor con id = {0}", tecnicosIdLong);
-        //List<
+    public void deleteTecnico(Long tecnicosIdLong) {
         persistance.delete(tecnicosIdLong);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el id = {0}", tecnicosIdLong);
     }
     
     
