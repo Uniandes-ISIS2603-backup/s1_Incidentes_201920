@@ -33,6 +33,7 @@ public class CoordinadorLogic {
         if(persistence.findByUsername(coordinador.getUsername()) != null){
             throw new BusinessLogicException("Ya existe un ususario con ese nombre.");
         }
+        
         if(coordinador.getPassword()==null || coordinador.getPassword().isEmpty())
         {
             throw new BusinessLogicException("La contraseña no puede ser vacia.");

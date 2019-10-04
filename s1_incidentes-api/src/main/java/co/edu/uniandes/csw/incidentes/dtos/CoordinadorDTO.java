@@ -18,6 +18,10 @@ public class CoordinadorDTO implements Serializable{
     
     private Long id;
     
+    private String username; 
+    
+    private String password;
+    
     private String nombre; 
     
     public CoordinadorDTO(){
@@ -28,6 +32,8 @@ public class CoordinadorDTO implements Serializable{
         if (coordinadorEntity != null) {
            this.id = coordinadorEntity.getId();
            this.nombre = coordinadorEntity.getName();
+           this.username = coordinadorEntity.getUsername();
+           this.password = coordinadorEntity.getPassword();
         }
     }
     
@@ -35,9 +41,19 @@ public class CoordinadorDTO implements Serializable{
         CoordinadorEntity coordinadorEntity = new CoordinadorEntity();
         coordinadorEntity.setId(this.id);
         coordinadorEntity.setName(this.nombre);
+        coordinadorEntity.setUsername(this.username);
+        coordinadorEntity.setPassword(this.password);
         return coordinadorEntity;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getContraseña() {
+        return password;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -46,6 +62,14 @@ public class CoordinadorDTO implements Serializable{
         return nombre;
     }
 
+    public void setContraseña(String contraseña) {
+        this.password = contraseña;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }
