@@ -41,7 +41,7 @@ import org.junit.runner.RunWith;
 
 /**
  *  Pruebas de integracion de la cascara.
- * @author ISIS2603
+ * @author ISIS2304
  */
 @RunWith(Arquillian.class)
 public class CascaraIT {
