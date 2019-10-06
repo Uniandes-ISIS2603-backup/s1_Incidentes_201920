@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.incidentes.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -17,6 +21,9 @@ import javax.persistence.Entity;
 public class EmpleadoEntity extends User2Entity implements Serializable  {
     private String nombre;
     private Integer numIncidentes;
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado")
+    private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
 
     /**
      * @return the nombre
@@ -44,5 +51,19 @@ public class EmpleadoEntity extends User2Entity implements Serializable  {
      */
     public void setNumIncidentes(Integer numIncidentes) {
         this.numIncidentes = numIncidentes;
+    }
+
+    /**
+     * @return the incidentes
+     */
+    public List<IncidenteEntity> getIncidentes() {
+        return incidentes;
+    }
+
+    /**
+     * @param incidentes the incidentes to set
+     */
+    public void setIncidentes(List<IncidenteEntity> incidentes) {
+        this.incidentes = incidentes;
     }
 }
