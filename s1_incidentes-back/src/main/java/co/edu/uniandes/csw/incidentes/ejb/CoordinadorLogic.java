@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.incidentes.ejb;
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
 import java.util.logging.Level;
 import javax.ejb.Stateless;

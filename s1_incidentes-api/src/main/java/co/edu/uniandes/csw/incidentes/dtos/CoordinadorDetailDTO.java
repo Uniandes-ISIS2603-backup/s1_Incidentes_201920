@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.incidentes.dtos;
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.io.Serializable;
 import java.util.ArrayList;
 import static java.util.Collections.list;
