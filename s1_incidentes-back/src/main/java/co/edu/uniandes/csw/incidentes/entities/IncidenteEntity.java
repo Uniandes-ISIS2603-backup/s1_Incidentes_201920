@@ -9,16 +9,22 @@ import co.edu.uniandes.csw.incidentes.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
  * @author df.foreroc
  */
-@Entity 
+@Entity
 public class IncidenteEntity extends BaseEntity implements Serializable {
+
+    @PodamExclude
+    @ManyToOne
+    private CoordinadorEntity coordinador;
     private String tipo;
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
@@ -28,6 +34,17 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     private String prioridad;
     private Boolean solucionado;
     private Boolean reabrir;
+
+    public IncidenteEntity() {
+    }
+
+    public CoordinadorEntity getCoordinador() {
+        return coordinador;
+    }
+
+    public void setCoordinador(CoordinadorEntity coordinador) {
+        this.coordinador = coordinador;
+    }
 
     /**
      * @return the tipo
@@ -126,5 +143,5 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public void setReabrir(Boolean reabrir) {
         this.reabrir = reabrir;
     }
-    
+
 }

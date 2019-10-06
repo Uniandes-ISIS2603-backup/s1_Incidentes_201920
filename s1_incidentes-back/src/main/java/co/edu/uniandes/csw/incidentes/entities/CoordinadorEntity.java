@@ -11,27 +11,32 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
+
 /**
  *
  * @author Juan Camilo Castiblanco
  */
 @Entity
-public class CoordinadorEntity extends User2Entity implements Serializable{
-    
+public class CoordinadorEntity extends User2Entity implements Serializable {
+
     private String name;
-    
+
     @PodamExclude
     @OneToMany(mappedBy = "coordinador")
     private List<TecnicoEntity> tecnicos = new ArrayList<TecnicoEntity>();
 
+    @PodamExclude
+    @OneToMany(mappedBy = "coordinador")
+    private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
+
     public CoordinadorEntity() {
     }
-    
-    public String getName(){
-    return name;
+
+    public String getName() {
+        return name;
     }
-    
-    public void setName(String pName){
+
+    public void setName(String pName) {
         this.name = pName;
     }
 
@@ -42,4 +47,13 @@ public class CoordinadorEntity extends User2Entity implements Serializable{
     public void setTecnicos(List<TecnicoEntity> tecnicos) {
         this.tecnicos = tecnicos;
     }
+
+    public void setIncidentes(List<IncidenteEntity> incidentes) {
+        this.incidentes = incidentes;
+    }
+
+    public List<IncidenteEntity> getIncidentes() {
+        return incidentes;
+    }
+
 }
