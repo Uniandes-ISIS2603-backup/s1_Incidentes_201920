@@ -26,21 +26,14 @@ public class EmpleadoLogic {
     public EmpleadoEntity createEmpleado(EmpleadoEntity empleado) throws BusinessLogicException{
         
         if(empleado.getNombre() == null || empleado.getNombre() == ""){
-            throw new BusinessLogicException("El nombre es nulo");
-        }
-        if(empleado.getTipo() == null){
-            throw new BusinessLogicException("El tipo no puede ser nulo");
-        }        
-        if(!(empleado.getTipo().equals("HARDWARE") || empleado.getTipo().equals("SW_SO") || 
-                empleado.getTipo().equals("SW_AD"))){
-            throw new BusinessLogicException("El tipo debe de ser HARDWARE, SW_SO ó SW_AD");
+            throw new BusinessLogicException("El nombre es nulo o vacio");
         }
         if(empleado.getNumIncidentes() < 0){
             throw new BusinessLogicException("El número de incidentes no puede ser menor a cero");
         }
         if(empleado.getUsername()==null || empleado.getUsername().isEmpty())
         {
-            throw new BusinessLogicException("El usuario no puede ser vacio");
+            throw new BusinessLogicException("El usuario no puede ser nulo");
         }
         if(persistence.findByUsername(empleado.getUsername()) != null){
             throw new BusinessLogicException("Ya existe un ususario con ese nombre.");
