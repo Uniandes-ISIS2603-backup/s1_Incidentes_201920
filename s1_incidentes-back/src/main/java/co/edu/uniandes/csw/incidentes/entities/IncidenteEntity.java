@@ -25,6 +25,9 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private CoordinadorEntity coordinador;
+    @PodamExclude
+    @ManyToOne
+    private EmpleadoEntity empleado;
     private String tipo;
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
@@ -144,4 +147,17 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
         this.reabrir = reabrir;
     }
 
+    /**
+     * @return the empleado
+     */
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
+
+    /**
+     * @param empleado the empleado to set
+     */
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
 }
