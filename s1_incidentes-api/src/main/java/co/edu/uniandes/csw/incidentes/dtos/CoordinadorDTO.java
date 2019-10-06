@@ -14,29 +14,29 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Juan Camilo Castiblanco
  */
-public class CoordinadorDTO implements Serializable{
-    
+public class CoordinadorDTO implements Serializable {
+
     private Long id;
-    
-    private String username; 
-    
+
+    private String username;
+
     private String password;
-    
-    private String nombre; 
-    
-    public CoordinadorDTO(){
-    
+
+    private String nombre;
+
+    public CoordinadorDTO() {
+
     }
-    
-     public CoordinadorDTO(CoordinadorEntity coordinadorEntity) {
+
+    public CoordinadorDTO(CoordinadorEntity coordinadorEntity) {
         if (coordinadorEntity != null) {
-           this.id = coordinadorEntity.getId();
-           this.nombre = coordinadorEntity.getName();
-           this.username = coordinadorEntity.getUsername();
-           this.password = coordinadorEntity.getPassword();
+            this.id = coordinadorEntity.getId();
+            this.nombre = coordinadorEntity.getName();
+            this.username = coordinadorEntity.getUsername();
+            this.password = coordinadorEntity.getPassword();
         }
     }
-    
+
     public CoordinadorEntity toEntity() {
         CoordinadorEntity coordinadorEntity = new CoordinadorEntity();
         coordinadorEntity.setId(this.id);
@@ -53,7 +53,7 @@ public class CoordinadorDTO implements Serializable{
     public String getContraseña() {
         return password;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -69,7 +69,7 @@ public class CoordinadorDTO implements Serializable{
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -77,10 +77,10 @@ public class CoordinadorDTO implements Serializable{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-    
+
 }
