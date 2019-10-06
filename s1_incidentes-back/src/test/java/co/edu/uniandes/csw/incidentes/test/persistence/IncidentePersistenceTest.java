@@ -118,7 +118,7 @@ public class IncidentePersistenceTest {
         IncidenteEntity newEntity = ip.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
-        Assert.assertEquals(entity.getFecha(), newEntity.getFecha());
+        Assert.assertEquals(entity.getFechaHoraInicio(), newEntity.getFechaHoraInicio());
     }
 
     @Test

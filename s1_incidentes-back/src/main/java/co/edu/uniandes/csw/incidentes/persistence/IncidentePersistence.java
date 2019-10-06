@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.incidentes.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import java.util.List;
-import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 

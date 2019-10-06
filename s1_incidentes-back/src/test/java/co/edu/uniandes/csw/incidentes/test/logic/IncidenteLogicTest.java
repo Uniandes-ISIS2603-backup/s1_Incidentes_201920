@@ -96,7 +96,7 @@ public class IncidenteLogicTest {
         IncidenteEntity entity = em.find(IncidenteEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
-        Assert.assertEquals(newEntity.getFecha(), entity.getFecha());
+        Assert.assertEquals(newEntity.getFechaHoraInicio(), entity.getFechaHoraInicio());
     }
 
     @Test (expected = BusinessLogicException.class)
@@ -120,13 +120,13 @@ public class IncidenteLogicTest {
     @Test (expected = BusinessLogicException.class)
     public void createIncidenteFechaNull()throws BusinessLogicException{
         IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
-        newEntity.setFecha(null);
+        newEntity.setFechaHoraInicio(null);
         IncidenteEntity resultado= iL.createIncidente(newEntity);
     }
     @Test (expected = BusinessLogicException.class)
     public void createIncidenteTipoNull()throws BusinessLogicException{
         IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
-        newEntity.setTipo(null);
+        newEntity.setCategoria(null);
         IncidenteEntity resultado= iL.createIncidente(newEntity);
     }
     @Test (expected = BusinessLogicException.class)
@@ -164,7 +164,7 @@ public class IncidenteLogicTest {
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
-        Assert.assertEquals(entity.getFecha(), resultEntity.getFecha());
+        Assert.assertEquals(entity.getFechaHoraInicio(), resultEntity.getFechaHoraInicio());
     }
 
     
@@ -181,7 +181,7 @@ public class IncidenteLogicTest {
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
-        Assert.assertEquals(pojoEntity.getFecha(), resp.getFecha());
+        Assert.assertEquals(pojoEntity.getFechaHoraInicio(), resp.getFechaHoraInicio());
     }
 
     

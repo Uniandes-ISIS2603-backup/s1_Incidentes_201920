@@ -24,25 +24,33 @@ public class IncidenteDTO implements Serializable{
   
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
-    private Date fecha;
-    private String tipo;
+    private Date fechaHoraInicio;
+    @Temporal(TemporalType.DATE)
+    @PodamStrategyValue(DateStrategy.class)
+    private Date fechaHoraFinal;
     private String descripcion;
-    private String equipo;
+    private String observaciones;
+    private Integer calificacion;
+    private String categoria;
     private String prioridad;
     private Boolean solucionado;
     private Boolean reabrir;
+    private String equipo;
     
     public IncidenteDTO(){
         
         
     }
     public IncidenteDTO(IncidenteEntity iEntity) {
-        if (iEntity != null) {
+        if (iEntity != null) 
+        {
             this.id = iEntity.getId();
+            this.fechaHoraInicio= iEntity.getFechaHoraInicio();
+            this.fechaHoraFinal= iEntity.getFechaHoraFinal();
+            this.observaciones=iEntity.getObservaciones();
             this.descripcion = iEntity.getDescripcion();
-            this.fecha= iEntity.getFecha();
-            
-            this.tipo = iEntity.getTipo();
+            this.calificacion=iEntity.getCalificacion();
+            this.categoria = iEntity.getCategoria();
             this.equipo = iEntity.getEquipo();
             this.prioridad = iEntity.getPrioridad();
             this.solucionado = iEntity.getSolucionado();
@@ -54,16 +62,24 @@ public class IncidenteDTO implements Serializable{
         IncidenteEntity incidenteEntity = new IncidenteEntity();
         incidenteEntity.setId(this.getId());
         incidenteEntity.setDescripcion(this.getDescripcion());
-        incidenteEntity.setFecha(this.getFecha());
-        incidenteEntity.setTipo(this.tipo);
-        incidenteEntity.setEquipo(this.equipo);
-        incidenteEntity.setPrioridad(this.prioridad);
-        incidenteEntity.setSolucionado(this.solucionado);
-        incidenteEntity.setReabrir(this.reabrir);
+        incidenteEntity.setObservaciones(this.getObservaciones());
+        incidenteEntity.setFechaHoraInicio(this.getFechaHoraInicio());
+        incidenteEntity.setFechaHoraFinal(this.getFechaHoraFinal());
+        incidenteEntity.setCategoria(this.categoria);
+        incidenteEntity.setCalificacion(this.calificacion);
+        incidenteEntity.setEquipo(this.getEquipo());
+        incidenteEntity.setPrioridad(this.getPrioridad());
+        incidenteEntity.setSolucionado(this.getSolucionado());
+        incidenteEntity.setReabrir(this.getReabrir());
         
         return incidenteEntity;
     }
 
+  
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 
     /**
      * @return the id
@@ -80,31 +96,31 @@ public class IncidenteDTO implements Serializable{
     }
 
     /**
-     * @return the fecha
+     * @return the fechaHoraInicio
      */
-    public Date getFecha() {
-        return fecha;
+    public Date getFechaHoraInicio() {
+        return fechaHoraInicio;
     }
 
     /**
-     * @param fecha the fecha to set
+     * @param fechaHoraInicio the fechaHoraInicio to set
      */
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaHoraInicio(Date fechaHoraInicio) {
+        this.fechaHoraInicio = fechaHoraInicio;
     }
 
     /**
-     * @return the tipo
+     * @return the fechaHoraFinal
      */
-    public String getTipo() {
-        return tipo;
+    public Date getFechaHoraFinal() {
+        return fechaHoraFinal;
     }
 
     /**
-     * @param tipo the tipo to set
+     * @param fechaHoraFinal the fechaHoraFinal to set
      */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setFechaHoraFinal(Date fechaHoraFinal) {
+        this.fechaHoraFinal = fechaHoraFinal;
     }
 
     /**
@@ -122,17 +138,45 @@ public class IncidenteDTO implements Serializable{
     }
 
     /**
-     * @return the equipo
+     * @return the observaciones
      */
-    public String getEquipo() {
-        return equipo;
+    public String getObservaciones() {
+        return observaciones;
     }
 
     /**
-     * @param equipo the equipo to set
+     * @param observaciones the observaciones to set
      */
-    public void setEquipo(String equipo) {
-        this.equipo = equipo;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    /**
+     * @return the calificacion
+     */
+    public Integer getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * @param calificacion the calificacion to set
+     */
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    /**
+     * @return the categoria
+     */
+    public String getCategoria() {
+        return categoria;
+    }
+
+    /**
+     * @param categoria the categoria to set
+     */
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     /**
@@ -176,9 +220,19 @@ public class IncidenteDTO implements Serializable{
     public void setReabrir(Boolean reabrir) {
         this.reabrir = reabrir;
     }
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+
+    /**
+     * @return the equipo
+     */
+    public String getEquipo() {
+        return equipo;
+    }
+
+    /**
+     * @param equipo the equipo to set
+     */
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
     }
     
     
