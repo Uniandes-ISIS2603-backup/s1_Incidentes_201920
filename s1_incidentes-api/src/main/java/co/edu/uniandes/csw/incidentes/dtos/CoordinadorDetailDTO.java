@@ -6,31 +6,32 @@
 package co.edu.uniandes.csw.incidentes.dtos;
 
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  *
  * @author Juan Camilo Castiblanco
  */
 public class CoordinadorDetailDTO extends CoordinadorDTO implements Serializable {
-    
-    //private list <TecnicoDTO> tecnicos;
 
+    //private list <TecnicoDTO> tecnicos;
     public CoordinadorDetailDTO() {
         super();
     }
-    
-     public CoordinadorDetailDTO(CoordinadorEntity coordinadorEntity) {
+
+    public CoordinadorDetailDTO(CoordinadorEntity coordinadorEntity) {
         super(coordinadorEntity);
-        if (coordinadorEntity.getTecnicos()!= null) {
+        if (coordinadorEntity.getTecnicos() != null) {
             //tecnicos = new ArrayList<>();
             //for (TecnicoEntity entityTecnico : coordinadorEntity.getTecnicos()) {
             //    tecnicos.add(new TecnicoDTO(entityTecnico));
             //}
         }
     }
-     
+
     @Override
     public CoordinadorEntity toEntity() {
         CoordinadorEntity coordinadorEntity = super.toEntity();
@@ -42,9 +43,9 @@ public class CoordinadorDetailDTO extends CoordinadorDTO implements Serializable
             }
             coordinadorEntity.setTecnicos(tecnicoEntity);
         }
-        */
-        
-        return null;//corrdinadorEntity;
+         */
+
+        return coordinadorEntity;
     }
 
     /*
@@ -55,6 +56,5 @@ public class CoordinadorDetailDTO extends CoordinadorDTO implements Serializable
     public void setTecnicos(<TecnicoDTO> tecnicos) {
         this.tecnicos = tecnicos;
     }
-    */
-   
+     */
 }

@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "9c4d1120-469f-422d-a47d-49b886f1cc0d",
-		"name": "CoordinadorResourceTest",
+		"_postman_id": "0a3f651e-9371-4791-a984-a540ee1e1008",
+		"name": "CoordinadorResourceTest Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,7 +15,7 @@
 						"exec": [
 							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_c\", data.id);"
+							"postman.setGlobalVariable(\"new_id_c1\", data.id);"
 						],
 						"type": "text/javascript"
 					}
@@ -76,7 +76,7 @@
 						"exec": [
 							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_c\", data.id);"
+							"postman.setGlobalVariable(\"new_id_c2\", data.id);"
 						],
 						"type": "text/javascript"
 					}
@@ -128,7 +128,7 @@
 			"response": []
 		},
 		{
-			"name": "crear ususario que ya existe",
+			"name": "crear usuario que ya existe",
 			"event": [
 				{
 					"listen": "test",
@@ -247,7 +247,7 @@
 			"response": []
 		},
 		{
-			"name": "post ususario vacio",
+			"name": "post usuario vacio",
 			"event": [
 				{
 					"listen": "test",
@@ -394,7 +394,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -404,7 +404,7 @@
 						"s1_incidentes-api",
 						"api",
 						"coordinador",
-						"{{new_id_c}}"
+						"{{new_id_c1}}"
 					]
 				}
 			},
@@ -426,6 +426,140 @@
 			],
 			"request": {
 				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/-1",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7596e4c-cd7c-44e2-aacc-dda79b9d09aa",
+						"exec": [
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"contraseña\" : \"nueva clave\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar usuario inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7596e4c-cd7c-44e2-aacc-dda79b9d09aa",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"contraseña\" : \"nueva clave\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/-1",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletecoordinador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d88007c6-97aa-4915-92ae-a0575f94e7aa",
+						"exec": [
+							"tests[\"Debería generara error 404 \"] = responseCode.code == 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/-1",
@@ -478,7 +612,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -488,21 +622,21 @@
 						"s1_incidentes-api",
 						"api",
 						"coordinador",
-						"{{new_id_c}}"
+						"{{new_id_c1}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "deletecoordinador que no existe",
+			"name": "delete coordinador1 Copy",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "d88007c6-97aa-4915-92ae-a0575f94e7aa",
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
 						"exec": [
-							"tests[\"Debería generara error 404 \"] = responseCode.code == 404;"
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
 						],
 						"type": "text/javascript"
 					}
@@ -510,9 +644,25 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/-1",
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -522,7 +672,7 @@
 						"s1_incidentes-api",
 						"api",
 						"coordinador",
-						"-1"
+						"{{new_id_c2}}"
 					]
 				}
 			},

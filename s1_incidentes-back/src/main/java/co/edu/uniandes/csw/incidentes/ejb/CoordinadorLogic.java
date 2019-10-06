@@ -8,7 +8,9 @@ package co.edu.uniandes.csw.incidentes.ejb;
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -18,54 +20,52 @@ import javax.inject.Inject;
  */
 @Stateless
 public class CoordinadorLogic {
+
     @Inject
     private CoordinadorPersistence persistence;
-    public CoordinadorEntity createCoordinador(CoordinadorEntity coordinador) throws BusinessLogicException
-    {
-        if(coordinador.getName()==null)
-        {
+
+    public CoordinadorEntity createCoordinador(CoordinadorEntity coordinador) throws BusinessLogicException {
+        if (coordinador.getName() == null) {
             throw new BusinessLogicException("El nombre es nulo.");
         }
-        if(coordinador.getUsername()==null || coordinador.getUsername().isEmpty())
-        {
+        if (coordinador.getUsername() == null || coordinador.getUsername().isEmpty()) {
             throw new BusinessLogicException("El usuario no puede ser vacio");
         }
-        if(persistence.findByUsername(coordinador.getUsername()) != null){
+        if (persistence.findByUsername(coordinador.getUsername()) != null) {
             throw new BusinessLogicException("Ya existe un ususario con ese nombre.");
         }
-        
-        if(coordinador.getPassword()==null || coordinador.getPassword().isEmpty())
-        {
+
+        if (coordinador.getPassword() == null || coordinador.getPassword().isEmpty()) {
             throw new BusinessLogicException("La contraseña no puede ser vacia.");
         }
         /* TODO Al crear un objeto con Podam asegurar que cumpla esta condición para que el test no falle. 
         if(!checkString(user.getPassword())){
             throw new BusinessLogicException("La contraseña debe contener una mayuscula, una minuscula y un número.");
         }*/
-        
+
         coordinador = persistence.create(coordinador);
         return coordinador;
     }
-    
+
     public List<CoordinadorEntity> getCoordinadores() {
         List<CoordinadorEntity> lista = persistence.findAll();
         return lista;
     }
-    
+
     public CoordinadorEntity getCoordinador(Long coordinadorId) {
         CoordinadorEntity coordinadorEntity = persistence.find(coordinadorId);
         return coordinadorEntity;
     }
-    
+
     public CoordinadorEntity updateCoordinador(Long coordinadorId, CoordinadorEntity coordinador) {
         CoordinadorEntity newCoordinadorEntity = persistence.update(coordinador);
         return newCoordinadorEntity;
     }
-    
-    public void deleteCoordinador(Long coordinadorId){
+
+    public void deleteCoordinador(Long coordinadorId) {
         persistence.delete(coordinadorId);
     }
-    
+
     /*
     private static boolean checkString(String str) {
         char ch;
