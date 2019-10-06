@@ -61,14 +61,15 @@ public class CoordinadorResource {
         }
         CoordinadorDetailDTO coordinadorDetailDTO = new CoordinadorDetailDTO(entidad);
         LOGGER.log(Level.INFO, "CoordinadorResource getCoordinador: output: {0}", coordinadorDetailDTO);
-        return new CoordinadorDetailDTO(entidad);
+        return coordinadorDetailDTO;
     }
 
     @GET
     public List<CoordinadorDetailDTO> getCoordinadores() {
-
+        LOGGER.info("CoordinadorResource getCoordinadores: input: void");
         List<CoordinadorDetailDTO> listaCoordinadores;
         listaCoordinadores = listEntity2DetailDTO(coordinadorLogic.getCoordinadores());
+        LOGGER.log(Level.INFO, "CoordinadorResource getCoordinadores: output: {0}", listaCoordinadores);
 
         return listaCoordinadores;
     }
@@ -106,13 +107,20 @@ public class CoordinadorResource {
         LOGGER.info("CoordinadorResource deleteCoordinador: output: void");
     }
 
-    /*
-    @Path("{booksId: \\d+}/reviews")
-    public Class<ReviewResource> getReviewResource(@PathParam("booksId") Long booksId) {
-        if (bookLogic.getBook(booksId) == null) {
-            throw new WebApplicationException("El recurso /books/" + booksId + "/reviews no existe.", 404);
+    @Path("{coordinadorId: \\d+}/incidentes")
+    public Class<CoordinadorIncidenteResource> getCoordinadorIncidenteResource(@PathParam("coordinadorId") Long coordinadorId) {
+        if (coordinadorLogic.getCoordinador(coordinadorId) == null) {
+            throw new WebApplicationException("El recurso /coordinador/" + coordinadorId + " no existe.", 404);
         }
-        return ReviewResource.class;
+        return CoordinadorIncidenteResource.class;
     }
-     */
+    
+    @Path("{coordinadorId: \\d+}/tecnicos")
+    public Class<CoordinadorTecnicoResource> getCoordinadorTecnicoResource(@PathParam("coordinadorId") Long coordinadorId) {
+        if (coordinadorLogic.getCoordinador(coordinadorId) == null) {
+            throw new WebApplicationException("El recurso /coordinador/" + coordinadorId + " no existe.", 404);
+        }
+        return CoordinadorTecnicoResource.class;
+    }
+
 }
