@@ -92,37 +92,24 @@ public class EmpleadoLogicTest {
         PodamFactory factory = new PodamFactoryImpl();
         EmpleadoEntity ee = factory.manufacturePojo(EmpleadoEntity.class);
         ee.setNombre("");
-        ee.setTipo("HARDWARE");
         ee.setNumIncidentes(3);
         logic.createEmpleado(ee);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void createEmpleadoTest1() throws BusinessLogicException{
         PodamFactory factory = new PodamFactoryImpl();
         EmpleadoEntity ee = factory.manufacturePojo(EmpleadoEntity.class);
         ee.setNombre("Nombre");
-        ee.setTipo("dd");
-        ee.setNumIncidentes(3);
-        logic.createEmpleado(ee);
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createEmpleadoTest2() throws BusinessLogicException{
-        PodamFactory factory = new PodamFactoryImpl();
-        EmpleadoEntity ee = factory.manufacturePojo(EmpleadoEntity.class);
-        ee.setNombre("Nombre");
-        ee.setTipo("HARDWARE");
         ee.setNumIncidentes(-2);
         logic.createEmpleado(ee);
     }
     
     @Test
-    public void createEmpleadoTest3() throws BusinessLogicException{
+    public void createEmpleadoTest2() throws BusinessLogicException{
         PodamFactory factory = new PodamFactoryImpl();
         EmpleadoEntity ee = factory.manufacturePojo(EmpleadoEntity.class);
         ee.setNombre("Nombre");
-        ee.setTipo("HARDWARE");
         ee.setNumIncidentes(6);
         logic.createEmpleado(ee);
     }
