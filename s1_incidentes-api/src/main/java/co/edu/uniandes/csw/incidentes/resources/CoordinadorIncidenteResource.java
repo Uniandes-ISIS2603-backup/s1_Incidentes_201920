@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package co.edu.uniandes.csw.incidentes.resources;
 
 import co.edu.uniandes.csw.incidentes.dtos.IncidenteDTO;
@@ -34,7 +35,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CoordinadorIncidenteResource {
-
+/*
     private static final Logger LOGGER = Logger.getLogger(CoordinadorIncidenteResource.class.getName());
 
     @Inject
@@ -103,4 +104,5 @@ public class CoordinadorIncidenteResource {
         }
         return list;
     }
+*/
 }
