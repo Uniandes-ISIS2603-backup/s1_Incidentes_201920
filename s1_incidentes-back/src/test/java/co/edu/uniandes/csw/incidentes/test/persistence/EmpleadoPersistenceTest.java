@@ -95,10 +95,8 @@ public class EmpleadoPersistenceTest {
         Assert.assertNotNull(result);
         
         EmpleadoEntity entity = em.find(EmpleadoEntity.class, result.getId());
-        Assert.assertEquals(ee.getTipo(), entity.getTipo());
         Assert.assertEquals(ee.getNombre(), entity.getNombre());
         Assert.assertEquals(ee.getNumIncidentes(), entity.getNumIncidentes());
-        Assert.assertEquals(ee.getIncidenteAbierto(), entity.getIncidenteAbierto());     
         Assert.assertEquals(ee.getPassword(), entity.getPassword());
         Assert.assertEquals(ee.getUsername(), entity.getUsername());
     }
@@ -124,8 +122,6 @@ public class EmpleadoPersistenceTest {
         EmpleadoEntity newEntity = ep.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
-        Assert.assertEquals(entity.getTipo(), newEntity.getTipo());
-        Assert.assertEquals(entity.getIncidenteAbierto(), newEntity.getIncidenteAbierto());
         Assert.assertEquals(entity.getNumIncidentes(), newEntity.getNumIncidentes());
         Assert.assertEquals(entity.getPassword(), newEntity.getPassword());
         Assert.assertEquals(entity.getUsername(), newEntity.getUsername());
@@ -143,10 +139,8 @@ public class EmpleadoPersistenceTest {
         ep.update(newEntity);
         
         EmpleadoEntity resp = em.find(EmpleadoEntity.class,entity.getId());
-        Assert.assertEquals(newEntity.getTipo(), resp.getTipo());
         Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
         Assert.assertEquals(newEntity.getNumIncidentes(), resp.getNumIncidentes());
-        Assert.assertEquals(newEntity.getIncidenteAbierto(), resp.getIncidenteAbierto());
         Assert.assertEquals(newEntity.getPassword(), resp.getPassword());
         Assert.assertEquals(newEntity.getUsername(), resp.getUsername());
     }
@@ -164,10 +158,8 @@ public class EmpleadoPersistenceTest {
         EmpleadoEntity entity = data.get(0);
         EmpleadoEntity newEntity = ep.findByUsername(entity.getUsername());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(newEntity.getTipo(), entity.getTipo());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
         Assert.assertEquals(newEntity.getNumIncidentes(), entity.getNumIncidentes());
-        Assert.assertEquals(newEntity.getIncidenteAbierto(), entity.getIncidenteAbierto());
         Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
         Assert.assertEquals(newEntity.getUsername(), entity.getUsername());
     }
