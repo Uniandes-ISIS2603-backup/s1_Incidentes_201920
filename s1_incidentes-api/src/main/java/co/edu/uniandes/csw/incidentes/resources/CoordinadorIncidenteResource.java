@@ -28,14 +28,14 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Clase que implementa el recurso "coordinador/{id}/incidente".
+ * Clase que implementa el recurso "coordinador/{id}/incidentes".
  *
  * @author Juan Camilo Castiblanco
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CoordinadorIncidenteResource {
-/*
+
     private static final Logger LOGGER = Logger.getLogger(CoordinadorIncidenteResource.class.getName());
 
     @Inject
@@ -104,5 +104,5 @@ public class CoordinadorIncidenteResource {
         }
         return list;
     }
-*/
+
 }
