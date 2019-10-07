@@ -50,6 +50,8 @@ public class CoordinadorLogicTest {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CoordinadorEntity.class.getPackage())
                 .addPackage(CoordinadorLogic.class.getPackage())
+                
+                
                 .addPackage(CoordinadorPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");

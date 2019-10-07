@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.incidentes.test.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.EmpleadoEntity;
+import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.persistence.EmpleadoPersistence;
+import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -41,7 +43,9 @@ public class EmpleadoPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment(){
         return ShrinkWrap.create(JavaArchive.class).addClass(EmpleadoEntity.class)
-                .addClass(EmpleadoPersistence.class)
+                .addPackage(EmpleadoPersistence.class.getPackage())
+                .addPackage(IncidenteEntity.class.getPackage())
+                .addPackage(IncidentePersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml","persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml");
                 

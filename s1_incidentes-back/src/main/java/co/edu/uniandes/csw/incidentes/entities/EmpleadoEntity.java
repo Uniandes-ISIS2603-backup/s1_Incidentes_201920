@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -22,7 +23,7 @@ public class EmpleadoEntity extends User2Entity implements Serializable  {
     private String nombre;
     private Integer numIncidentes;
     @PodamExclude
-    @OneToMany(mappedBy = "empleado")
+    @OneToMany(mappedBy = "empleado",fetch=FetchType.LAZY)
     private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
 
     /**

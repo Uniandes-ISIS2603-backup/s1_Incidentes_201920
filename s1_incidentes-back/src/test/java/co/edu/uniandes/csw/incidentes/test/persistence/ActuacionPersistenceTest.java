@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.incidentes.test.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.ActuacionEntity;
+import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.persistence.ActuacionPersistence;
+import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -45,8 +47,10 @@ public class ActuacionPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addClass(ActuacionEntity.class)
-                .addClass(ActuacionPersistence.class)
+                .addPackage(ActuacionEntity.class.getPackage())
+                .addPackage(ActuacionPersistence.class.getPackage())
+                .addPackage(IncidenteEntity.class.getPackage())
+                .addPackage(IncidentePersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }

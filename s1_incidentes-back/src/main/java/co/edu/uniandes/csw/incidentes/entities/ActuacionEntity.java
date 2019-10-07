@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.incidentes.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamStrategyValue;
@@ -25,6 +26,8 @@ public class ActuacionEntity extends BaseEntity implements Serializable {
     private Date fechaHora;
     
     private String descripcion;
+    @ManyToOne
+    private IncidenteEntity incidente;
 
     public ActuacionEntity(){}
     /**

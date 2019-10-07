@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -22,11 +23,11 @@ public class CoordinadorEntity extends User2Entity implements Serializable {
     private String name;
 
     @PodamExclude
-    @OneToMany(mappedBy = "coordinador")
+    @OneToMany(mappedBy = "coordinador",fetch=FetchType.LAZY)
     private List<TecnicoEntity> tecnicos = new ArrayList<TecnicoEntity>();
 
     @PodamExclude
-    @OneToMany(mappedBy = "coordinador")
+    @OneToMany(mappedBy = "coordinador",fetch=FetchType.LAZY)
     private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
 
     public CoordinadorEntity() {
