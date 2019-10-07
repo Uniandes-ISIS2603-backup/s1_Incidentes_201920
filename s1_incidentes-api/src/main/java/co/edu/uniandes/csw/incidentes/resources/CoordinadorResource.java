@@ -53,7 +53,7 @@ public class CoordinadorResource {
 
     @GET
     @Path("{coordinadorId: \\d+}")
-    public CoordinadorDTO getCoordinador(@PathParam("coordinadorId") Long coordinadorId) {
+    public CoordinadorDetailDTO getCoordinador(@PathParam("coordinadorId") Long coordinadorId) {
         LOGGER.log(Level.INFO, "CoordinadorResource getCoordinador: input: {0}", coordinadorId);
         CoordinadorEntity entidad = coordinadorLogic.getCoordinador(coordinadorId);
         if (entidad == null) {
