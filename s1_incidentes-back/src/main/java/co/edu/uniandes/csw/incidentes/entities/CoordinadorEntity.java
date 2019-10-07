@@ -23,11 +23,11 @@ public class CoordinadorEntity extends User2Entity implements Serializable {
     private String name;
 
     @PodamExclude
-    @OneToMany(mappedBy = "coordinador", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "coordinador",fetch=FetchType.LAZY)
     private List<TecnicoEntity> tecnicos = new ArrayList<TecnicoEntity>();
 
     @PodamExclude
-    @OneToMany(mappedBy = "coordinador", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "coordinador",fetch=FetchType.LAZY)
     private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
 
     public CoordinadorEntity() {
