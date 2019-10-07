@@ -5,12 +5,14 @@
  */
 package co.edu.uniandes.csw.incidentes.dtos;
 
+import co.edu.uniandes.csw.incidentes.adapters.DateAdapter;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import uk.co.jemos.podam.common.PodamStrategyValue;
@@ -22,11 +24,9 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 public class IncidenteDTO implements Serializable{
     private Long id;
   
-    @Temporal(TemporalType.DATE)
-    @PodamStrategyValue(DateStrategy.class)
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaHoraInicio;
-    @Temporal(TemporalType.DATE)
-    @PodamStrategyValue(DateStrategy.class)
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaHoraFinal;
     private String descripcion;
     private String observaciones;
@@ -36,6 +36,22 @@ public class IncidenteDTO implements Serializable{
     private Boolean solucionado;
     private Boolean reabrir;
     private String equipo;
+    
+    /*
+    * Relación a un tecnico  
+    * dado que esta tiene cardinalidad 1.
+     */
+    private TecnicoDTO tecnico;
+    /*
+    * Relación a un empleado  
+    * dado que esta tiene cardinalidad 1.
+     */
+    private EmpleadoDTO empleado;
+     /*
+    * Relación a un coordinador 
+    * dado que esta tiene cardinalidad 1.
+     */
+    private CoordinadorDTO coordinador;
     
     public IncidenteDTO(){
         
@@ -55,9 +71,28 @@ public class IncidenteDTO implements Serializable{
             this.prioridad = iEntity.getPrioridad();
             this.solucionado = iEntity.getSolucionado();
             this.reabrir = iEntity.getReabrir();
-             
+             if (iEntity.getTecnico() != null) {
+                this.tecnico = new TecnicoDTO(iEntity.getTecnico());
+            } else {
+                this.tecnico = null;}
+                 if (iEntity.getEmpleado() != null) {
+                this.empleado = new EmpleadoDTO(iEntity.getEmpleado());
+            } else {
+                this.empleado = null;}
+             if (iEntity.getCoordinador() != null) {
+                this.coordinador = new CoordinadorDTO(iEntity.getCoordinador());
+            } else {
+                this.coordinador = null;
+             }
         }
+             
     }
+
+     /**
+     * Método para transformar el DTO a una entidad.
+     *
+     * @return La entidad del incidente asociado.
+     */
     public IncidenteEntity toEntity() {
         IncidenteEntity incidenteEntity = new IncidenteEntity();
         incidenteEntity.setId(this.getId());
@@ -71,6 +106,16 @@ public class IncidenteDTO implements Serializable{
         incidenteEntity.setPrioridad(this.getPrioridad());
         incidenteEntity.setSolucionado(this.getSolucionado());
         incidenteEntity.setReabrir(this.getReabrir());
+        if (this.getTecnico() != null) {
+            incidenteEntity.setTecnico(this.tecnico.toEntity());
+        }
+        if (this.getEmpleado() != null) {
+            incidenteEntity.setEmpleado(this.empleado.toEntity());
+        }
+        if (this.getCoordinador() != null) {
+            incidenteEntity.setCoordinador(this.coordinador.toEntity());
+        }
+        
         
         return incidenteEntity;
     }
@@ -233,6 +278,48 @@ public class IncidenteDTO implements Serializable{
      */
     public void setEquipo(String equipo) {
         this.equipo = equipo;
+    }
+
+    /**
+     * @return the tecnico
+     */
+    public TecnicoDTO getTecnico() {
+        return tecnico;
+    }
+
+    /**
+     * @param tecnico the tecnico to set
+     */
+    public void setTecnico(TecnicoDTO tecnico) {
+        this.tecnico = tecnico;
+    }
+
+    /**
+     * @return the empleado
+     */
+    public EmpleadoDTO getEmpleado() {
+        return empleado;
+    }
+
+    /**
+     * @param empleado the empleado to set
+     */
+    public void setEmpleado(EmpleadoDTO empleado) {
+        this.empleado = empleado;
+    }
+
+    /**
+     * @return the coordinador
+     */
+    public CoordinadorDTO getCoordinador() {
+        return coordinador;
+    }
+
+    /**
+     * @param coordinador the coordinador to set
+     */
+    public void setCoordinador(CoordinadorDTO coordinador) {
+        this.coordinador = coordinador;
     }
     
     

@@ -29,6 +29,9 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private CoordinadorEntity coordinador;
+     @PodamExclude
+    @ManyToOne
+    private TecnicoEntity tecnico;
     @PodamExclude
     @ManyToOne
     private EmpleadoEntity empleado;
@@ -72,6 +75,14 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
 
     public void setCoordinador(CoordinadorEntity coordinador) {
         this.coordinador = coordinador;
+    }
+     
+    public TecnicoEntity getTecnico() {
+        return tecnico;
+    }
+
+    public void setTecnico(TecnicoEntity tec) {
+        this.tecnico = tec;
     }
 
     /**
