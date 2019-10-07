@@ -51,6 +51,7 @@ public class CoordinadorIncidenteResource {
         if (incidenteLogic.getIncidente(incidenteId) == null) {
             throw new WebApplicationException("El recurso /incidente/" + incidenteId + " no existe.", 404);
         }
+        
         IncidenteDTO incidenteDTO = new IncidenteDTO(coordinadorIncidenteLogic.addIncidente(incidenteId, coordinadorId));
         LOGGER.log(Level.INFO, "CoordinadorIncidenteResource addIncidente: output: {0}", incidenteDTO);
         return incidenteDTO;

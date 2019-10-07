@@ -34,6 +34,10 @@ public class CoordinadorIncidenteLogic {
         CoordinadorEntity coordinadorEntity = coordinadorPersistence.find(coordinadorId);
         IncidenteEntity incidenteEntity = incidentePersistence.find(incidenteId);
         incidenteEntity.setCoordinador(coordinadorEntity);
+        List<IncidenteEntity> incidentes = coordinadorEntity.getIncidentes();
+        incidentes.add(incidenteEntity);
+        LOGGER.log(Level.INFO, "lista de incidentes = {0} ", incidentes);
+        coordinadorEntity.setIncidentes(incidentes);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle un incidente al coordinador con id = {0}", coordinadorId);
         return incidenteEntity;
     }
