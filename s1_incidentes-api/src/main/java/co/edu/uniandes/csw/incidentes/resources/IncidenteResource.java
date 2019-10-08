@@ -106,12 +106,12 @@ public class IncidenteResource {
         incidenteLogic.deleteIncidente(incidenteId);
         LOGGER.info("IncidenteResource deleteIncidente: output: void");
     }
-     //@Path("{incidentesId: \\d+}/actuaciones")
-    //public Class<ActuacionesResource> getActuacionesResource(@PathParam("incidentesId") Long incidentesId) {
-     ////   if (incidenteLogic.getIncidente(incidentesId) == null) {
-           // throw new WebApplicationException("El recurso /incidentes/" + incidentesId + " no existe.", 404);
-      //  }
-      ////  return ActuacionesResource.class;
-    //}
+    @Path("{incidentesId: \\d+}/actuaciones")
+    public Class<IncidenteActuacionResource> getIncidenteActuacionResource(@PathParam("incidentesId") Long incidentesId) {
+        if (incidenteLogic.getIncidente(incidentesId) == null) {
+            throw new WebApplicationException("El recurso /incidentes/" + incidentesId + " no existe.", 404);
+        }
+        return IncidenteActuacionResource.class;
+    }
 
 }
