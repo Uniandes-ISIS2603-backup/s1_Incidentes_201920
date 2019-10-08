@@ -50,6 +50,18 @@ public class IncidenteLogic {
         {
             throw new BusinessLogicException("El incidente aun no se puede solucionar");
         }
+        if(incidente.getObservaciones()==null)
+        {
+            throw new BusinessLogicException("La observacion del incidente es nula");
+        }
+        if(incidente.getCalificacion()==null)
+        {
+            throw new BusinessLogicException("La calificacion del incidente es nula");
+        }
+        if(incidente.getFechaHoraFinal()==null)
+        {
+            throw new BusinessLogicException("La hora final es nula");
+        }
         incidente = persistence.create(incidente);
         return incidente;
     }
