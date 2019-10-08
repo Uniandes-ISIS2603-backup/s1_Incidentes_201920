@@ -97,11 +97,14 @@ public class IncidenteResource {
     }
     @DELETE
     @Path("{incidentesId: \\d+}")
-    public void deleteIncidente(@PathParam("incidenteId") Long incidentesId) throws BusinessLogicException {
-        if (incidenteLogic.getIncidente(incidentesId) == null) {
-            throw new WebApplicationException("El recurso /incidentes/" + incidentesId + " no existe.", 404);
+     public void deleteIncidente(@PathParam("incidenteId") Long incidenteId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "CoordinadorResource deleteCoordinador: input: {0}", incidenteId);
+        IncidenteEntity entity = incidenteLogic.getIncidente(incidenteId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /incidente/" + incidenteId + " no existe.", 404);
         }
-        incidenteLogic.deleteIncidente(incidentesId);
+        incidenteLogic.deleteIncidente(incidenteId);
+        LOGGER.info("IncidenteResource deleteIncidente: output: void");
     }
      //@Path("{incidentesId: \\d+}/actuaciones")
     //public Class<ActuacionesResource> getActuacionesResource(@PathParam("incidentesId") Long incidentesId) {

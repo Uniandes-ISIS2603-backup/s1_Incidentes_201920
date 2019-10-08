@@ -147,6 +147,7 @@ public class IncidenteLogicTest {
         newEntity.setFechaHoraFinal(null);
         IncidenteEntity resultado= iL.createIncidente(newEntity);
     }
+    
     @Test (expected = BusinessLogicException.class)
     public void createIncidenteSolucionadoTrue()throws BusinessLogicException{
         IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
