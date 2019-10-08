@@ -28,7 +28,7 @@ import javax.ws.rs.WebApplicationException;
 
 /**
  *
- * @author Estudiante
+ * @author Julian Jaimes
  */
 @Path("empleado")
 @Produces("application/json")
@@ -65,13 +65,13 @@ public class EmpleadoResource {
     }
 
     @GET
-    public List<EmpleadoDetailDTO> getEmpleadoes() {
+    public List<EmpleadoDetailDTO> getEmpleados() {
         LOGGER.info("EmpleadoResource getEmpleadoes: input: void");
-        List<EmpleadoDetailDTO> listaEmpleadoes;
-        listaEmpleadoes = listEntity2DetailDTO(empleadoLogic.getEmpleados());
-        LOGGER.log(Level.INFO, "EmpleadoResource getEmpleadoes: output: {0}", listaEmpleadoes);
+        List<EmpleadoDetailDTO> listaEmpleados;
+        listaEmpleados = listEntity2DetailDTO(empleadoLogic.getEmpleados());
+        LOGGER.log(Level.INFO, "EmpleadoResource getEmpleadoes: output: {0}", listaEmpleados);
 
-        return listaEmpleadoes;
+        return listaEmpleados;
     }
 
     private List<EmpleadoDetailDTO> listEntity2DetailDTO(List<EmpleadoEntity> entityList) {
@@ -106,7 +106,7 @@ public class EmpleadoResource {
         empleadoLogic.deleteEmpleado(empleadoId);
         LOGGER.info("EmpleadoResource deleteEmpleado: output: void");
     }
-/**
+
     @Path("{empleadoId: \\d+}/incidentes")
     public Class<EmpleadoIncidenteResource> getEmpleadoIncidenteResource(@PathParam("empleadoId") Long empleadoId) {
         if (empleadoLogic.getEmpleado(empleadoId) == null) {
@@ -114,12 +114,4 @@ public class EmpleadoResource {
         }
         return EmpleadoIncidenteResource.class;
     }
-    
-    @Path("{empleadoId: \\d+}/tecnicos")
-    public Class<EmpleadoTecnicoResource> getEmpleadoTecnicoResource(@PathParam("empleadoId") Long empleadoId) {
-        if (empleadoLogic.getEmpleado(empleadoId) == null) {
-            throw new WebApplicationException("El recurso /empleado/" + empleadoId + " no existe.", 404);
-        }
-        return EmpleadoTecnicoResource.class;
-    }*/
 }
