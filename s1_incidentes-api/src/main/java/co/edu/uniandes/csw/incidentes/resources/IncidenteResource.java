@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.incidentes.resources;
 import co.edu.uniandes.csw.incidentes.dtos.IncidenteDTO;
 import co.edu.uniandes.csw.incidentes.dtos.IncidenteDetailDTO;
 import co.edu.uniandes.csw.incidentes.ejb.CoordinadorIncidenteLogic;
-import co.edu.uniandes.csw.incidentes.ejb.IncidenteActuacionLogic;
 
 import co.edu.uniandes.csw.incidentes.ejb.IncidenteLogic;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;

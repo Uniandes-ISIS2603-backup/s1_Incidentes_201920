@@ -28,17 +28,27 @@ public class ActuacionPersistence {
     
     public ActuacionEntity create(ActuacionEntity actuacion) {
         //throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        LOGGER.log(Level.INFO, "Creando una nueva actuación");
         em.persist(actuacion);
+        LOGGER.log(Level.INFO, "Actuación creada");
         return actuacion;
     }
     
-    public ActuacionEntity find(Long actuacionId) {
-        return em.find(ActuacionEntity.class, actuacionId);
-    }
-    
-    public List<ActuacionEntity> findAll() {
-        TypedQuery<ActuacionEntity> query = em.createQuery("select u from ActuacionEntity u", ActuacionEntity.class);
-        return query.getResultList();
+    public ActuacionEntity find(Long idIncidente, Long actuacionId) {
+        LOGGER.log(Level.INFO,"Consultando la actuación con id = {0} del libro con id = " + idIncidente, actuacionId);
+        TypedQuery<ActuacionEntity> q = em.createQuery("select p from ActuacionEntity p where (p.incidente.id = :idIncidente) "
+                + " and (p.id = :actuacionId)", ActuacionEntity.class);
+        q.setParameter("idIncidente", idIncidente);
+        q.setParameter("actuacionId", actuacionId);
+        List<ActuacionEntity> resultados = q.getResultList();
+        ActuacionEntity actuacion = null;
+        if (resultados == null || resultados.isEmpty()) {
+            actuacion = null;
+        } else {
+            actuacion = resultados.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar la actuación con id = {0} del incidente con id = " + idIncidente, actuacionId);
+        return actuacion;
     }
     
     public ActuacionEntity update(ActuacionEntity actuacion) {
@@ -47,9 +57,9 @@ public class ActuacionPersistence {
     }
     
     public void delete(Long id) {
-
         LOGGER.log(Level.INFO, "Borrando el author con id={0}", id);
         ActuacionEntity actuacionEntity = em.find(ActuacionEntity.class, id);
         em.remove(actuacionEntity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar la actuación con id = {0}", id);
     }
 }
