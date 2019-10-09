@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.incidentes.resources;
 
 import co.edu.uniandes.csw.incidentes.dtos.IncidenteDTO;
 import co.edu.uniandes.csw.incidentes.dtos.IncidenteDetailDTO;
+import co.edu.uniandes.csw.incidentes.ejb.CoordinadorIncidenteLogic;
+import co.edu.uniandes.csw.incidentes.ejb.IncidenteActuacionLogic;
 
 import co.edu.uniandes.csw.incidentes.ejb.IncidenteLogic;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
@@ -43,8 +45,7 @@ public class IncidenteResource {
     private static final Logger LOGGER = Logger.getLogger(IncidenteResource.class.getName());
      @Inject
     private IncidenteLogic incidenteLogic;
-
- 
+     
     @POST
     public IncidenteDTO createIncidente(IncidenteDTO incidente) throws BusinessLogicException
     {
@@ -103,8 +104,9 @@ public class IncidenteResource {
         if (entity == null) {
             throw new WebApplicationException("El recurso /incidente/" + incidenteId + " no existe.", 404);
         }
+        else{
         incidenteLogic.deleteIncidente(incidenteId);
-        LOGGER.info("IncidenteResource deleteIncidente: output: void");
+        LOGGER.info("IncidenteResource deleteIncidente: output: void");}
     }
     //@Path("{incidentesId: \\d+}/actuaciones")
     //public Class<IncidenteActuacionResource> getIncidenteActuacionResource(@PathParam("incidentesId") Long incidentesId) {
