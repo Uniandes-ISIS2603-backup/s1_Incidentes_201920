@@ -44,6 +44,18 @@ public class CoordinadorIncidenteResource {
     @Inject
     private CoordinadorIncidenteLogic coordinadorIncidenteLogic;
 
+    /**
+     * Guarda un incidente dentro de un coordinador con la informacion que recibe el
+     * la URL. Se devuelve el incidente que se guarda en el coordinador.
+     *
+     * @param coordinadorId Identificador del coordinador que se esta
+     * actualizando. Este debe ser una cadena de dígitos.
+     * @param incidenteId Identificador del incidente que se desea guardar. Este debe
+     * ser una cadena de dígitos.
+     * @return JSON {@link BookDTO} - El incidente guardado en el coordinador.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el incidente.
+     */
     @POST
     @Path("{incidenteId: \\d+}")
     public IncidenteDTO addIncidente(@PathParam("coordinadorId") Long coordinadorId, @PathParam("incidenteId") Long incidenteId) {
@@ -57,6 +69,14 @@ public class CoordinadorIncidenteResource {
         return incidenteDTO;
     }
 
+    /**
+     * Busca y devuelve todos los incidentes que existen en el coordinador.
+     *
+     * @param coordinadorId Identificador del coordinador que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @return JSONArray {@link IncidenteDetailDTO} - Los incidentes encontrados en el
+     * coordinador. Si no hay ninguno retorna una lista vacía.
+     */
     @GET
     public List<IncidenteDetailDTO> getIncidentes(@PathParam("coordinadorId") Long coordinadorId) {
         LOGGER.log(Level.INFO, "CoordinadorIncidenteResource getIncidentes: input: {0}", coordinadorId);
@@ -65,6 +85,20 @@ public class CoordinadorIncidenteResource {
         return listaDetailDTOs;
     }
 
+    /**
+     * Busca el incidente con el id asociado dentro del coordinador con id asociado.
+     *
+     * @param coordinadorId Identificador del coordinador que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @param incidenteId Identificador del incidente que se esta buscando. Este debe
+     * ser una cadena de dígitos.
+     * @return JSON {@link IncidenteDetailDTO} - El incidente buscado
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el incidente.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el incidente en el 
+     * coordinador.
+     */
     @GET
     @Path("{incidenteId: \\d+}")
     public IncidenteDetailDTO getIncidente(@PathParam("coordinadorId") Long coordinadorId, @PathParam("incidenteId") Long incidenteId) throws BusinessLogicException {
@@ -77,6 +111,18 @@ public class CoordinadorIncidenteResource {
         return incidenteDetailDTO;
     }
 
+    /**
+     * Remplaza las instancias de Incidente asociadas a una instancia de Coordinador
+     *
+     * @param coordinadorId Identificador del coordinador que se esta
+     * remplazando. Este debe ser una cadena de dígitos.
+     * @param incidentes JSONArray {@link IncidenteDetailDTO} El arreglo de incidentes nuevo para el
+     * coordinador.
+     * @return JSON {@link IncidenteDetailDTO} - El arreglo de incidentes guardado en el
+     * coordinador.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el incidente.
+     */
     @PUT
     public List<IncidenteDetailDTO> replaceIncidentes(@PathParam("coordinadorId") Long coordinadorId, List<IncidenteDetailDTO> incidentes) {
         LOGGER.log(Level.INFO, "CoordinadorIncidenteResource replaceIncidentes: input: coordinadorId: {0} , incidentes: {1}", new Object[]{coordinadorId, incidentes});
@@ -90,6 +136,12 @@ public class CoordinadorIncidenteResource {
         return listaDetailDTOs;
     }
 
+    /**
+     * Convierte una lista de IncidenteEntity a una lista de IncidenteDetailDTO.
+     *
+     * @param incidentes Lista de IncidenteEntity a convertir.
+     * @return Lista de IncidenteDTO convertida.
+     */
     private List<IncidenteDetailDTO> incidentesListEntity2DTO(List<IncidenteEntity> incidentes) {
         List<IncidenteDetailDTO> list = new ArrayList();
         for (IncidenteEntity entity : incidentes) {
@@ -98,6 +150,12 @@ public class CoordinadorIncidenteResource {
         return list;
     }
 
+    /**
+     * Convierte una lista de IncidenteDetailDTO a una lista de IncidenteEntity.
+     *
+     * @param dtos Lista de IncidenteDetailDTO a convertir.
+     * @return Lista de IncidenteEntity convertida.
+     */
     private List<IncidenteEntity> incidentesListDTO2Entity(List<IncidenteDetailDTO> dtos) {
         List<IncidenteEntity> list = new ArrayList<>();
         for (IncidenteDetailDTO dto : dtos) {

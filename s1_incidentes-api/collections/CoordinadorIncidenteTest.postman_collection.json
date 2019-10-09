@@ -43,7 +43,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"contraseña\" : \"clave\"\n}"
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"clave\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador",
@@ -57,7 +62,8 @@
 						"api",
 						"coordinador"
 					]
-				}
+				},
+				"description": "Crea un coordinador"
 			},
 			"response": []
 		},
@@ -99,7 +105,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Juan\",\n\t\"username\" : \"Juan\",\n\t\"contraseña\" : \"clave\"\n}"
+					"raw": "{\n\t\"nombre\" : \"Juan\",\n\t\"username\" : \"Juan\",\n\t\"password\" : \"clave\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador",
@@ -113,7 +124,8 @@
 						"api",
 						"coordinador"
 					]
-				}
+				},
+				"description": "Crea un coordinador"
 			},
 			"response": []
 		},
@@ -155,7 +167,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"descripcion\" : \"incidente 1\",\n\t\"fechaHoraInicio\" : \"2018-10-01T10:36:47.782Z\",\n\t\"fechaHoraFinal\" : \"2018-10-01T10:36:47.782Z\",\n\t\"tipo\" : \"clave\",\n\t\"equipo\" : \"HARDWARE\",\n\t\"prioridad\" : \"ALTA\",\n\t\"reabrir\" : \"true\",\n\t\"solucionado\" : \"true\",\n\t\"categoria\": \"HARDWARE\",\n\t\"observaciones\": \"No\",\n\t\"calificacion\": 5\n}"
+					"raw": "{\n\t\"descripcion\" : \"incidente 1\",\n\t\"fechaHoraInicio\" : \"2018-10-01T10:36:47.782Z\",\n\t\"fechaHoraFinal\" : \"2018-10-01T10:36:47.782Z\",\n\t\"tipo\" : \"clave\",\n\t\"equipo\" : \"HARDWARE\",\n\t\"prioridad\" : \"ALTA\",\n\t\"reabrir\" : \"true\",\n\t\"solucionado\" : \"true\",\n\t\"categoria\": \"HARDWARE\",\n\t\"observaciones\": \"No\",\n\t\"calificacion\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes",
@@ -169,7 +186,8 @@
 						"api",
 						"incidentes"
 					]
-				}
+				},
+				"description": "Crea un incidente"
 			},
 			"response": []
 		},
@@ -211,7 +229,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"descripcion\" : \"holaaa\",\n\t\"fecha\" : \"2019-01-01T10:36:47.782Z\",\n\t\"tipo\" : \"clave\",\n\t\"equipo\" : \"HARDWARE\",\n\t\"prioridad\" : \"BAJA\",\n\t\"reabrir\" : \"true\",\n\t\"solucionado\" : \"true\"\n}"
+					"raw": "{\n\t\"descripcion\" : \"incidente 2\",\n\t\"fechaHoraInicio\" : \"2018-10-01T10:36:47.782Z\",\n\t\"fechaHoraFinal\" : \"2018-10-01T10:36:47.782Z\",\n\t\"tipo\" : \"clave\",\n\t\"equipo\" : \"HARDWARE\",\n\t\"prioridad\" : \"BAJA\",\n\t\"reabrir\" : \"true\",\n\t\"solucionado\" : \"true\",\n\t\"categoria\": \"HARDWARE\",\n\t\"observaciones\": \"No\",\n\t\"calificacion\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes",
@@ -225,7 +248,8 @@
 						"api",
 						"incidentes"
 					]
-				}
+				},
+				"description": "Crea un incidente"
 			},
 			"response": []
 		},
@@ -265,7 +289,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}/incidentes/{{new_id_i1}}",
@@ -282,7 +311,8 @@
 						"incidentes",
 						"{{new_id_i1}}"
 					]
-				}
+				},
+				"description": "Agrega el incidente 1 al coordinador 1."
 			},
 			"response": []
 		},
@@ -327,7 +357,8 @@
 						"incidentes",
 						"{{new_id_i1}}"
 					]
-				}
+				},
+				"description": "Se intenta agregar un incidente que no existe a un coordinador. Deberia de salir expeción ya que el coordinador no existe."
 			},
 			"response": []
 		},
@@ -372,7 +403,8 @@
 						"incidentes",
 						"-1"
 					]
-				}
+				},
+				"description": "Se intenta agregar un incidente a un coordinador que no existe. Deberia de salir expeción ya que el coordinador no existe."
 			},
 			"response": []
 		},
@@ -419,7 +451,8 @@
 						"{{new_id_c1}}",
 						"incidentes"
 					]
-				}
+				},
+				"description": "Se muestran los incidentes del coordinador al que se agrego el incidente para confirmar que se esta agregando correctamente."
 			},
 			"response": []
 		},
@@ -466,7 +499,56 @@
 						"api",
 						"incidentes"
 					]
+				},
+				"description": "Se revisa que el incidente tenga un coordinador asignado."
+			},
+			"response": []
+		},
+		{
+			"name": "get Coordinadores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
 				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador"
+					]
+				},
+				"description": "Se revisa que el primer coordinador tenga un incidente y el segundo no."
 			},
 			"response": []
 		},
@@ -496,7 +578,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}",
@@ -511,7 +598,8 @@
 						"coordinador",
 						"{{new_id_c1}}"
 					]
-				}
+				},
+				"description": "Se borra el coordinador 1."
 			},
 			"response": []
 		},
@@ -541,7 +629,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c2}}",
@@ -558,98 +651,6 @@
 					]
 				},
 				"description": "Elimina el coordinador 2"
-			},
-			"response": []
-		},
-		{
-			"name": "delete incidente 1",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
-						"exec": [
-							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i1}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s1_incidentes-api",
-						"api",
-						"incidentes",
-						"{{new_id_i1}}"
-					]
-				},
-				"description": "Borra el incidente 1"
-			},
-			"response": []
-		},
-		{
-			"name": "delete incidente 2",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
-						"exec": [
-							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i2}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s1_incidentes-api",
-						"api",
-						"incidentes",
-						"{{new_id_i2}}"
-					]
-				},
-				"description": "Borra el incidente 2"
 			},
 			"response": []
 		}

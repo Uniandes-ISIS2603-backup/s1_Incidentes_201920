@@ -1,7 +1,8 @@
 {
 	"info": {
 		"_postman_id": "0a3f651e-9371-4791-a984-a540ee1e1008",
-		"name": "CoordinadorResourceTest Copy",
+		"name": "CoordinadorResourceTest",
+		"description": "Set de pruebas para el recurso correspondiente a los coordinadores.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -43,7 +44,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"contraseña\" : \"clave\"\n}",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"clave\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -62,7 +63,8 @@
 						"api",
 						"coordinador"
 					]
-				}
+				},
+				"description": "Crea un coordinador"
 			},
 			"response": []
 		},
@@ -104,7 +106,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Juan\",\n\t\"username\" : \"Juan\",\n\t\"contraseña\" : \"clave\"\n}",
+					"raw": "{\n\t\"nombre\" : \"Juan\",\n\t\"username\" : \"Juan\",\n\t\"password\" : \"clave\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -123,7 +125,8 @@
 						"api",
 						"coordinador"
 					]
-				}
+				},
+				"description": "Crea otro coordinador"
 			},
 			"response": []
 		},
@@ -164,7 +167,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"contraseña\" : \"clave\"\n}",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"clave\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -183,7 +186,8 @@
 						"api",
 						"coordinador"
 					]
-				}
+				},
+				"description": "Crea un usuario con ussername repetido, por lo que se incumple una regla de negocio el programa deberia mostrar el mensaje de error 412."
 			},
 			"response": []
 		},
@@ -223,7 +227,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Pablito\",\n\t\"username\" : \"no hay clave :c\",\n\t\"contraseña\" : \"\"\n}",
+					"raw": "{\n\t\"nombre\" : \"Pablito\",\n\t\"username\" : \"no hay clave :c\",\n\t\"password\" : \"\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -242,7 +246,8 @@
 						"api",
 						"coordinador"
 					]
-				}
+				},
+				"description": "NO se puede crear un usuario sin contraseña. mensaje 412"
 			},
 			"response": []
 		},
@@ -282,7 +287,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Pablito\",\n\t\"username\" : \"\",\n\t\"contraseña\" : \"no va a funcionar jeje\"\n}",
+					"raw": "{\n\t\"nombre\" : \"Pablito\",\n\t\"username\" : \"\",\n\t\"password\" : \"no va a funcionar jeje\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -301,7 +306,8 @@
 						"api",
 						"coordinador"
 					]
-				}
+				},
+				"description": "no se puede crear un usario con ussername vacio. error 412"
 			},
 			"response": []
 		},
@@ -353,7 +359,8 @@
 						"api",
 						"coordinador"
 					]
-				}
+				},
+				"description": "se obtiene la lista de coordinadores"
 			},
 			"response": []
 		},
@@ -406,7 +413,8 @@
 						"coordinador",
 						"{{new_id_c1}}"
 					]
-				}
+				},
+				"description": "Se obtiene la informacion del coordinador 1"
 			},
 			"response": []
 		},
@@ -440,7 +448,8 @@
 						"coordinador",
 						"-1"
 					]
-				}
+				},
+				"description": "Se busca la informacion de un coordinador que no existe. se deberia tener por respuesta el error 404."
 			},
 			"response": []
 		},
@@ -470,7 +479,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"contraseña\" : \"nueva clave\"\n}",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"nueva clave\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -490,7 +499,8 @@
 						"coordinador",
 						"{{new_id_c1}}"
 					]
-				}
+				},
+				"description": "Se edita la informacion de un coordinador. (cambio de clave)"
 			},
 			"response": []
 		},
@@ -520,7 +530,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"contraseña\" : \"nueva clave\"\n}",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"nueva clave\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -540,12 +550,13 @@
 						"coordinador",
 						"-1"
 					]
-				}
+				},
+				"description": "Se intenta modificar la informacion de un coordinador que no existe"
 			},
 			"response": []
 		},
 		{
-			"name": "deletecoordinador que no existe",
+			"name": "delete coordinador que no existe",
 			"event": [
 				{
 					"listen": "test",
@@ -574,7 +585,8 @@
 						"coordinador",
 						"-1"
 					]
-				}
+				},
+				"description": "Se intenta borrar un coordinador que no existe."
 			},
 			"response": []
 		},
@@ -624,7 +636,8 @@
 						"coordinador",
 						"{{new_id_c1}}"
 					]
-				}
+				},
+				"description": "Se borra al coordinador 1."
 			},
 			"response": []
 		},
@@ -674,9 +687,32 @@
 						"coordinador",
 						"{{new_id_c2}}"
 					]
-				}
+				},
+				"description": "Se borra el coordinador 2."
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "dd7c5bf3-198f-42fc-a649-9bd8a486b492",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e29cfc72-23af-49f9-b28a-daf95ddf8dc1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"protocolProfileBehavior": {}
