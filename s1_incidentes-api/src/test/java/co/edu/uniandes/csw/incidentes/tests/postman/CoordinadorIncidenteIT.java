@@ -22,13 +22,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- *
+ * Pruebas de integracion de la relacion Coordinador Incidente.
  * @author Juan Camilo Castiblanco
  */
 @RunWith(Arquillian.class)
-public class CoordinadorIT {
+public class CoordinadorIncidenteIT {
     
-    private static final String COLLECTION = "Coordinador-Tests.postman_collection";
+    private static final String COLLECTION = "CoordinadorIncidenteTest.postman_collection";
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
@@ -65,4 +65,5 @@ public class CoordinadorIT {
 
         Assert.assertEquals("Error en Assertions de: " + COLLECTION, desiredResult, tp.getAssertions_failed());
     }
+    
 }
