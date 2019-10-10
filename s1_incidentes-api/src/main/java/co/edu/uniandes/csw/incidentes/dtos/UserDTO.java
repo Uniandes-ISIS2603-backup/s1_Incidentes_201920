@@ -16,9 +16,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class UserDTO implements Serializable{
     
-    private Long id;
+    protected Long id;
     
-    private String username;
+    protected String username;
     
     private String password;
 

@@ -16,25 +16,29 @@ import java.io.Serializable;
  *
  * @author da.silvaa
  */
-public class TecnicoDTO implements Serializable{
+public class TecnicoDTO extends UserDTO implements Serializable{
        
     private Long id;
     
     private int numCasos; 
     
-    public TecnicoDTO() {
+   
+    
+     public TecnicoDTO(TecnicoEntity coordinadorEntity) {
+       
+           super.setId(coordinadorEntity.getId());
+           super.setPassword(coordinadorEntity.getPassword());
+           super.setUsername(coordinadorEntity.getUsername());
+           this.numCasos=coordinadorEntity.getNumCasos();
+          
         
     }
     
-     public TecnicoDTO(TecnicoEntity coordinadorEntity) {
-        if (coordinadorEntity != null) {
-           this.id = coordinadorEntity.getId();
-          
-        }
-    }
-    
-    public TecnicoEntity toEntity() {
+    public TecnicoEntity toEntity() 
+    {
         TecnicoEntity coordinadorEntity = new TecnicoEntity();
+        coordinadorEntity.setUsername(this.getUsername());
+        coordinadorEntity.setPassword(this.getPassword());
         coordinadorEntity.setId(this.id);
         coordinadorEntity.setNumCasos(this.numCasos);
         return coordinadorEntity;

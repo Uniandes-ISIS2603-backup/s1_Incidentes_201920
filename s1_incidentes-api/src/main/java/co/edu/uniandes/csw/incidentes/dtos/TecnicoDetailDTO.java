@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.incidentes.dtos;
+import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import java.io.Serializable;
 
 /**
@@ -11,8 +12,13 @@ import java.io.Serializable;
  * @author da.silvaa
  */
 public class TecnicoDetailDTO extends TecnicoDTO implements Serializable {
-    public TecnicoDetailDTO() {
-        super();
+
+    /**
+     *
+     * @param x
+     */
+    public TecnicoDetailDTO(TecnicoEntity x) {
+        super(x);
     }
 }
 
