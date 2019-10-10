@@ -14,7 +14,9 @@ import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- *
+ * Clase que representa un empleado en la persistencia y permite su
+ * serialización.
+ * 
  * @author Daniel Reyes
  */
 
@@ -27,6 +29,7 @@ public class EmpleadoEntity extends User2Entity implements Serializable  {
     private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
 
     /**
+     * Devuelve el nombre del empleado
      * @return the nombre
      */
     public String getNombre() {
@@ -34,6 +37,7 @@ public class EmpleadoEntity extends User2Entity implements Serializable  {
     }
 
     /**
+     * Modifica el nombre del empleado
      * @param nombre the nombre to set
      */
     public void setNombre(String nombre) {
@@ -41,6 +45,7 @@ public class EmpleadoEntity extends User2Entity implements Serializable  {
     }
 
     /**
+     * Devuelve el numero de incidentes del empleado
      * @return the numIncidentes
      */
     public Integer getNumIncidentes() {
@@ -48,6 +53,7 @@ public class EmpleadoEntity extends User2Entity implements Serializable  {
     }
 
     /**
+     * Modifica el numero de incidentes del empleado
      * @param numIncidentes the numIncidentes to set
      */
     public void setNumIncidentes(Integer numIncidentes) {
@@ -55,6 +61,7 @@ public class EmpleadoEntity extends User2Entity implements Serializable  {
     }
 
     /**
+     * Devuelve los incidentes del empleado
      * @return the incidentes
      */
     public List<IncidenteEntity> getIncidentes() {
@@ -62,6 +69,7 @@ public class EmpleadoEntity extends User2Entity implements Serializable  {
     }
 
     /**
+     * Modifica los incidentes del empleado
      * @param incidentes the incidentes to set
      */
     public void setIncidentes(List<IncidenteEntity> incidentes) {
