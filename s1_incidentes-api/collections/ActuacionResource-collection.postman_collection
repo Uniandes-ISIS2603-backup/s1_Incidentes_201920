@@ -1,0 +1,606 @@
+{
+	"info": {
+		"_postman_id": "aa578d22-a4a0-4127-ab5d-aef4d1e8ebeb",
+		"name": "ActuacionResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createIncidente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea1b7ced-9ce6-4d3b-944e-009001e00725",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_i\", data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fechaHoraInicio\":\"2018-03-29T13:34:00.000\",\n\t\"fechaHoraFinal\":\"2018-03-30T13:34:00.000\",\n    \"descripcion\":\"Incidente reportado\",\n    \"observaciones\":\"No hay observaciones\",\n    \"calificacion\":\"2\",\n    \"categoria\":\"HW\",\n    \"prioridad\":\"alta\",\n    \"solucionado\":true,\n    \"reabrir\":true,\n    \"equipo\":\"Computador\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createActuacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a456fdf2-99b8-4261-9c8e-0da444f85cae",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"actuacion 1\",\n    \"fechaHora\": \"2018-03-30T13:31:00.000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createActuacion 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c0522ac3-fdc9-4d38-9a0a-74c8b86f0861",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"actuacion 2\",\n    \"fechaHora\": \"2018-03-31T13:31:00.000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createActuacion a un incidente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf5de518-02e1-4614-b27f-91424556ecdc",
+						"exec": [
+							"tests[\"No se puede asociar una actuacion a un incidente que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/999/actuacion no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"actuacion fallida\",\n    \"fechaHora\": \"2018-03-01T13:31:00.000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/999/actuacion?Content-Type=application/json",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"999",
+						"actuacion"
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getActuaciones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5a1f828-6fbe-436d-b915-b7f38057c13d",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get All\"] = responseCode.code === 200;",
+							"tests[\"reviews count\"] = data.length >= 0;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getActuacion 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getActuacion 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion/{{new_id_a2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion",
+						"{{new_id_a2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateActuacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85d94faa-71f4-462b-bc0e-dbdc53d57ffe",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"nueva descripcion\",\n    \"fechaHora\": \"2019-03-30T13:31:00.000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateActuacion no existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2cda5dfb-d5ec-4fae-b808-04e5f370a353",
+						"exec": [
+							"tests[\"No se puede editar una actuacion que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_i\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/\"+id+\"/actuacion/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"no debería\",\n    \"fechaHora\": \"2019-03-30T13:31:00.000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateActuacion a incidente no existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4158258c-630d-4329-a2c7-0fe1bada38ef",
+						"exec": [
+							"tests[\"No se puede editar una actuación de un incidente que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/0/actuacion no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"no debería\",\n    \"fechaHora\": \"2019-03-30T13:31:00.000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/0/actuacion/{{new_id_a}}?Content-Type=application/json",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"0",
+						"actuacion",
+						"{{new_id_a}}"
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteActuacion no existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddd36bae-77f9-4536-8f1a-a78ba70ca06d",
+						"exec": [
+							"tests[\"No s epuede borrar una actuación que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_i\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/\"+id+\"/actuacion/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteActuacion a incidente no existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da34dc25-95d9-4254-b529-bcb97eab993a",
+						"exec": [
+							"tests[\"No se puede borrar una actuación de un incidente que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/0/actuacion no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s1_incidentes-api/api/incidentes/0/actuacion/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"0",
+						"actuacion",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteActuacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12b14ed5-2f4f-45b6-aab5-8b4cb27d836c",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteActuacion2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a3df98d-1d5e-4660-a7ff-87dc160085dc",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s1_incidentes-api/api/incidentes/{{new_id_i}}/actuacion/{{new_id_a2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}",
+						"actuacion",
+						"{{new_id_a2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteIncidente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc2e87ea-ab8c-4a92-aca9-c77f8ed9ac0e",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s1_incidentes-api/api/incidentes/{{new_id_i}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
