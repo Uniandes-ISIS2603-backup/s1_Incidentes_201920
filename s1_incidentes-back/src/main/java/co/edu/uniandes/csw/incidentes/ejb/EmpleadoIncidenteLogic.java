@@ -16,7 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 /**
- *
+ * Clase que implementa la conexion con la persistencia para la relación entre
+ * la entidad de Empleado e Incidente.
+ * 
  * @author Julian Jaimes
  */
 public class EmpleadoIncidenteLogic {
@@ -29,6 +31,15 @@ public class EmpleadoIncidenteLogic {
     @Inject
     EmpleadoPersistence empleadoPersistence;
 
+    
+    /**
+     * Agregar un incidente al empleado.
+     *
+     * @param incidenteId El id del incidente a guardar
+     * @param empleadoId El id del empleado en el cual se va a guardar el
+     * incidente.
+     * @return El incidente creado.
+     */
     public IncidenteEntity addIncidente(Long incidenteId, Long empleadoId) {
         LOGGER.log(Level.INFO, "Inicia proceso de agregarle un incidente al empleado con id = {0}", empleadoId);
         EmpleadoEntity empleadoEntity = empleadoPersistence.find(empleadoId);
@@ -42,11 +53,26 @@ public class EmpleadoIncidenteLogic {
         return incidenteEntity;
     }
 
+    /**
+     * Retorna todos los incidentes asociados a un empleado.
+     *
+     * @param empleadoId El ID del empleado buscado.
+     * @return La lista de incidentes del empleado
+     */
     public List<IncidenteEntity> getIncidentes(Long empleadoId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar los incidentes asociados al empleado con id = {0}", empleadoId);
         return empleadoPersistence.find(empleadoId).getIncidentes();
     }
 
+    /**
+     * Retorna un incidente asociado a un empleado.
+     *
+     * @param empleadoId El id del empleado a buscar.
+     * @param incidenteId El id del incidente a buscar
+     * @return El incidente encontrado dentro del empleado.
+     * @throws BusinessLogicException Si el incidente no se encuentra en el
+     * empleado
+     */
     public IncidenteEntity getIncidente(Long empleadoId, Long incidenteId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el incidente con id = {0} del empleado con id = " + empleadoId, incidenteId);
         List<IncidenteEntity> incidentes = empleadoPersistence.find(empleadoId).getIncidentes();
@@ -59,6 +85,13 @@ public class EmpleadoIncidenteLogic {
         throw new BusinessLogicException("El incidente no está asociado al empleado");
     }
 
+    /**
+     * Remplazar incidentes de un empleado.
+     *
+     * @param incidentes Lista de incidentes que serán los del empleado.
+     * @param empleadoId El id del empleado que se quiere actualizar.
+     * @return La lista de incidentes actualizada.
+     */
     public List<IncidenteEntity> replaceIncidentes(Long empleadoId, List<IncidenteEntity> incidentes) {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el empleado con id = {0}", empleadoId);
         EmpleadoEntity empleadoEntity = empleadoPersistence.find(empleadoId);
