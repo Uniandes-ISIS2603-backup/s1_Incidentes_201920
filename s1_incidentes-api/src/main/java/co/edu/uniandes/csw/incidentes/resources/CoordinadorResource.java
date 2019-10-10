@@ -27,8 +27,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
 /**
+ * Clase que implementa el recurso "coordinador".
  *
- * @author Juan Camilo Castiblanco
+ * @author Juan Camilo Castiblanco.
  */
 @Path("coordinador")
 @Produces("application/json")
@@ -41,6 +42,19 @@ public class CoordinadorResource {
 
     private static final Logger LOGGER = Logger.getLogger(CoordinadorResource.class.getName());
 
+    /**
+     * Crea un nuevo coordinador con la informacion que se recibe en el cuerpo
+     * de la petición y se regresa un objeto identico con un id auto-generado
+     * por la base de datos.
+     *
+     * @param coordinador {@link CoordinadorDTO} - El coordinador que se desea
+     * guardar.
+     * @return JSON {@link CoordinadorDTO} - El coordinador guardado con el
+     * atributo id autogenerado.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica generado cuando se imcumple una regla de negocio al crear
+     * al nuevo coordinador.
+     */
     @POST
     public CoordinadorDTO createCoordinador(CoordinadorDTO coordinador) throws BusinessLogicException {
         LOGGER.info("CoordinadorResource createCoordinador: input: " + coordinador.toString());
@@ -51,6 +65,15 @@ public class CoordinadorResource {
         return newCoordinadorDTO;
     }
 
+    /**
+     * Busca el coordinador con el id asociado recibido en la URL y lo devuelve.
+     *
+     * @param coordinadorId Identificador del coordinador que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @return JSON {@link CoordinadorDetailDTO} - El coordinador buscado
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el coordinador.
+     */
     @GET
     @Path("{coordinadorId: \\d+}")
     public CoordinadorDetailDTO getCoordinador(@PathParam("coordinadorId") Long coordinadorId) {
@@ -64,6 +87,12 @@ public class CoordinadorResource {
         return coordinadorDetailDTO;
     }
 
+    /**
+     * Busca y devuelve todos los coordinadores que existen en la aplicacion.
+     *
+     * @return JSONArray {@link CoordinadorDetailDTO} - Los coordinadores
+     * encontrados en la aplicación. Si no hay ninguno retorna una lista vacía.
+     */
     @GET
     public List<CoordinadorDetailDTO> getCoordinadores() {
         LOGGER.info("CoordinadorResource getCoordinadores: input: void");
@@ -74,6 +103,16 @@ public class CoordinadorResource {
         return listaCoordinadores;
     }
 
+    /**
+     * Convierte una lista de entidades a DTO.
+     *
+     * Este método convierte una lista de objetos CoordinadorEntity a una lista
+     * de objetos CoordinadorDetailDTO (json)
+     *
+     * @param entityList corresponde a la lista de coordinadores de tipo Entity
+     * que vamos a convertir a DTO.
+     * @return la lista de coordinadores en forma DTO (json)
+     */
     private List<CoordinadorDetailDTO> listEntity2DetailDTO(List<CoordinadorEntity> entityList) {
         List<CoordinadorDetailDTO> list = new ArrayList<>();
         for (CoordinadorEntity entity : entityList) {
@@ -82,6 +121,18 @@ public class CoordinadorResource {
         return list;
     }
 
+    /**
+     * Actualiza el coordinador con el id recibido en la URL con la información
+     * que se recibe en el cuerpo de la petición.
+     *
+     * @param coordinadorId Identificador del coordinador que se desea
+     * actualizar. Este debe ser una cadena de dígitos.
+     * @param coordinador {@link CoordinadorDetailDTO} El coordinador que se
+     * desea guardar.
+     * @return JSON {@link CoordinadorDetailDTO} - El coordinador guardado.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando se incumple una regla de negocio.
+     */
     @PUT
     @Path("{coordinadorId: \\d+}")
     public CoordinadorDetailDTO updateCoordinador(@PathParam("coordinadorId") Long coordinadorId, CoordinadorDetailDTO coordinador) throws WebApplicationException {
@@ -95,6 +146,16 @@ public class CoordinadorResource {
         return detailDTO;
     }
 
+    /**
+     * Borra el coordinador con el id asociado recibido en la URL.
+     *
+     * @param coordinadorId Identificador del coordinador que se desea borrar.
+     * Este debe ser una cadena de dígitos.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se puede eliminar el coordinador.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando se incumple una regla de negocio.
+     */
     @DELETE
     @Path("{coordinadorId: \\d+}")
     public void deleteCoordinador(@PathParam("coordinadorId") Long coordinadorId) throws BusinessLogicException {
@@ -107,6 +168,20 @@ public class CoordinadorResource {
         LOGGER.info("CoordinadorResource deleteCoordinador: output: void");
     }
 
+    /**
+     * Conexión con el servicio de incidentes para un coordinador.
+     * {@link CoordinadorIncidenteResource}
+     *
+     * Este método conecta la ruta de /coordinador con las rutas de /incidentes
+     * que dependen del coordinador, es una redirección al servicio que maneja
+     * el segmento de la URL que se encarga de los incidentes de un coordinador.
+     *
+     * @param coordinadorId El ID del coordinador con respecto al cual se accede
+     * al servicio.
+     * @return El servicio de incidentes para este coordinador en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el coordinador.
+     */
     @Path("{coordinadorId: \\d+}/incidentes")
     public Class<CoordinadorIncidenteResource> getCoordinadorIncidenteResource(@PathParam("coordinadorId") Long coordinadorId) {
         if (coordinadorLogic.getCoordinador(coordinadorId) == null) {
@@ -114,7 +189,21 @@ public class CoordinadorResource {
         }
         return CoordinadorIncidenteResource.class;
     }
-    
+
+    /**
+     * Conexión con el servicio de tecnicos para un coordinador.
+     * {@link CoordinadorTecnicoResource}
+     *
+     * Este método conecta la ruta de /coordinador con las rutas de /tecnicos
+     * que dependen del coordinador, es una redirección al servicio que maneja
+     * el segmento de la URL que se encarga de los tecnicos de un coordinador.
+     *
+     * @param coordinadorId El ID del coordinador con respecto al cual se accede
+     * al servicio.
+     * @return El servicio de tecnico para este coordinador en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el coordinador.
+     */
     @Path("{coordinadorId: \\d+}/tecnicos")
     public Class<CoordinadorTecnicoResource> getCoordinadorTecnicoResource(@PathParam("coordinadorId") Long coordinadorId) {
         if (coordinadorLogic.getCoordinador(coordinadorId) == null) {

@@ -29,6 +29,8 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     private int incidenteASignado;
     private String especialidad;
     
+    private int numCasos;
+    
     @PodamExclude
     @ManyToOne
     private CoordinadorEntity coordinador;
@@ -36,39 +38,34 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "tecnico",fetch=FetchType.LAZY)
     private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
     
+
     public TecnicoEntity()
     {
         
     }
     
-    
-
-    
     public String getEspecialidad()
     {
         return especialidad;
     }
-    
-    
-    
+
     public void setEspecialidad (String pEspecialidad)
     {
         especialidad = pEspecialidad;
     }
-
+    public int getNumCasos()
+    {
+        return numCasos;
+    }
+    
     /**
-     * @return the id
+     * 
+     * @param pEspecialidad 
      */
-    //public Long getId() {
-      //  return id;
-    //}
-
-    /**
-     * @param id the id to set
-     */
-    //public void setId(int id) {
-     //   this.id = id;
-    //}
+    public void setNumCasos(int pEspecialidad)
+    {
+        numCasos = pEspecialidad;
+    }
 
     /**
      * @return the incidenteASignado

@@ -25,31 +25,41 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
+ * Pruebas de persistencia de Coordinador
  *
  * @author Juan Camilo Castiblanco
  */
-
 @RunWith(Arquillian.class)
 public class CoordinadorPersistenceTest {
+
     @PersistenceContext
     private EntityManager em;
+
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-              .addPackage(CoordinadorEntity.class.getPackage())
-              .addPackage(CoordinadorPersistence.class.getPackage())
-              .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-              .addAsManifestResource("META-INF/beans.xml", "beans.xml" );
+                .addPackage(CoordinadorEntity.class.getPackage())
+                .addPackage(CoordinadorPersistence.class.getPackage())
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     @Inject
     CoordinadorPersistence cp;
-   
+
     @Inject
     UserTransaction utx;
-   
+
     private List<CoordinadorEntity> data = new ArrayList<>();
-   
-   @Before
+
+    /**
+     * Configuración inicial de la prueba.
+     */
+    @Before
     public void configTest() {
         try {
             utx.begin();
@@ -67,10 +77,17 @@ public class CoordinadorPersistenceTest {
         }
     }
 
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from CoordinadorEntity").executeUpdate();
     }
 
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
@@ -80,19 +97,25 @@ public class CoordinadorPersistenceTest {
             data.add(entity);
         }
     }
-    
-   @Test
-   public void createCoordinadorTest()
-   {
-       PodamFactory factory = new PodamFactoryImpl();
-       CoordinadorEntity coordinador =factory.manufacturePojo(CoordinadorEntity.class);
-       CoordinadorEntity result = cp.create(coordinador);
-       Assert.assertNotNull(result);
-       CoordinadorEntity entity = em.find(CoordinadorEntity.class, result.getId());
-       Assert.assertEquals(coordinador.getName(), coordinador.getName());
-       Assert.assertEquals(coordinador.getPassword(), entity.getPassword());
-       Assert.assertEquals(coordinador.getUsername(), entity.getUsername());
-   }
+
+    /**
+     * Prueba para crear un Coordinador.
+     */
+    @Test
+    public void createCoordinadorTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        CoordinadorEntity coordinador = factory.manufacturePojo(CoordinadorEntity.class);
+        CoordinadorEntity result = cp.create(coordinador);
+        Assert.assertNotNull(result);
+        CoordinadorEntity entity = em.find(CoordinadorEntity.class, result.getId());
+        Assert.assertEquals(coordinador.getName(), coordinador.getName());
+        Assert.assertEquals(coordinador.getPassword(), entity.getPassword());
+        Assert.assertEquals(coordinador.getUsername(), entity.getUsername());
+    }
+
+    /**
+     * Prueba para consultar la lista de Coordinadores.
+     */
     @Test
     public void getCoordinadoresTest() {
         List<CoordinadorEntity> list = cp.findAll();
@@ -108,6 +131,9 @@ public class CoordinadorPersistenceTest {
         }
     }
 
+    /**
+     * Prueba para consultar un Coordinador.
+     */
     @Test
     public void getCoordinadorTest() {
         CoordinadorEntity coordinador = data.get(0);
@@ -118,6 +144,9 @@ public class CoordinadorPersistenceTest {
         Assert.assertEquals(coordinador.getUsername(), newEntity.getUsername());
     }
 
+    /**
+     * Prueba para actualizar un Coordinador.
+     */
     @Test
     public void updateCoordinadorTest() {
         CoordinadorEntity entity = data.get(0);
@@ -134,7 +163,10 @@ public class CoordinadorPersistenceTest {
         Assert.assertEquals(newEntity.getPassword(), resp.getPassword());
         Assert.assertEquals(newEntity.getUsername(), resp.getUsername());
     }
-    
+
+    /**
+     * Prueba para eliminar un Coordinador.
+     */
     @Test
     public void deleteCoordinadorTest() {
         CoordinadorEntity entity = data.get(0);
@@ -142,7 +174,10 @@ public class CoordinadorPersistenceTest {
         CoordinadorEntity deleted = em.find(CoordinadorEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
+
+    /**
+     * Prueba para consultar un Coordinador por nombre de usuario.
+     */
     @Test
     public void getCoordinadorByUsernameTest() {
         CoordinadorEntity entity = data.get(0);
