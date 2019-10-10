@@ -48,6 +48,11 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class IncidentePersistenceTest {
     @PersistenceContext
     private EntityManager em;
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -72,7 +77,9 @@ public class IncidentePersistenceTest {
     UserTransaction utx;
 
     private List<IncidenteEntity> data = new ArrayList<>();
-   
+    /**
+     * Configuración inicial de la prueba.
+     */
    @Before
     public void configTest() {
         try {
@@ -90,11 +97,16 @@ public class IncidentePersistenceTest {
             }
         }
     }
-
+     /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from IncidenteEntity").executeUpdate();
     }
-
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
@@ -104,7 +116,9 @@ public class IncidentePersistenceTest {
             data.add(entity);
         }
     }
-    
+   /**
+     * Prueba para crear un Incidente.
+     */ 
    @Test
    public void createTest()
    {
@@ -116,6 +130,9 @@ public class IncidentePersistenceTest {
         Assert.assertEquals(incidente.getDescripcion(), entity.getDescripcion());
         
    }
+   /**
+     * Prueba para consultar la lista de incidentes.
+     */
     @Test
     public void getIncidnetesTest() {
         List<IncidenteEntity> list = ip.findAll();
@@ -130,7 +147,9 @@ public class IncidentePersistenceTest {
             Assert.assertTrue(found);
         }
     }
-
+    /**
+     * Prueba para consultar un Incidente.
+     */
     @Test
     public void getIncidenteTest() {
         IncidenteEntity entity = data.get(0);
@@ -139,7 +158,9 @@ public class IncidentePersistenceTest {
         Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
         Assert.assertEquals(entity.getFechaHoraInicio(), newEntity.getFechaHoraInicio());
     }
-
+    /**
+     * Prueba para actualizar un Incidente.
+     */
     @Test
     public void updateIncidenteTest() {
         IncidenteEntity entity = data.get(0);
@@ -154,7 +175,9 @@ public class IncidentePersistenceTest {
 
         Assert.assertEquals(newEntity.getDescripcion(), resp.getDescripcion());
     }
-    
+    /**
+     * Prueba para eliminar un Incidente.
+     */
     @Test
     public void deleteIncidenteTest() {
         IncidenteEntity entity = data.get(0);

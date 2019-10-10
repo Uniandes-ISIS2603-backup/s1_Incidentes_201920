@@ -25,62 +25,76 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
  */
 @Entity
 public class IncidenteEntity extends BaseEntity implements Serializable {
-
+    // Atributo que determina la relacion de Coordinador-Incidente
     @PodamExclude
     @ManyToOne
     private CoordinadorEntity coordinador;
+    // Atributo que determina la relacion de Tecnico-Incidente
      @PodamExclude
     @ManyToOne
     private TecnicoEntity tecnico;
+     // Atributo que determina la relacion de Empleado-Incidente
     @PodamExclude
     @ManyToOne
     private EmpleadoEntity empleado;
-    
+    //Fecha inicial del Incidente
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
     private Date fechaHoraInicio;
+    //Fecha final del Incidente
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
     private Date fechaHoraFinal;
+    //Descripcion del incidente
     private String descripcion;
+    //Observaciones que se hacen al final
     private String observaciones;
+    //Calificación que se da al final
     private Integer calificacion;
+    //Categoria del incidente
     private String categoria;
+    //Prioridad del incidente
     private String prioridad;
+    //Si el incidente esta solucionado
     private Boolean solucionado;
+    //Si el incidente se ha reabierto
     private Boolean reabrir;
+    //Equipo donde se presenta el incidente
     private String equipo;
     
+    // Atributo que determina la relacion de Incidente-Actuacion
     @PodamExclude
     @OneToMany(mappedBy = "incidente",fetch=FetchType.LAZY)
     private List<ActuacionEntity> actuaciones = new ArrayList<ActuacionEntity>();
 
-
+    //Constructor vacio
     public IncidenteEntity() {
     }
-    
+    //Método que devuelve todas las actuaciones de un incidente
     public List<ActuacionEntity> getActuaciones() {
         return actuaciones;
     }
-
+    //Método que asigna las actuaciones a un incidente
     public void setActuaciones(List<ActuacionEntity> actu) {
         this.actuaciones = actu;
     }
+    //Método que añade una actuacion a la lista de actuaciones
     public void addActuacion(ActuacionEntity actu) {
         this.actuaciones.add(actu);
     }
+    //Método que da el coordinador
     public CoordinadorEntity getCoordinador() {
         return coordinador;
     }
-
+    //Método que determina el coordinador
     public void setCoordinador(CoordinadorEntity coordinador) {
         this.coordinador = coordinador;
     }
-     
+    //Método que da el Tecnico del incidente
     public TecnicoEntity getTecnico() {
         return tecnico;
     }
-
+   //Método que asigna el tecnico al incidente  
     public void setTecnico(TecnicoEntity tec) {
         this.tecnico = tec;
     }

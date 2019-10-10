@@ -21,6 +21,21 @@ import javax.inject.Inject;
 public class IncidenteLogic {
     @Inject
     private IncidentePersistence persistence;
+    
+    /**
+     * Crea un incidente en la base de datos
+     * @param incidente Objeto de IncidenteEntity con los datos nuevos
+     * @return Objeto de IncidenteEntity con los datos nuevos y su ID.
+     * @throws BusinessLogicException si la descripcion es null
+     *                                si el equipo es null
+     *                                si la prioridad es null
+     *                                si la prioridad es null
+     *                                si la fecha de inicio es null
+     *                                si la fecha final es null
+     *                                si la categoria es null
+     *                                si solucionado es false
+     *                                si reabierto es false
+     */
     public IncidenteEntity createIncidente(IncidenteEntity incidente) throws BusinessLogicException
     {
         if(incidente.getDescripcion()==null)
@@ -73,28 +88,53 @@ public class IncidenteLogic {
         incidente = persistence.create(incidente);
         return incidente;
     }
-    
+    /**
+     * Obtiene la lista de los registros de Incidente.
+     *
+     * @return Colección de objetos de IncidenteEntity.
+     */
     public List<IncidenteEntity> getIncidentes() {
         List<IncidenteEntity> lista = persistence.findAll();
         return lista;
     }
 
-    
+    /**
+     * Obtiene los datos de una instancia de Incidente a partir de su ID.
+     *
+     * @param incidenteId Identificador de la instancia a consultar
+     * @return Instancia de IncidenteEntity con los datos del Incidente consultado.
+     */
     public IncidenteEntity getIncidente(Long incidenteId) {
         IncidenteEntity incidenteEntity = persistence.find(incidenteId);
         return incidenteEntity;
     }
 
-    
+    /**
+     * Actualiza la información de una instancia de Incidente.
+     *
+     * @param incidenteId Identificador de la instancia a actualizar
+     * @param incidenteEntity Instancia de IncidenteEntity con los nuevos datos.
+     * @return Instancia de IncidenteEntity con los datos actualizados.
+     */
     public IncidenteEntity updateIncidente(Long incidenteId, IncidenteEntity incidenteEntity) {
         IncidenteEntity newIncidenteEntity = persistence.update(incidenteEntity);
         return newIncidenteEntity;
     }
 
-    
+    /**
+     * Elimina una instancia de Incidente de la base de datos.
+     *
+     * @param incidenteId Identificador de la instancia a eliminar.
+     */
     public void deleteIncidente(Long incidenteId){
         persistence.delete(incidenteId);
         }
+    /**
+     * Método que cierra un incidente
+     * @param incidente Incidente que se quiere cerrar
+     * @throws BusinessLogicException  Si el Incidente no existe 
+     *                                 Si el incidente ya se cerró
+     */
     public void cerrarIncidente(IncidenteEntity incidente) throws BusinessLogicException
     {
         if(incidente == null)
