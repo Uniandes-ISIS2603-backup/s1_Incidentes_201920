@@ -25,6 +25,8 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     private int incidenteASignado;
     private String especialidad;
     
+    private int numCasos;
+    
     @PodamExclude
     @ManyToOne
     private CoordinadorEntity coordinador;
@@ -51,20 +53,19 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     {
         especialidad = pEspecialidad;
     }
-
+    public int getNumCasos()
+    {
+        return numCasos;
+    }
+    
     /**
-     * @return the id
+     * 
+     * @param pEspecialidad 
      */
-    //public Long getId() {
-      //  return id;
-    //}
-
-    /**
-     * @param id the id to set
-     */
-    //public void setId(int id) {
-     //   this.id = id;
-    //}
+    public void setNumCasos(int pEspecialidad)
+    {
+        numCasos = pEspecialidad;
+    }
 
     /**
      * @return the incidenteASignado
