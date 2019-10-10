@@ -31,7 +31,6 @@ import javax.ws.rs.WebApplicationException;
  * @author c.alcala
  */
 
-@Path("actuacion")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -46,7 +45,7 @@ public class ActuacionResource {
     private IncidenteLogic incidenteLogic;
     
     @POST
-    public ActuacionDTO createActuacion(@PathParam("idIncidente") Long idIncidente, ActuacionDTO actuacion) throws BusinessLogicException {
+    public ActuacionDTO createActuacion(@PathParam("incidentesId") Long idIncidente, ActuacionDTO actuacion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ActuacionResource createActuacion: input: {0}", actuacion);
         ActuacionDTO newActuacionDTO = new ActuacionDTO(actuacionLogic.createActuacion(idIncidente, actuacion.toEntity()));
         LOGGER.log(Level.INFO, "ActuacionResource createActuacion: output:{0}", newActuacionDTO);
@@ -54,7 +53,7 @@ public class ActuacionResource {
     }
     
     @GET
-    public List<ActuacionDTO> getActuaciones(@PathParam("incidenteId") Long incidenteId) {
+    public List<ActuacionDTO> getActuaciones(@PathParam("incidentesId") Long incidenteId) {
         LOGGER.log(Level.INFO, "ActuacionResource getActuaciones: input: {0}", incidenteId);
         List<ActuacionDTO> actuaciones = listEntity2DTO(actuacionLogic.getActuaciones(incidenteId));
         LOGGER.log(Level.INFO, "ActuaciResource getActuaciones: output:{0}", actuaciones);
@@ -63,7 +62,7 @@ public class ActuacionResource {
     
     @GET
     @Path("{idActuacion: \\d+}")
-    public ActuacionDTO getActuacion(@PathParam("idIncidente") Long idIncidente, @PathParam("idActuacion") Long idActuacion) throws BusinessLogicException {
+    public ActuacionDTO getActuacion(@PathParam("incidentesId") Long idIncidente, @PathParam("idActuacion") Long idActuacion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ActuacionResource getAcuacion: input: {0}", idActuacion);
         ActuacionEntity entity = actuacionLogic.getActuacion(idIncidente, idActuacion);
         if (entity == null) {
@@ -76,14 +75,12 @@ public class ActuacionResource {
     
     @PUT
     @Path("{idActuacion: \\d+}")
-    public ActuacionDTO updateActuacion(@PathParam("idIncidente") Long idIncidente, @PathParam("idIncidente") Long idActuacion, ActuacionDTO actuacion) throws BusinessLogicException {
+    public ActuacionDTO updateActuacion(@PathParam("incidentesId") Long idIncidente, @PathParam("idActuacion") Long idActuacion, ActuacionDTO actuacion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ActuacionResource updateActuacion: input: idIncidente: {0}, idActuacion: {1}, review:{2}", new Object[]{idIncidente, idActuacion, actuacion});
-        if(idActuacion.equals(actuacion.getId())) {
-            throw new BusinessLogicException("Los ids de la actuacion no coinciden.");
-        }
+        actuacion.setId(idActuacion);
         ActuacionEntity entity = actuacionLogic.getActuacion(idIncidente, idActuacion);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /incidente/" + idIncidente + "/actuacion/" + idActuacion + " no existe.", 404);
+            throw new WebApplicationException("El recurso /incidentes/" + idIncidente + "/actuacion/" + idActuacion + " no existe.", 404);
         }
         ActuacionDTO actuacionDTO = new ActuacionDTO(actuacionLogic.updateActuacion(idIncidente, actuacion.toEntity()));
         LOGGER.log(Level.INFO, "ActuacionResource updateActuacion: output:{0}", actuacionDTO);
@@ -91,11 +88,11 @@ public class ActuacionResource {
     }
     
     @DELETE
-    @Path("{idActuaion: \\d+}")
-    public void deleteActuacion(@PathParam("idIncidente") Long idIncidente, @PathParam("idActuacion") Long idActuacion) throws BusinessLogicException {
+    @Path("{idActuacion: \\d+}")
+    public void deleteActuacion(@PathParam("incidentesId") Long idIncidente, @PathParam("idActuacion") Long idActuacion) throws BusinessLogicException {
         ActuacionEntity entity = actuacionLogic.getActuacion(idIncidente, idActuacion);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /incidente/" + idIncidente + "/actuacion/" + idActuacion + " no existe.", 404);
+            throw new WebApplicationException("El recurso /incidentes/" + idIncidente + "/actuacion/" + idActuacion + " no existe.", 404);
         }
         actuacionLogic.deleteActuacion(idIncidente, idActuacion);
     }
