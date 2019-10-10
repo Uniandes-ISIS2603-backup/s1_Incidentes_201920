@@ -24,7 +24,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Estudiante Diana Alejandra Silva Alvarez
  */
 @Entity
-public class TecnicoEntity extends BaseEntity implements Serializable {
+public class TecnicoEntity extends UserEntity implements Serializable {
    // private long id;
     private int incidenteASignado;
     private String especialidad;
@@ -39,11 +39,6 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
     
 
-    public TecnicoEntity()
-    {
-        
-    }
-    
     public String getEspecialidad()
     {
         return especialidad;
