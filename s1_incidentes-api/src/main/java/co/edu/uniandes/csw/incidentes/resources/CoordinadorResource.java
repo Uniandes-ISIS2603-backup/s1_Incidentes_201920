@@ -192,7 +192,7 @@ public class CoordinadorResource {
 
     /**
      * Conexión con el servicio de tecnicos para un coordinador.
-     * {@link CoordinadorTecnicoResource}
+     * {@link CoordinadorTecnicosResource}
      *
      * Este método conecta la ruta de /coordinador con las rutas de /tecnicos
      * que dependen del coordinador, es una redirección al servicio que maneja
@@ -205,11 +205,11 @@ public class CoordinadorResource {
      * Error de lógica que se genera cuando no se encuentra el coordinador.
      */
     @Path("{coordinadorId: \\d+}/tecnicos")
-    public Class<CoordinadorTecnicoResource> getCoordinadorTecnicoResource(@PathParam("coordinadorId") Long coordinadorId) {
+    public Class<CoordinadorTecnicosResource> getCoordinadorTecnicoResource(@PathParam("coordinadorId") Long coordinadorId) {
         if (coordinadorLogic.getCoordinador(coordinadorId) == null) {
             throw new WebApplicationException("El recurso /coordinador/" + coordinadorId + " no existe.", 404);
         }
-        return CoordinadorTecnicoResource.class;
+        return CoordinadorTecnicosResource.class;
     }
 
 }
