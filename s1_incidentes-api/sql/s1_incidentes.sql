@@ -1,2 +1,2 @@
-delete from  CoordinadorEntity
+delete from  CoordinadorEntity;
 delete from IncidenteEntity;
