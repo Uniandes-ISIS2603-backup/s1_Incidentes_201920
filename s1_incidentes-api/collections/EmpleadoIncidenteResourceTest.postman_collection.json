@@ -1,0 +1,580 @@
+{
+	"info": {
+		"_postman_id": "feb7e426-21b8-47b5-acca-61ba96049c2a",
+		"name": "EmpleadoIncidenteResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear empleado Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2ab2d1d-3e13-4472-8a2a-4708ad949ec5",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c1\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"clave\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear empleado 2 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2ab2d1d-3e13-4472-8a2a-4708ad949ec5",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c2\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Juan\",\n\t\"username\" : \"Juan\",\n\t\"password\" : \"clave\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear incidente Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8b44e88-4199-4724-a468-3a0f744e26c2",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_i1\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "xoxp-767593931670-767593933510-752612757074-ca80b98ce13c93017d5943c7bd635a7c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descripcion\" : \"incidente 1\",\n\t\"fechaHoraInicio\" : \"2018-10-01T10:36:47.782Z\",\n\t\"fechaHoraFinal\" : \"2018-10-01T10:36:47.782Z\",\n\t\"tipo\" : \"clave\",\n\t\"equipo\" : \"HARDWARE\",\n\t\"prioridad\" : \"ALTA\",\n\t\"reabrir\" : \"true\",\n\t\"solucionado\" : \"true\",\n\t\"categoria\": \"HARDWARE\",\n\t\"observaciones\": \"No\",\n\t\"calificacion\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes"
+					]
+				},
+				"description": "Crea un incidente"
+			},
+			"response": []
+		},
+		{
+			"name": "crear incidente 2 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8b44e88-4199-4724-a468-3a0f744e26c2",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_i2\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "xoxp-767593931670-767593933510-752612757074-ca80b98ce13c93017d5943c7bd635a7c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descripcion\" : \"incidente 2\",\n\t\"fechaHoraInicio\" : \"2018-10-01T10:36:47.782Z\",\n\t\"fechaHoraFinal\" : \"2018-10-01T10:36:47.782Z\",\n\t\"tipo\" : \"clave\",\n\t\"equipo\" : \"HARDWARE\",\n\t\"prioridad\" : \"BAJA\",\n\t\"reabrir\" : \"true\",\n\t\"solucionado\" : \"true\",\n\t\"categoria\": \"HARDWARE\",\n\t\"observaciones\": \"No\",\n\t\"calificacion\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes"
+					]
+				},
+				"description": "Crea un incidente"
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar incidente a un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9361f49-051d-4f27-b2a2-575cdd4acc84",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c1}}/incidentes/{{new_id_i1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c1}}",
+						"incidentes",
+						"{{new_id_i1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar incidente a un empleado inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfc8e796-ff2d-4395-9560-3d270a583294",
+						"exec": [
+							"tests[\"No agrega un book con un id de un author que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/-1/incidentes/{{new_id_i1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"-1",
+						"incidentes",
+						"{{new_id_i1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un incidente inexistente a un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b33cd0-fc4f-4441-bb75-12fb6437bcd2",
+						"exec": [
+							"tests[\"No agrega un book con un id de un author que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c1}}/incidentes/-1",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c1}}",
+						"incidentes",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los empleados Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9416b9ce-a2bc-44be-a2cb-fc070ba7c24f",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Incidentes Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes"
+					]
+				},
+				"description": "Se revisa que el incidente tenga un coordinador asignado."
+			},
+			"response": []
+		},
+		{
+			"name": "Ver los incidentes de un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06826214-82c1-4787-a75a-7372b84ce7d2",
+						"exec": [
+							"tests[\"Se ven todos los incidentes\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c1}}/incidentes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c1}}",
+						"incidentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un empleado Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59775b18-4032-4817-aed8-fdc8b4c071f3",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
