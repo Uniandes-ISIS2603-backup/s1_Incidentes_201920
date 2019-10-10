@@ -1,0 +1,598 @@
+{
+	"info": {
+		"_postman_id": "cc8bfd1d-93c1-406e-9247-9035426dfc73",
+		"name": "EmpleadoResourceTest",
+		"description": "Empleado Resource Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2ab2d1d-3e13-4472-8a2a-4708ad949ec5",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c1\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"clave\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear empleado 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2ab2d1d-3e13-4472-8a2a-4708ad949ec5",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c2\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Juan\",\n\t\"username\" : \"Juan\",\n\t\"password\" : \"clave\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear empleado existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b5893eb-8cd7-425e-8c73-896ff65d583c",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un ususario con ese nombre.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"clave\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear empleado sin clave",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5cd08985-16b2-4c0a-b3ea-73af64a96b4f",
+						"exec": [
+							"tests[\"No cumple reglas de negocio\"] = responseCode.code == 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Pablito\",\n\t\"username\" : \"no hay clave :c\",\n\t\"password\" : \"\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear empleado usuario vacio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7229753-c73a-4165-b3d7-7901f758b397",
+						"exec": [
+							"tests[\"No cumple reglas de negocio\"] = responseCode.code == 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Pablito\",\n\t\"username\" : \"\",\n\t\"password\" : \"no va a funcionar jeje\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear empleado numIncidentes negativo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "493b64e1-c2b6-436a-b588-03c29bc7c2ba",
+						"exec": [
+							"tests[\"No cumple reglas de negocio\"] = responseCode.code == 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Pablito\",\n\t\"username\" : \"Pablito\",\n\t\"password\" : \"no va a funcionar jeje\",\n\t\"numIncidentes\":-1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los empleados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9416b9ce-a2bc-44be-a2cb-fc070ba7c24f",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e947ec4-fd59-4ec9-a021-14d2e43e6f18",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener empleado inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c3d5467-a483-4660-86c1-8d0fcb3a95a8",
+						"exec": [
+							"tests[\"Debería generara error 404 \"] = responseCode.code == 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/-1",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f568db9b-2899-4ae3-8698-0f2230a94f4e",
+						"exec": [
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"nueva clave\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar empleado inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa9de618-11da-4f72-a953-7915e6992403",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"nueva clave\",\n\t\"numIncidentes\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/-1",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59775b18-4032-4817-aed8-fdc8b4c071f3",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar empleado inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "efc69a36-8c0a-449f-a4c8-e9989ddc00c2",
+						"exec": [
+							"tests[\"Debería generara error 404 \"] = responseCode.code == 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/-1",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
