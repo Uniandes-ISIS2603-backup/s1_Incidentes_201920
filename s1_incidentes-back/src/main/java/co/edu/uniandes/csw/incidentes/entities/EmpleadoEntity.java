@@ -6,7 +6,12 @@
 package co.edu.uniandes.csw.incidentes.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -14,11 +19,12 @@ import javax.persistence.Entity;
  */
 
 @Entity
-public class EmpleadoEntity extends BaseEntity implements Serializable  {
+public class EmpleadoEntity extends User2Entity implements Serializable  {
     private String nombre;
-    private String tipo;
-    private Boolean incidenteAbierto;
     private Integer numIncidentes;
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado",fetch=FetchType.LAZY)
+    private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
 
     /**
      * @return the nombre
@@ -35,34 +41,6 @@ public class EmpleadoEntity extends BaseEntity implements Serializable  {
     }
 
     /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    /**
-     * @return the incidenteAbierto
-     */
-    public Boolean getIncidenteAbierto() {
-        return incidenteAbierto;
-    }
-
-    /**
-     * @param incidenteAbierto the incidenteAbierto to set
-     */
-    public void setIncidenteAbierto(Boolean incidenteAbierto) {
-        this.incidenteAbierto = incidenteAbierto;
-    }
-
-    /**
      * @return the numIncidentes
      */
     public Integer getNumIncidentes() {
@@ -74,5 +52,19 @@ public class EmpleadoEntity extends BaseEntity implements Serializable  {
      */
     public void setNumIncidentes(Integer numIncidentes) {
         this.numIncidentes = numIncidentes;
+    }
+
+    /**
+     * @return the incidentes
+     */
+    public List<IncidenteEntity> getIncidentes() {
+        return incidentes;
+    }
+
+    /**
+     * @param incidentes the incidentes to set
+     */
+    public void setIncidentes(List<IncidenteEntity> incidentes) {
+        this.incidentes = incidentes;
     }
 }

@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.incidentes.test.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.ActuacionEntity;
+import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.persistence.ActuacionPersistence;
+import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -42,11 +44,13 @@ public class ActuacionPersistenceTest {
 
     private List<ActuacionEntity> data = new ArrayList<>();
     
+    private List<IncidenteEntity> dataIncidentes  = new ArrayList<IncidenteEntity>();
+    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addClass(ActuacionEntity.class)
-                .addClass(ActuacionPersistence.class)
+                .addPackage(ActuacionEntity.class.getPackage())
+                .addPackage(ActuacionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -77,6 +81,7 @@ public class ActuacionPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from ActuacionEntity").executeUpdate();
+        em.createQuery("delete from IncidenteEntity").executeUpdate();
     }
    /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
@@ -85,8 +90,15 @@ public class ActuacionPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
+            IncidenteEntity entity = factory.manufacturePojo(IncidenteEntity.class);
+            em.persist(entity);
+            dataIncidentes.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
             ActuacionEntity entity = factory.manufacturePojo(ActuacionEntity.class);
-
+            if(i==0) {
+                entity.setIncidente(dataIncidentes.get(0));
+            }
             em.persist(entity);
             data.add(entity);
         }
@@ -101,25 +113,7 @@ public class ActuacionPersistenceTest {
         
         ActuacionEntity entity = em.find(ActuacionEntity.class, result.getId());
         Assert.assertEquals(actuacion.getDescripcion(), entity.getDescripcion());
-    }
-    
-    /**
-     * Prueba para consultar la lista de actuaciones.
-     */
-    @Test
-    public void findAllTest() {
-        List<ActuacionEntity> list = actuacionPersistence.findAll();
-        Assert.assertEquals(data.size(), list.size());
-        for (ActuacionEntity ent : list) {
-            boolean found = false;
-            for (ActuacionEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
-                    found = true;
-                    break;
-                }
-            }
-            Assert.assertTrue(found);
-        }
+        Assert.assertEquals(actuacion.getFechaHora(), entity.getFechaHora());
     }
     
     /**
@@ -128,7 +122,7 @@ public class ActuacionPersistenceTest {
     @Test
     public void findTest() {
         ActuacionEntity entity = data.get(0);
-        ActuacionEntity newEntity = actuacionPersistence.find(entity.getId());
+        ActuacionEntity newEntity = actuacionPersistence.find(dataIncidentes.get(0).getId(),entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
         Assert.assertEquals(entity.getFechaHora(), newEntity.getFechaHora());

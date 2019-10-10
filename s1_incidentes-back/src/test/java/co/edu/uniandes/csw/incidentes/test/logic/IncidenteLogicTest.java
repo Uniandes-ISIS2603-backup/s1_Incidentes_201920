@@ -96,7 +96,7 @@ public class IncidenteLogicTest {
         IncidenteEntity entity = em.find(IncidenteEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
-        Assert.assertEquals(newEntity.getFecha(), entity.getFecha());
+        Assert.assertEquals(newEntity.getFechaHoraInicio(), entity.getFechaHoraInicio());
     }
 
     @Test (expected = BusinessLogicException.class)
@@ -120,15 +120,34 @@ public class IncidenteLogicTest {
     @Test (expected = BusinessLogicException.class)
     public void createIncidenteFechaNull()throws BusinessLogicException{
         IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
-        newEntity.setFecha(null);
+        newEntity.setFechaHoraInicio(null);
         IncidenteEntity resultado= iL.createIncidente(newEntity);
     }
     @Test (expected = BusinessLogicException.class)
     public void createIncidenteTipoNull()throws BusinessLogicException{
         IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
-        newEntity.setTipo(null);
+        newEntity.setCategoria(null);
         IncidenteEntity resultado= iL.createIncidente(newEntity);
     }
+    @Test (expected = BusinessLogicException.class)
+    public void createIncidenteObservacionesNull()throws BusinessLogicException{
+        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+        newEntity.setObservaciones(null);
+        IncidenteEntity resultado= iL.createIncidente(newEntity);
+    }
+    @Test (expected = BusinessLogicException.class)
+    public void createIncidenteCalificacionNull()throws BusinessLogicException{
+        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+        newEntity.setCalificacion(null);
+        IncidenteEntity resultado= iL.createIncidente(newEntity);
+    }
+    @Test (expected = BusinessLogicException.class)
+    public void createIncidenteFechaHoraFinalNull()throws BusinessLogicException{
+        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+        newEntity.setFechaHoraFinal(null);
+        IncidenteEntity resultado= iL.createIncidente(newEntity);
+    }
+    
     @Test (expected = BusinessLogicException.class)
     public void createIncidenteSolucionadoTrue()throws BusinessLogicException{
         IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
@@ -164,7 +183,7 @@ public class IncidenteLogicTest {
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
-        Assert.assertEquals(entity.getFecha(), resultEntity.getFecha());
+        Assert.assertEquals(entity.getFechaHoraInicio(), resultEntity.getFechaHoraInicio());
     }
 
     
@@ -181,12 +200,12 @@ public class IncidenteLogicTest {
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
-        Assert.assertEquals(pojoEntity.getFecha(), resp.getFecha());
+        Assert.assertEquals(pojoEntity.getFechaHoraInicio(), resp.getFechaHoraInicio());
     }
 
     
     @Test
-    public void deleteAuthorTest() throws BusinessLogicException {
+    public void deleteIncidenteTest() throws BusinessLogicException {
         IncidenteEntity entity = data.get(0);
         iL.deleteIncidente(entity.getId());
         IncidenteEntity deleted = em.find(IncidenteEntity.class, entity.getId());
@@ -197,6 +216,7 @@ public class IncidenteLogicTest {
     public void cerrarIncidente()throws BusinessLogicException{
         IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
         IncidenteEntity result = iL.createIncidente(newEntity);
+        result.setSolucionado(Boolean.FALSE);
         iL.cerrarIncidente(result);
         Assert.assertTrue(result.getSolucionado());
     }

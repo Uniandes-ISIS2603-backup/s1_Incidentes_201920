@@ -11,8 +11,12 @@
  */
 package co.edu.uniandes.csw.incidentes.entities;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -30,6 +34,9 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private CoordinadorEntity coordinador;
+    @PodamExclude
+    @OneToMany(mappedBy = "tecnico",fetch=FetchType.LAZY)
+    private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
     
     public TecnicoEntity()
     {
@@ -37,10 +44,7 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     }
     
     
-    public int getIncidenteAsignado()
-    {
-        return getIncidenteASignado();
-    }
+
     
     public String getEspecialidad()
     {

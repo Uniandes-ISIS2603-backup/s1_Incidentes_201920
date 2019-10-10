@@ -50,11 +50,12 @@ public class CoordinadorLogicTest {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CoordinadorEntity.class.getPackage())
                 .addPackage(CoordinadorLogic.class.getPackage())
+                
+                
                 .addPackage(CoordinadorPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-
 
     @Before
     public void configTest() {
@@ -94,12 +95,35 @@ public class CoordinadorLogicTest {
         CoordinadorEntity entity = em.find(CoordinadorEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getName(), entity.getName());
+        Assert.assertEquals(newEntity.getUsername(), entity.getUsername());
+        Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
     }
 
     @Test (expected = BusinessLogicException.class)
     public void createCoordinadorNameNull()throws BusinessLogicException{
         CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setName(null);
+        CoordinadorEntity resultado= cl.createCoordinador(newEntity);
+    }
+    
+    @Test (expected = BusinessLogicException.class)
+    public void createCoordinadorUsernameNull()throws BusinessLogicException{
+        CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
+        newEntity.setUsername(null);
+        CoordinadorEntity resultado= cl.createCoordinador(newEntity);
+    }
+    
+    @Test (expected = BusinessLogicException.class)
+    public void createCoordinadorPasswordNull()throws BusinessLogicException{
+        CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
+        newEntity.setPassword(null);
+        CoordinadorEntity resultado= cl.createCoordinador(newEntity);
+    }
+ 
+    @Test (expected = BusinessLogicException.class)
+    public void createCoordinadorConMismoNombre()throws BusinessLogicException{
+        CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
+        newEntity.setUsername(data.get(0).getUsername());
         CoordinadorEntity resultado= cl.createCoordinador(newEntity);
     }
     
@@ -141,7 +165,6 @@ public class CoordinadorLogicTest {
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
-
     
     @Test
     public void deleteCoordinadorTest() throws BusinessLogicException {

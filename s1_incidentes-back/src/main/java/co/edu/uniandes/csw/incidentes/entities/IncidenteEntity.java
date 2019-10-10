@@ -7,54 +7,124 @@ package co.edu.uniandes.csw.incidentes.entities;
 
 import co.edu.uniandes.csw.incidentes.podam.DateStrategy;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
  * @author df.foreroc
  */
-@Entity 
+@Entity
 public class IncidenteEntity extends BaseEntity implements Serializable {
-    private String tipo;
+
+    @PodamExclude
+    @ManyToOne
+    private CoordinadorEntity coordinador;
+     @PodamExclude
+    @ManyToOne
+    private TecnicoEntity tecnico;
+    @PodamExclude
+    @ManyToOne
+    private EmpleadoEntity empleado;
+    
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
-    private Date fecha;
+    private Date fechaHoraInicio;
+    @Temporal(TemporalType.DATE)
+    @PodamStrategyValue(DateStrategy.class)
+    private Date fechaHoraFinal;
     private String descripcion;
-    private String equipo;
+    private String observaciones;
+    private Integer calificacion;
+    private String categoria;
     private String prioridad;
     private Boolean solucionado;
     private Boolean reabrir;
+    private String equipo;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "incidente",fetch=FetchType.LAZY)
+    private List<ActuacionEntity> actuaciones = new ArrayList<ActuacionEntity>();
 
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
+
+    public IncidenteEntity() {
+    }
+    
+    public List<ActuacionEntity> getActuaciones() {
+        return actuaciones;
+    }
+
+    public void setActuaciones(List<ActuacionEntity> actu) {
+        this.actuaciones = actu;
+    }
+    public void addActuacion(ActuacionEntity actu) {
+        this.actuaciones.add(actu);
+    }
+    public CoordinadorEntity getCoordinador() {
+        return coordinador;
+    }
+
+    public void setCoordinador(CoordinadorEntity coordinador) {
+        this.coordinador = coordinador;
+    }
+     
+    public TecnicoEntity getTecnico() {
+        return tecnico;
+    }
+
+    public void setTecnico(TecnicoEntity tec) {
+        this.tecnico = tec;
     }
 
     /**
-     * @param tipo the tipo to set
+     * @return the empleado
      */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
     }
 
     /**
-     * @return the fecha
+     * @param empleado the empleado to set
      */
-    public Date getFecha() {
-        return fecha;
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
     }
 
     /**
-     * @param fecha the fecha to set
+     * @return the fechaHoraInicio
      */
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public Date getFechaHoraInicio() {
+        return fechaHoraInicio;
+    }
+
+    /**
+     * @param fechaHoraInicio the fechaHoraInicio to set
+     */
+    public void setFechaHoraInicio(Date fechaHoraInicio) {
+        this.fechaHoraInicio = fechaHoraInicio;
+    }
+
+    /**
+     * @return the fechaHoraFinal
+     */
+    public Date getFechaHoraFinal() {
+        return fechaHoraFinal;
+    }
+
+    /**
+     * @param fechaHoraFinal the fechaHoraFinal to set
+     */
+    public void setFechaHoraFinal(Date fechaHoraFinal) {
+        this.fechaHoraFinal = fechaHoraFinal;
     }
 
     /**
@@ -72,17 +142,45 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @return the equipo
+     * @return the observaciones
      */
-    public String getEquipo() {
-        return equipo;
+    public String getObservaciones() {
+        return observaciones;
     }
 
     /**
-     * @param equipo the equipo to set
+     * @param observaciones the observaciones to set
      */
-    public void setEquipo(String equipo) {
-        this.equipo = equipo;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    /**
+     * @return the calificacion
+     */
+    public Integer getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * @param calificacion the calificacion to set
+     */
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    /**
+     * @return the categoria
+     */
+    public String getCategoria() {
+        return categoria;
+    }
+
+    /**
+     * @param categoria the categoria to set
+     */
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     /**
@@ -126,5 +224,18 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public void setReabrir(Boolean reabrir) {
         this.reabrir = reabrir;
     }
-    
+
+    /**
+     * @return the equipo
+     */
+    public String getEquipo() {
+        return equipo;
+    }
+
+    /**
+     * @param equipo the equipo to set
+     */
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }
 }

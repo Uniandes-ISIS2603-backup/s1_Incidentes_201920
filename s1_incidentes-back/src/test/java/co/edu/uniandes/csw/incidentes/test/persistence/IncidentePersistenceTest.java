@@ -6,8 +6,16 @@
 package co.edu.uniandes.csw.incidentes.test.persistence;
 
 
+import co.edu.uniandes.csw.incidentes.entities.ActuacionEntity;
+import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
+import co.edu.uniandes.csw.incidentes.entities.EmpleadoEntity;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
+import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
+import co.edu.uniandes.csw.incidentes.persistence.ActuacionPersistence;
+import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
+import co.edu.uniandes.csw.incidentes.persistence.EmpleadoPersistence;
 import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
+import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +27,14 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 
 
+
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -41,10 +51,19 @@ public class IncidentePersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-              .addClass(IncidenteEntity.class)
-              .addClass(IncidentePersistence.class)
+              .addPackage(IncidenteEntity.class.getPackage())
+              .addPackage(IncidentePersistence.class.getPackage())
+              .addPackage(TecnicoPersistence.class.getPackage())
+              .addPackage(CoordinadorPersistence.class.getPackage())
+              .addPackage(EmpleadoPersistence.class.getPackage())
+              .addPackage(ActuacionPersistence.class.getPackage())
+                .addPackage(TecnicoEntity.class.getPackage())
+              .addPackage(CoordinadorEntity.class.getPackage())
+              .addPackage(EmpleadoEntity.class.getPackage())
+              .addPackage(ActuacionEntity.class.getPackage())
               .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
               .addAsManifestResource("META-INF/beans.xml", "beans.xml" );
+        
     }
    @Inject
    IncidentePersistence ip;
@@ -118,7 +137,7 @@ public class IncidentePersistenceTest {
         IncidenteEntity newEntity = ip.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
-        Assert.assertEquals(entity.getFecha(), newEntity.getFecha());
+        Assert.assertEquals(entity.getFechaHoraInicio(), newEntity.getFechaHoraInicio());
     }
 
     @Test

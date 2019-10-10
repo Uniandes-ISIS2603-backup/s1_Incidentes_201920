@@ -24,7 +24,6 @@ public class UserDTO implements Serializable{
 
     public UserDTO() {
     }
-
     
     public UserDTO(UserEntity userEntity) {
         if (userEntity != null) {

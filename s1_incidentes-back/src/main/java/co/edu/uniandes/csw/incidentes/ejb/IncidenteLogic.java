@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.incidentes.ejb;
 
+import co.edu.uniandes.csw.incidentes.entities.ActuacionEntity;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
@@ -34,13 +35,13 @@ public class IncidenteLogic {
         {
             throw new BusinessLogicException("La prioridad del incidente es nula");
         }
-        if(incidente.getFecha()==null)
+        if(incidente.getFechaHoraInicio()==null)
         {
             throw new BusinessLogicException("La fecha del incidente es nula");
         }
-        if(incidente.getTipo()==null)
+        if(incidente.getCategoria()==null)
         {
-            throw new BusinessLogicException("El tipo del incidente es nula");
+            throw new BusinessLogicException("La categoria del incidente es nula");
         }
         if(!incidente.getReabrir())
         {
@@ -50,6 +51,32 @@ public class IncidenteLogic {
         {
             throw new BusinessLogicException("El incidente aun no se puede solucionar");
         }
+        if(incidente.getObservaciones()==null)
+        {
+            throw new BusinessLogicException("La observacion del incidente es nula");
+        }
+        if(incidente.getCalificacion()==null)
+        {
+            throw new BusinessLogicException("La calificacion del incidente es nula");
+        }
+        if(incidente.getFechaHoraFinal()==null)
+        {
+            throw new BusinessLogicException("La hora final es nula");
+        }
+        /**
+        if(!(incidente.getCoordinador().getClass().getName().equals("CoordinadorEntity")) && incidente.getCoordinador()!=null)
+        {
+            throw new BusinessLogicException("El coordinador no es correcto");
+        }
+        if(!(incidente.getEmpleado().getClass().getName().equals("EmpleadoEntity")) && incidente.getEmpleado()!=null)
+        {
+            throw new BusinessLogicException("El empleado es incorrecto");
+        }
+        if(!(incidente.getTecnico().getClass().getName().equals("TecnicoEntity")) && incidente.getTecnico()!=null)
+        {
+            throw new BusinessLogicException("El tecnico es incorrecto");
+        }
+        */
         incidente = persistence.create(incidente);
         return incidente;
     }

@@ -47,4 +47,19 @@ public class EmpleadoPersistence {
         em.remove(inciEntity);
     }
     
+    public EmpleadoEntity findByUsername(String nombre){
+        EmpleadoEntity respuesta;
+        TypedQuery<EmpleadoEntity> query= em.createQuery("select e from EmpleadoEntity e where e.username =:name", EmpleadoEntity.class);
+        query = query.setParameter("name", nombre);
+        List<EmpleadoEntity> lista = query.getResultList();
+        if(lista == null){
+            respuesta = null;
+        } else if(lista.isEmpty()){
+            respuesta= null;
+        } else {
+            respuesta = lista.get(0);
+        }
+        return respuesta; 
+    }
+    
 }

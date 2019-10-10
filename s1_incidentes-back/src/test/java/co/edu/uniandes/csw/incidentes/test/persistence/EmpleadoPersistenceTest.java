@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.incidentes.test.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.EmpleadoEntity;
+import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.persistence.EmpleadoPersistence;
+import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -41,7 +43,9 @@ public class EmpleadoPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment(){
         return ShrinkWrap.create(JavaArchive.class).addClass(EmpleadoEntity.class)
-                .addClass(EmpleadoPersistence.class)
+                .addPackage(EmpleadoPersistence.class.getPackage())
+                .addPackage(IncidenteEntity.class.getPackage())
+                .addPackage(IncidentePersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml","persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml");
                 
@@ -96,6 +100,9 @@ public class EmpleadoPersistenceTest {
         
         EmpleadoEntity entity = em.find(EmpleadoEntity.class, result.getId());
         Assert.assertEquals(ee.getNombre(), entity.getNombre());
+        Assert.assertEquals(ee.getNumIncidentes(), entity.getNumIncidentes());
+        Assert.assertEquals(ee.getPassword(), entity.getPassword());
+        Assert.assertEquals(ee.getUsername(), entity.getUsername());
     }
     
     @Test
@@ -119,9 +126,9 @@ public class EmpleadoPersistenceTest {
         EmpleadoEntity newEntity = ep.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
-        Assert.assertEquals(entity.getTipo(), newEntity.getTipo());
-        Assert.assertEquals(entity.getIncidenteAbierto(), newEntity.getIncidenteAbierto());
         Assert.assertEquals(entity.getNumIncidentes(), newEntity.getNumIncidentes());
+        Assert.assertEquals(entity.getPassword(), newEntity.getPassword());
+        Assert.assertEquals(entity.getUsername(), newEntity.getUsername());
     }
     
     
@@ -136,8 +143,10 @@ public class EmpleadoPersistenceTest {
         ep.update(newEntity);
         
         EmpleadoEntity resp = em.find(EmpleadoEntity.class,entity.getId());
-        
-        Assert.assertEquals(newEntity.getNombre(),resp.getNombre());
+        Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
+        Assert.assertEquals(newEntity.getNumIncidentes(), resp.getNumIncidentes());
+        Assert.assertEquals(newEntity.getPassword(), resp.getPassword());
+        Assert.assertEquals(newEntity.getUsername(), resp.getUsername());
     }
     
     @Test
@@ -146,5 +155,16 @@ public class EmpleadoPersistenceTest {
         ep.delete(entity.getId());
         EmpleadoEntity deleted = em.find(EmpleadoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+    @Test
+    public void getCoordinadorByUsernameTest() {
+        EmpleadoEntity entity = data.get(0);
+        EmpleadoEntity newEntity = ep.findByUsername(entity.getUsername());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getNumIncidentes(), entity.getNumIncidentes());
+        Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
+        Assert.assertEquals(newEntity.getUsername(), entity.getUsername());
     }
 }
