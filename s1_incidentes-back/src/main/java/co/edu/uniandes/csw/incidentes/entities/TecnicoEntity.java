@@ -38,21 +38,17 @@ public class TecnicoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "tecnico",fetch=FetchType.LAZY)
     private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
     
+
     public TecnicoEntity()
     {
         
     }
     
-    
-
-    
     public String getEspecialidad()
     {
         return especialidad;
     }
-    
-    
-    
+
     public void setEspecialidad (String pEspecialidad)
     {
         especialidad = pEspecialidad;

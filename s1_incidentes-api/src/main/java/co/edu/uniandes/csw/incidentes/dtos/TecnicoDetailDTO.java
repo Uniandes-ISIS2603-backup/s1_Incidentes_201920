@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Estudiante
+ * @author da.silvaa
  */
 public class TecnicoDetailDTO extends TecnicoDTO implements Serializable {
     public TecnicoDetailDTO() {

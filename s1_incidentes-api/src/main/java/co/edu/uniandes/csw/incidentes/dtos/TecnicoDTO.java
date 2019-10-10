@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Estudiante
+ * @author da.silvaa
  */
 public class TecnicoDTO implements Serializable{
        
