@@ -3,6 +3,12 @@
   <persistence-unit name="incidentesPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <!--Toca entity por entity, exclude-unlisted-clases = false no funciona-->
+    <class>co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity</class>
+    <class>co.edu.uniandes.csw.incidentes.entities.IncidenteEntity</class>
+    <class>co.edu.uniandes.csw.incidentes.entities.ActuacionEntity</class>
+    <class>co.edu.uniandes.csw.incidentes.entities.EmpleadoEntity</class>
+    <class>co.edu.uniandes.csw.incidentes.entities.TecnicoEntity</class>
+    <class>co.edu.uniandes.csw.incidentes.entities.UserEntity</class>
     
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
  <shared-cache-mode>NONE</shared-cache-mode>
