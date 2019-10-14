@@ -5,17 +5,8 @@
  */
 package co.edu.uniandes.csw.incidentes.test.persistence;
 
-
-import co.edu.uniandes.csw.incidentes.entities.ActuacionEntity;
-import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
-import co.edu.uniandes.csw.incidentes.entities.EmpleadoEntity;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
-import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
-import co.edu.uniandes.csw.incidentes.persistence.ActuacionPersistence;
-import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
-import co.edu.uniandes.csw.incidentes.persistence.EmpleadoPersistence;
 import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
-import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +16,6 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-
-
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -38,16 +27,16 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
-
-
 /**
  *
  * @author df.foreroc
  */
 @RunWith(Arquillian.class)
 public class IncidentePersistenceTest {
+
     @PersistenceContext
     private EntityManager em;
+
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -56,31 +45,24 @@ public class IncidentePersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-              .addPackage(IncidenteEntity.class.getPackage())
-              .addPackage(IncidentePersistence.class.getPackage())
-              .addPackage(TecnicoPersistence.class.getPackage())
-              .addPackage(CoordinadorPersistence.class.getPackage())
-              .addPackage(EmpleadoPersistence.class.getPackage())
-              .addPackage(ActuacionPersistence.class.getPackage())
-                .addPackage(TecnicoEntity.class.getPackage())
-              .addPackage(CoordinadorEntity.class.getPackage())
-              .addPackage(EmpleadoEntity.class.getPackage())
-              .addPackage(ActuacionEntity.class.getPackage())
-              .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-              .addAsManifestResource("META-INF/beans.xml", "beans.xml" );
-        
+                .addPackage(IncidenteEntity.class.getPackage())
+                .addPackage(IncidentePersistence.class.getPackage())
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+
     }
-   @Inject
-   IncidentePersistence ip;
-   
-   @Inject
+    @Inject
+    IncidentePersistence ip;
+
+    @Inject
     UserTransaction utx;
 
     private List<IncidenteEntity> data = new ArrayList<>();
+
     /**
      * Configuración inicial de la prueba.
      */
-   @Before
+    @Before
     public void configTest() {
         try {
             utx.begin();
@@ -97,12 +79,14 @@ public class IncidentePersistenceTest {
             }
         }
     }
-     /**
+
+    /**
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
         em.createQuery("delete from IncidenteEntity").executeUpdate();
     }
+
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
@@ -116,25 +100,36 @@ public class IncidentePersistenceTest {
             data.add(entity);
         }
     }
-   /**
+
+    /**
      * Prueba para crear un Incidente.
-     */ 
-   @Test
-   public void createTest()
-   {
-       PodamFactory factory = new PodamFactoryImpl();
-       IncidenteEntity incidente =factory.manufacturePojo(IncidenteEntity.class);
-       IncidenteEntity result = ip.create(incidente);
-       Assert.assertNotNull(result);
-       IncidenteEntity entity = em.find(IncidenteEntity.class, result.getId());
+     */
+    @Test
+    public void createTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        IncidenteEntity incidente = factory.manufacturePojo(IncidenteEntity.class);
+        IncidenteEntity result = ip.create(incidente);
+        Assert.assertNotNull(result);
+        IncidenteEntity entity = em.find(IncidenteEntity.class, result.getId());
+
         Assert.assertEquals(incidente.getDescripcion(), entity.getDescripcion());
-        
-   }
-   /**
+        Assert.assertEquals(incidente.getCalificacion(), entity.getCalificacion());
+        Assert.assertEquals(incidente.getCategoria(), entity.getCategoria());
+        Assert.assertEquals(incidente.getEquipo(), entity.getEquipo());
+        Assert.assertEquals(incidente.getFechaHoraFinal(), entity.getFechaHoraFinal());
+        Assert.assertEquals(incidente.getFechaHoraInicio(), entity.getFechaHoraInicio());
+        Assert.assertEquals(incidente.getId(), entity.getId());
+        Assert.assertEquals(incidente.getObservaciones(), entity.getObservaciones());
+        Assert.assertEquals(incidente.getPrioridad(), entity.getPrioridad());
+        Assert.assertEquals(incidente.getReabrir(), entity.getReabrir());
+        Assert.assertEquals(incidente.getSolucionado(), entity.getSolucionado());
+    }
+
+    /**
      * Prueba para consultar la lista de incidentes.
      */
     @Test
-    public void getIncidnetesTest() {
+    public void getIncidentesTest() {
         List<IncidenteEntity> list = ip.findAll();
         Assert.assertEquals(data.size(), list.size());
         for (IncidenteEntity ent : list) {
@@ -147,6 +142,7 @@ public class IncidentePersistenceTest {
             Assert.assertTrue(found);
         }
     }
+
     /**
      * Prueba para consultar un Incidente.
      */
@@ -155,9 +151,19 @@ public class IncidentePersistenceTest {
         IncidenteEntity entity = data.get(0);
         IncidenteEntity newEntity = ip.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
-        Assert.assertEquals(entity.getFechaHoraInicio(), newEntity.getFechaHoraInicio());
+        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
+        Assert.assertEquals(newEntity.getCalificacion(), entity.getCalificacion());
+        Assert.assertEquals(newEntity.getCategoria(), entity.getCategoria());
+        Assert.assertEquals(newEntity.getEquipo(), entity.getEquipo());
+        Assert.assertEquals(newEntity.getFechaHoraFinal(), entity.getFechaHoraFinal());
+        Assert.assertEquals(newEntity.getFechaHoraInicio(), entity.getFechaHoraInicio());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getObservaciones(), entity.getObservaciones());
+        Assert.assertEquals(newEntity.getPrioridad(), entity.getPrioridad());
+        Assert.assertEquals(newEntity.getReabrir(), entity.getReabrir());
+        Assert.assertEquals(newEntity.getSolucionado(), entity.getSolucionado());
     }
+
     /**
      * Prueba para actualizar un Incidente.
      */
@@ -174,7 +180,18 @@ public class IncidentePersistenceTest {
         IncidenteEntity resp = em.find(IncidenteEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getDescripcion(), resp.getDescripcion());
+        Assert.assertEquals(newEntity.getCalificacion(), resp.getCalificacion());
+        Assert.assertEquals(newEntity.getCategoria(), resp.getCategoria());
+        Assert.assertEquals(newEntity.getEquipo(), resp.getEquipo());
+        Assert.assertEquals(newEntity.getFechaHoraFinal(), resp.getFechaHoraFinal());
+        Assert.assertEquals(newEntity.getFechaHoraInicio(), resp.getFechaHoraInicio());
+        Assert.assertEquals(newEntity.getId(), resp.getId());
+        Assert.assertEquals(newEntity.getObservaciones(), resp.getObservaciones());
+        Assert.assertEquals(newEntity.getPrioridad(), resp.getPrioridad());
+        Assert.assertEquals(newEntity.getReabrir(), resp.getReabrir());
+        Assert.assertEquals(newEntity.getSolucionado(), resp.getSolucionado());
     }
+
     /**
      * Prueba para eliminar un Incidente.
      */

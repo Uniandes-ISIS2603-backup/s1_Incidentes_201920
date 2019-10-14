@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.incidentes.test.logic;
 
 import co.edu.uniandes.csw.incidentes.ejb.IncidenteLogic;
+import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
@@ -32,19 +33,23 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class IncidenteLogicTest {
-     private PodamFactory factory = new PodamFactoryImpl();
-
+    
+    private PodamFactory factory = new PodamFactoryImpl();
+    
     @Inject
     private IncidenteLogic iL;
-
+    
     @PersistenceContext
     private EntityManager em;
-
+    
     @Inject
     private UserTransaction utx;
+    
+    private List<IncidenteEntity> data = new ArrayList<IncidenteEntity>();
+    
+    private List<CoordinadorEntity> coordinadorData = new ArrayList();
 
-    private List<IncidenteEntity> data = new ArrayList<>();
-     /**
+    /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
      * archivo beans.xml para resolver la inyección de dependencias.
@@ -78,21 +83,29 @@ public class IncidenteLogicTest {
             }
         }
     }
+
     /**
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
         em.createQuery("delete from IncidenteEntity").executeUpdate();
+        em.createQuery("delete from CoordinadorEntity").executeUpdate();
     }
+
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            IncidenteEntity entity = factory.manufacturePojo(IncidenteEntity.class);
+            CoordinadorEntity entity = factory.manufacturePojo(CoordinadorEntity.class);
             em.persist(entity);
-            entity.setDescripcion(new String());
+            coordinadorData.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
+            IncidenteEntity entity = factory.manufacturePojo(IncidenteEntity.class);
+            entity.setCoordinador(coordinadorData.get(0));
+            em.persist(entity);
             data.add(entity);
         }
         
@@ -102,8 +115,9 @@ public class IncidenteLogicTest {
      * Prueba para crear un Incidente.
      */
     @Test
-    public void createIncidenteTest() throws BusinessLogicException{
+    public void createIncidenteTest() throws BusinessLogicException {
         IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
+        newEntity.setCoordinador(coordinadorData.get(0));
         IncidenteEntity result = iL.createIncidente(newEntity);
         Assert.assertNotNull(result);
         IncidenteEntity entity = em.find(IncidenteEntity.class, result.getId());
@@ -114,84 +128,100 @@ public class IncidenteLogicTest {
 
     /**
      * Crear un incidente con descripcion null
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void createIncidenteDescripcionNull()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createIncidenteDescripcionNull() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setDescripcion(null);
-        IncidenteEntity resultado= iL.createIncidente(newEntity);
+        IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
+
     /**
      * Crear un incidente con equipo null
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void createIncidenteEquipoNull()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createIncidenteEquipoNull() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setEquipo(null);
-        IncidenteEntity resultado= iL.createIncidente(newEntity);
+        IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
+
     /**
      * Crear un incidente con prioridad null
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void createIncidentePrioridadNull()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createIncidentePrioridadNull() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setPrioridad(null);
-        IncidenteEntity resultado= iL.createIncidente(newEntity);
+        IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
+
     /**
      * Crear un incidente con fecha inicial null
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void createIncidenteFechaNull()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createIncidenteFechaNull() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setFechaHoraInicio(null);
-        IncidenteEntity resultado= iL.createIncidente(newEntity);
+        IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
+
     /**
      * Crear un incidente con categoria null
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void createIncidenteTipoNull()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createIncidenteTipoNull() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setCategoria(null);
-        IncidenteEntity resultado= iL.createIncidente(newEntity);
+        IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
+
     /**
      * Crear un incidente con fecha final null
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void createIncidenteFechaHoraFinalNull()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createIncidenteFechaHoraFinalNull() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setFechaHoraFinal(null);
-        IncidenteEntity resultado= iL.createIncidente(newEntity);
+        IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
+
     /**
      * Crear un incidente con solucionado true
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void createIncidenteSolucionadoTrue()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createIncidenteSolucionadoTrue() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setSolucionado(false);
-        IncidenteEntity resultado= iL.createIncidente(newEntity);
+        IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
+
     /**
      * Crear un incidente con reabrir true
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void createIncidenteReabrirTrue()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createIncidenteReabrirTrue() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setReabrir(false);
-        IncidenteEntity resultado= iL.createIncidente(newEntity);
+        IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
+
     /**
      * Prueba para consultar la lista de Incidentes.
      */
@@ -230,13 +260,13 @@ public class IncidenteLogicTest {
     public void updateIncidenteTest() {
         IncidenteEntity entity = data.get(0);
         IncidenteEntity pojoEntity = factory.manufacturePojo(IncidenteEntity.class);
-
+        
         pojoEntity.setId(entity.getId());
-
+        
         iL.updateIncidente(pojoEntity.getId(), pojoEntity);
-
+        
         IncidenteEntity resp = em.find(IncidenteEntity.class, entity.getId());
-
+        
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
         Assert.assertEquals(pojoEntity.getFechaHoraInicio(), resp.getFechaHoraInicio());
@@ -246,40 +276,46 @@ public class IncidenteLogicTest {
      * Prueba para eliminar un Incidente.
      */
     @Test
-    public void deleteIncidenteTest()  {
+    public void deleteIncidenteTest() {
         IncidenteEntity entity = data.get(0);
         iL.deleteIncidente(entity.getId());
         IncidenteEntity deleted = em.find(IncidenteEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+
     /**
      * Cerrar un incidente
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
     @Test
-    public void cerrarIncidente()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    public void cerrarIncidente() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         IncidenteEntity result = iL.createIncidente(newEntity);
         result.setSolucionado(Boolean.FALSE);
         iL.cerrarIncidente(result);
         Assert.assertTrue(result.getSolucionado());
     }
+
     /**
      * Cerrar un incidente que es null
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void cerrarIncidenteNull()throws BusinessLogicException{
-        IncidenteEntity newEntity=null;
+    @Test(expected = BusinessLogicException.class)
+    public void cerrarIncidenteNull() throws BusinessLogicException {
+        IncidenteEntity newEntity = null;
         iL.cerrarIncidente(newEntity);
     }
+
     /**
      * Cerrar un incidente ya solucionado
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
-    @Test (expected = BusinessLogicException.class)
-    public void cerrarIncidenteSolucionado()throws BusinessLogicException{
-        IncidenteEntity newEntity=factory.manufacturePojo(IncidenteEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void cerrarIncidenteSolucionado() throws BusinessLogicException {
+        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
         newEntity.setSolucionado(true);
         iL.cerrarIncidente(newEntity);
     }

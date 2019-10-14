@@ -7,10 +7,12 @@ package co.edu.uniandes.csw.incidentes.ejb;
 
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
+import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -23,6 +25,8 @@ import javax.inject.Inject;
 @Stateless
 public class CoordinadorLogic {
 
+    private static final Logger LOGGER = Logger.getLogger(CoordinadorLogic.class.getName());
+
     @Inject
     private CoordinadorPersistence persistence;
 
@@ -34,6 +38,7 @@ public class CoordinadorLogic {
      * @throws BusinessLogicException Si se incumple una regla de negocio.
      */
     public CoordinadorEntity createCoordinador(CoordinadorEntity coordinador) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación del coordinador");
         if (coordinador.getName() == null) {
             throw new BusinessLogicException("El nombre es nulo.");
         }
@@ -41,18 +46,15 @@ public class CoordinadorLogic {
             throw new BusinessLogicException("El usuario no puede ser vacio");
         }
         if (persistence.findByUsername(coordinador.getUsername()) != null) {
-            throw new BusinessLogicException("Ya existe un ususario con ese nombre.");
+            throw new BusinessLogicException("Ya existe un usuario con ese nombre.");
         }
 
         if (coordinador.getPassword() == null || coordinador.getPassword().isEmpty()) {
             throw new BusinessLogicException("La contraseña no puede ser vacia.");
         }
-        /* TODO Al crear un objeto con Podam asegurar que cumpla esta condición para que el test no falle. 
-        if(!checkString(user.getPassword())){
-            throw new BusinessLogicException("La contraseña debe contener una mayuscula, una minuscula y un número.");
-        }*/
 
-        coordinador = persistence.create(coordinador);
+        persistence.create(coordinador);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del coordinador");
         return coordinador;
     }
 
@@ -62,7 +64,9 @@ public class CoordinadorLogic {
      * @return una lista de Coordinadores.
      */
     public List<CoordinadorEntity> getCoordinadores() {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los coordinadores");
         List<CoordinadorEntity> lista = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los coordinadores");
         return lista;
     }
 
@@ -73,7 +77,12 @@ public class CoordinadorLogic {
      * @return el coordinador solicitado por medio de su id.
      */
     public CoordinadorEntity getCoordinador(Long coordinadorId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el coordinador con id = {0}", coordinadorId);
         CoordinadorEntity coordinadorEntity = persistence.find(coordinadorId);
+        if (coordinadorEntity == null) {
+            LOGGER.log(Level.SEVERE, "El coordinador con el id = {0} no existe", coordinadorId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el coordinador con id = {0}", coordinadorId);
         return coordinadorEntity;
     }
 
@@ -82,12 +91,14 @@ public class CoordinadorLogic {
      *
      * @param coordinadorId: id del coordinador para buscarlo en la base de
      * datos.
-     * @param coordinador: coordinador con los cambios para ser actualizado,
-     * por ejemplo el nombre.
+     * @param coordinador: coordinador con los cambios para ser actualizado, por
+     * ejemplo el nombre.
      * @return el coordinador con los cambios actualizados en la base de datos.
      */
     public CoordinadorEntity updateCoordinador(Long coordinadorId, CoordinadorEntity coordinador) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el coordinador con id = {0}", coordinadorId);
         CoordinadorEntity newCoordinadorEntity = persistence.update(coordinador);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el coordinador con id = {0}", coordinador.getId());
         return newCoordinadorEntity;
     }
 
@@ -95,35 +106,20 @@ public class CoordinadorLogic {
      * Borrar un coordinador
      *
      * @param coordinadorId: id del coordinador a borrar
-     * @throws BusinessLogicException Si el coordinador a eliminar tiene incidentes.
+     * @throws BusinessLogicException Si el coordinador a eliminar tiene
+     * incidentes.
      */
     public void deleteCoordinador(Long coordinadorId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el coordinador con id = {0}", coordinadorId);
         List<IncidenteEntity> incidente = getCoordinador(coordinadorId).getIncidentes();
         if (incidente != null && !incidente.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el coordinador con id = " + coordinadorId + " porque tiene incidentes asociados");
         }
-        persistence.delete(coordinadorId);
-    }
-
-    /*
-    private static boolean checkString(String str) {
-        char ch;
-        boolean capitalFlag = false;
-        boolean lowerCaseFlag = false;
-        boolean numberFlag = false;
-        for(int i=0;i < str.length();i++) {
-            ch = str.charAt(i);
-            if( Character.isDigit(ch)) {
-                numberFlag = true;
-            }
-            else if (Character.isUpperCase(ch)) {
-                capitalFlag = true;
-            } else if (Character.isLowerCase(ch)) {
-                lowerCaseFlag = true;
-            }
-            if(numberFlag && capitalFlag && lowerCaseFlag)
-                return true;
+        List<TecnicoEntity> tecnicos = getCoordinador(coordinadorId).getTecnicos();
+        if (tecnicos != null && !tecnicos.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar el coordinador con id = " + coordinadorId + " porque tiene tecnicos asociados");
         }
-        return false;
-    }*/
+        persistence.delete(coordinadorId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el coordinador con id = {0}", coordinadorId);
+    }
 }

@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.incidentes.test.logic;
 
 import co.edu.uniandes.csw.incidentes.ejb.CoordinadorLogic;
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
+import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
+import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class CoordinadorLogicTest {
+
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
@@ -43,15 +46,17 @@ public class CoordinadorLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<CoordinadorEntity> data = new ArrayList<>();
+    private List<CoordinadorEntity> data = new ArrayList<CoordinadorEntity>();
+
+    private List<TecnicoEntity> tecnicoData = new ArrayList();
+
+    private List<IncidenteEntity> incidenteData = new ArrayList();
 
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CoordinadorEntity.class.getPackage())
                 .addPackage(CoordinadorLogic.class.getPackage())
-                
-                
                 .addPackage(CoordinadorPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -75,20 +80,40 @@ public class CoordinadorLogicTest {
     }
 
     private void clearData() {
-        em.createQuery("delete from CoordinadorEntity").executeUpdate();
+        em.createQuery("delete from TecnicoEntity ").executeUpdate();
+        em.createQuery("delete from IncidenteEntity ").executeUpdate();
+        em.createQuery("delete from CoordinadorEntity ").executeUpdate();
     }
 
     private void insertData() {
         for (int i = 0; i < 3; i++) {
+            TecnicoEntity tecnicos = factory.manufacturePojo(TecnicoEntity.class);
+            em.persist(tecnicos);
+            tecnicoData.add(tecnicos);
+        }
+        for (int i = 0; i < 3; i++) {
+            IncidenteEntity incidentes = factory.manufacturePojo(IncidenteEntity.class);
+            em.persist(incidentes);
+            incidenteData.add(incidentes);
+        }
+        for (int i = 0; i < 3; i++) {
             CoordinadorEntity entity = factory.manufacturePojo(CoordinadorEntity.class);
             em.persist(entity);
-            entity.setName(new String());
             data.add(entity);
-        } 
+
+            if (i == 0) {
+                tecnicoData.get(i).setCoordinador(entity);
+            }
+
+            if (i == 1) {
+                incidenteData.get(i).setCoordinador(entity);
+            }
+
+        }
     }
 
     @Test
-    public void createCoordinadorTest() throws BusinessLogicException{
+    public void createCoordinadorTest() throws BusinessLogicException {
         CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         CoordinadorEntity result = cl.createCoordinador(newEntity);
         Assert.assertNotNull(result);
@@ -99,34 +124,34 @@ public class CoordinadorLogicTest {
         Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
     }
 
-    @Test (expected = BusinessLogicException.class)
-    public void createCoordinadorNameNull()throws BusinessLogicException{
-        CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
+    @Test(expected = BusinessLogicException.class)
+    public void createCoordinadorNameNull() throws BusinessLogicException {
+        CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setName(null);
-        CoordinadorEntity resultado= cl.createCoordinador(newEntity);
+        CoordinadorEntity resultado = cl.createCoordinador(newEntity);
     }
-    
-    @Test (expected = BusinessLogicException.class)
-    public void createCoordinadorUsernameNull()throws BusinessLogicException{
-        CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
+
+    @Test(expected = BusinessLogicException.class)
+    public void createCoordinadorUsernameNull() throws BusinessLogicException {
+        CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setUsername(null);
-        CoordinadorEntity resultado= cl.createCoordinador(newEntity);
+        CoordinadorEntity resultado = cl.createCoordinador(newEntity);
     }
-    
-    @Test (expected = BusinessLogicException.class)
-    public void createCoordinadorPasswordNull()throws BusinessLogicException{
-        CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
+
+    @Test(expected = BusinessLogicException.class)
+    public void createCoordinadorPasswordNull() throws BusinessLogicException {
+        CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setPassword(null);
-        CoordinadorEntity resultado= cl.createCoordinador(newEntity);
+        CoordinadorEntity resultado = cl.createCoordinador(newEntity);
     }
- 
-    @Test (expected = BusinessLogicException.class)
-    public void createCoordinadorConMismoNombre()throws BusinessLogicException{
-        CoordinadorEntity newEntity=factory.manufacturePojo(CoordinadorEntity.class);
+
+    @Test(expected = BusinessLogicException.class)
+    public void createCoordinadorConMismoNombre() throws BusinessLogicException {
+        CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setUsername(data.get(0).getUsername());
-        CoordinadorEntity resultado= cl.createCoordinador(newEntity);
+        cl.createCoordinador(newEntity);
     }
-    
+
     @Test
     public void getCoordinadorTest() {
         CoordinadorEntity entity = data.get(0);
@@ -135,10 +160,12 @@ public class CoordinadorLogicTest {
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
     }
-    
+
     @Test
     public void getCoordinadoresTest() {
         List<CoordinadorEntity> list = cl.getCoordinadores();
+        Assert.assertEquals(incidenteData.size(), list.size());
+        Assert.assertEquals(tecnicoData.size(), list.size());
         Assert.assertEquals(data.size(), list.size());
         for (CoordinadorEntity entity : list) {
             boolean found = false;
@@ -150,7 +177,7 @@ public class CoordinadorLogicTest {
             Assert.assertTrue(found);
         }
     }
-    
+
     @Test
     public void updateCoordinadorTest() {
         CoordinadorEntity entity = data.get(0);
@@ -165,12 +192,24 @@ public class CoordinadorLogicTest {
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
-    
+
     @Test
     public void deleteCoordinadorTest() throws BusinessLogicException {
-        CoordinadorEntity entity = data.get(0);
+        CoordinadorEntity entity = data.get(2);
         cl.deleteCoordinador(entity.getId());
         CoordinadorEntity deleted = em.find(CoordinadorEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void deleteCoordinadorConIncidentesAsociadosTest() throws BusinessLogicException {
+        CoordinadorEntity entity = data.get(1);
+        cl.deleteCoordinador(entity.getId());
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void deleteCoordinadorConTecnicosAsociadosTest() throws BusinessLogicException {
+        CoordinadorEntity entity = data.get(0);
+        cl.deleteCoordinador(entity.getId());
     }
 }
