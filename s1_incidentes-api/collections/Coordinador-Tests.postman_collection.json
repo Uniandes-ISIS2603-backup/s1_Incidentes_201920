@@ -139,7 +139,7 @@
 						"id": "f8b44e88-4199-4724-a468-3a0f744e26c2",
 						"exec": [
 							"tests[\"No genera error en el post\"] = responseCode.code == 412;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un ususario con ese nombre.\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un usuario con ese nombre.\");"
 						],
 						"type": "text/javascript"
 					}
@@ -479,7 +479,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"nueva clave\"\n}",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"nueva clave\",\n\t \"incidentes\": [],\n    \"tecnicos\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"

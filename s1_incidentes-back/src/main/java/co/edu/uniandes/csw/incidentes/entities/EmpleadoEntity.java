@@ -21,7 +21,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 
 @Entity
-public class EmpleadoEntity extends User2Entity implements Serializable  {
+public class EmpleadoEntity extends UserEntity implements Serializable  {
     private String nombre;
     private Integer numIncidentes;
     @PodamExclude

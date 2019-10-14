@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.incidentes.test.logic;
 
 import co.edu.uniandes.csw.incidentes.ejb.TecnicoLogic;
+import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistence;
@@ -32,7 +33,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class TecnicoLogicTest {
-    
+
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
@@ -44,10 +45,10 @@ public class TecnicoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<TecnicoEntity> data = new ArrayList<>();
-    
-    
-    
+    private List<TecnicoEntity> data = new ArrayList<TecnicoEntity>();
+
+    private List<IncidenteEntity> incidenteData = new ArrayList();
+
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -87,32 +88,69 @@ public class TecnicoLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
+        em.createQuery("delete from IncidenteEntity ").executeUpdate();
         em.createQuery("delete from TecnicoEntity").executeUpdate();
     }
 
     private void insertData() {
         for (int i = 0; i < 3; i++) {
+            IncidenteEntity incidentes = factory.manufacturePojo(IncidenteEntity.class);
+            em.persist(incidentes);
+            incidenteData.add(incidentes);
+        }
+        for (int i = 0; i < 3; i++) {
             TecnicoEntity entity = factory.manufacturePojo(TecnicoEntity.class);
             em.persist(entity);
             entity.setEspecialidad(new String());
             data.add(entity);
+            if (i == 0) {
+                incidenteData.get(i).setTecnico(entity);
+            }
         }
-        
+
     }
 
-
     @Test
-    public void createTecnicoTest() {
+    public void createTecnicoTest() throws BusinessLogicException {
         TecnicoEntity newEntity = factory.manufacturePojo(TecnicoEntity.class);
         TecnicoEntity result = tL.createTecnico(newEntity);
         Assert.assertNotNull(result);
         TecnicoEntity entity = em.find(TecnicoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getEspecialidad(), entity.getEspecialidad());
-        Assert.assertEquals(newEntity.getIncidenteASignado(), entity.getIncidenteASignado());
+        Assert.assertEquals(newEntity.getNumCasos(), entity.getNumCasos());
+        Assert.assertEquals(newEntity.getUsername(), entity.getUsername());
+        Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
     }
 
-    
+    @Test(expected = BusinessLogicException.class)
+    public void createTecnicoEspecialidadNull() throws BusinessLogicException {
+        TecnicoEntity newEntity = factory.manufacturePojo(TecnicoEntity.class);
+        newEntity.setEspecialidad(null);
+        tL.createTecnico(newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void createTecnicoUsernameNull() throws BusinessLogicException {
+        TecnicoEntity newEntity = factory.manufacturePojo(TecnicoEntity.class);
+        newEntity.setUsername(null);
+        tL.createTecnico(newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void createTecnicoPasswordNull() throws BusinessLogicException {
+        TecnicoEntity newEntity = factory.manufacturePojo(TecnicoEntity.class);
+        newEntity.setPassword(null);
+        tL.createTecnico(newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void createTecnicoConMismoNombre() throws BusinessLogicException {
+        TecnicoEntity newEntity = factory.manufacturePojo(TecnicoEntity.class);
+        newEntity.setUsername(data.get(0).getUsername());
+        tL.createTecnico(newEntity);
+    }
+
     @Test
     public void getTecnicosTest() {
         List<TecnicoEntity> list = tL.getTecnicos();
@@ -128,7 +166,6 @@ public class TecnicoLogicTest {
         }
     }
 
-    
     @Test
     public void getTecnicoTest() {
         TecnicoEntity entity = data.get(0);
@@ -136,10 +173,8 @@ public class TecnicoLogicTest {
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getEspecialidad(), resultEntity.getEspecialidad());
-        Assert.assertEquals(entity.getIncidenteASignado(), resultEntity.getIncidenteASignado());
     }
 
-    
     @Test
     public void updateTecnicoTest() {
         TecnicoEntity entity = data.get(0);
@@ -148,24 +183,24 @@ public class TecnicoLogicTest {
         pojoEntity.setId(entity.getId());
 
         tL.updateTecnico(entity.getId(), pojoEntity);
-        
+
         TecnicoEntity resp = em.find(TecnicoEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
-      
-        Assert.assertEquals(pojoEntity.getIncidenteASignado(), resp.getIncidenteASignado());
+
     }
 
-    
     @Test
-    public void deleteTecnicoTest(){
-        TecnicoEntity entity = data.get(0);
+    public void deleteTecnicoTest() throws BusinessLogicException {
+        TecnicoEntity entity = data.get(1);
         tL.deleteTecnico(entity.getId());
         TecnicoEntity deleted = em.find(TecnicoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
-   
-    
-   
+
+    @Test(expected = BusinessLogicException.class)
+    public void deleteTecnicoConIncidentesAsociadosTest() throws BusinessLogicException {
+        TecnicoEntity entity = data.get(0);
+        tL.deleteTecnico(entity.getId());
+    }
 }

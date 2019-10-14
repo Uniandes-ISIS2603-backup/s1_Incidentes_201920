@@ -6,23 +6,19 @@
 package co.edu.uniandes.csw.incidentes.test.persistence;
 
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
-
 import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistence;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
-import org.junit.runner.RunWith; 
+import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import javax.persistence.EntityManager;
+import junit.framework.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.junit.Assert;
 import javax.inject.Inject;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
@@ -34,10 +30,10 @@ import org.junit.Before;
  */
 @RunWith(Arquillian.class)
 public class TecnicoPersistanceTest {
-    
+
     /**
-    * Configuración inicial de la prueba.
-    */
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -55,21 +51,22 @@ public class TecnicoPersistanceTest {
             }
         }
     }
-    
+
     @PersistenceContext
     private EntityManager em;
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-              .addPackage(TecnicoEntity.class.getPackage())
-              .addPackage(TecnicoPersistence.class.getPackage())
-              .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-              .addAsManifestResource("META-INF/beans.xml", "beans.xml" );
+                .addPackage(TecnicoEntity.class.getPackage())
+                .addPackage(TecnicoPersistence.class.getPackage())
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-   @Inject
-   TecnicoPersistence tp;
-   
-   @Inject
+    @Inject
+    TecnicoPersistence tp;
+
+    @Inject
     UserTransaction utx;
 
     private List<TecnicoEntity> data = new ArrayList<>();
@@ -87,18 +84,20 @@ public class TecnicoPersistanceTest {
             data.add(entity);
         }
     }
-    
-   @Test
-   public void createTest()
-   {
-       PodamFactory factory = new PodamFactoryImpl();
-       TecnicoEntity incidente =factory.manufacturePojo(TecnicoEntity.class);
-       TecnicoEntity result = tp.create(incidente);
-       Assert.assertNotNull(result);
-       TecnicoEntity entity = em.find(TecnicoEntity.class, result.getId());
-        Assert.assertEquals(incidente.getEspecialidad(), entity.getEspecialidad());
-        
-   }
+
+    @Test
+    public void createTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        TecnicoEntity tecnico = factory.manufacturePojo(TecnicoEntity.class);
+        TecnicoEntity result = tp.create(tecnico);
+        Assert.assertNotNull(result);
+        TecnicoEntity entity = em.find(TecnicoEntity.class, result.getId());
+        Assert.assertEquals(tecnico.getEspecialidad(), entity.getEspecialidad());
+        Assert.assertEquals(tecnico.getPassword(), entity.getPassword());
+        Assert.assertEquals(tecnico.getUsername(), entity.getUsername());
+        Assert.assertEquals(tecnico.getNumCasos(), entity.getNumCasos());
+    }
+
     @Test
     public void getTecnicosTest() {
         List<TecnicoEntity> list = tp.findAll();
@@ -119,8 +118,10 @@ public class TecnicoPersistanceTest {
         TecnicoEntity entity = data.get(0);
         TecnicoEntity newEntity = tp.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getEspecialidad(), newEntity.getEspecialidad());
-
+        Assert.assertEquals(newEntity.getEspecialidad(), entity.getEspecialidad());
+        Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
+        Assert.assertEquals(newEntity.getUsername(), entity.getUsername());
+        Assert.assertEquals(newEntity.getNumCasos(), entity.getNumCasos());
     }
 
     @Test
@@ -136,8 +137,11 @@ public class TecnicoPersistanceTest {
         TecnicoEntity resp = em.find(TecnicoEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getEspecialidad(), resp.getEspecialidad());
+        Assert.assertEquals(newEntity.getPassword(), resp.getPassword());
+        Assert.assertEquals(newEntity.getUsername(), resp.getUsername());
+        Assert.assertEquals(newEntity.getNumCasos(), resp.getNumCasos());
     }
-    
+
     @Test
     public void deleteTecnicoTest() {
         TecnicoEntity entity = data.get(0);
@@ -145,5 +149,13 @@ public class TecnicoPersistanceTest {
         TecnicoEntity deleted = em.find(TecnicoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
+
+    @Test
+    public void getTecnicoByUsernameTest() {
+        TecnicoEntity entity = data.get(0);
+        TecnicoEntity newEntity = tp.findByUsername(entity.getUsername());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getPassword(), newEntity.getPassword());
+        Assert.assertEquals(entity.getUsername(), newEntity.getUsername());
+    }
 }

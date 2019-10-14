@@ -101,7 +101,7 @@ public class CoordinadorPersistence {
      * Si existe alguno devuelve el primero.
      */
     public CoordinadorEntity findByUsername(String nombre){
-        LOGGER.log(Level.INFO, "Consultando coordinador por nombre ", nombre);
+        LOGGER.log(Level.INFO, "Consultando coordinador por nombre = {0}", nombre);
         CoordinadorEntity respuesta;
         TypedQuery<CoordinadorEntity> query= em.createQuery("select e from CoordinadorEntity e where e.username =:name", CoordinadorEntity.class);
         query = query.setParameter("name", nombre);
@@ -113,7 +113,7 @@ public class CoordinadorPersistence {
         } else {
             respuesta = lista.get(0);
         }
-         LOGGER.log(Level.INFO, "Saliendo de consultar coordinador por nombre ", nombre);
+         LOGGER.log(Level.INFO, "Saliendo de consultar coordinador por nombre = {0}", nombre);
         return respuesta; 
     }
 }

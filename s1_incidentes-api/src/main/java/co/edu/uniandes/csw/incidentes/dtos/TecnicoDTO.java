@@ -16,32 +16,31 @@ import java.io.Serializable;
  *
  * @author da.silvaa
  */
-public class TecnicoDTO extends UserDTO implements Serializable{
-       
+public class TecnicoDTO implements Serializable {
+
     private Long id;
-    
-    private int numCasos; 
-    
-   
-    
-     public TecnicoDTO(TecnicoEntity coordinadorEntity) {
-       
-           super.setId(coordinadorEntity.getId());
-           super.setPassword(coordinadorEntity.getPassword());
-           super.setUsername(coordinadorEntity.getUsername());
-           this.numCasos=coordinadorEntity.getNumCasos();
-          
-        
+
+    private int numCasos;
+
+    private String especialidad;
+
+    /*
+    * Atributo que representa el usuario.
+     */
+    private String username;
+
+    /*
+    * Atributo que representa la contraseña.
+     */
+    private String password;
+
+    public TecnicoDTO(TecnicoEntity coordinadorEntity) {
+
     }
-    
-    public TecnicoEntity toEntity() 
-    {
-        TecnicoEntity coordinadorEntity = new TecnicoEntity();
-        coordinadorEntity.setUsername(this.getUsername());
-        coordinadorEntity.setPassword(this.getPassword());
-        coordinadorEntity.setId(this.id);
-        coordinadorEntity.setNumCasos(this.numCasos);
-        return coordinadorEntity;
+
+    public TecnicoEntity toEntity() {
+        TecnicoEntity tecnicoEntity = new TecnicoEntity();
+        return tecnicoEntity;
     }
 
     public Long getId() {
@@ -57,12 +56,12 @@ public class TecnicoDTO extends UserDTO implements Serializable{
     }
 
     public void setNumCasos(int nombre) {
-        this.numCasos= nombre;
+        this.numCasos = nombre;
     }
-    
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-    
+
 }

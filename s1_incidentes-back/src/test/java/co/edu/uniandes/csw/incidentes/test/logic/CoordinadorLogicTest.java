@@ -128,21 +128,21 @@ public class CoordinadorLogicTest {
     public void createCoordinadorNameNull() throws BusinessLogicException {
         CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setName(null);
-        CoordinadorEntity resultado = cl.createCoordinador(newEntity);
+        cl.createCoordinador(newEntity);
     }
 
     @Test(expected = BusinessLogicException.class)
     public void createCoordinadorUsernameNull() throws BusinessLogicException {
         CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setUsername(null);
-        CoordinadorEntity resultado = cl.createCoordinador(newEntity);
+        cl.createCoordinador(newEntity);
     }
 
     @Test(expected = BusinessLogicException.class)
     public void createCoordinadorPasswordNull() throws BusinessLogicException {
         CoordinadorEntity newEntity = factory.manufacturePojo(CoordinadorEntity.class);
         newEntity.setPassword(null);
-        CoordinadorEntity resultado = cl.createCoordinador(newEntity);
+        cl.createCoordinador(newEntity);
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -164,8 +164,6 @@ public class CoordinadorLogicTest {
     @Test
     public void getCoordinadoresTest() {
         List<CoordinadorEntity> list = cl.getCoordinadores();
-        Assert.assertEquals(incidenteData.size(), list.size());
-        Assert.assertEquals(tecnicoData.size(), list.size());
         Assert.assertEquals(data.size(), list.size());
         for (CoordinadorEntity entity : list) {
             boolean found = false;
