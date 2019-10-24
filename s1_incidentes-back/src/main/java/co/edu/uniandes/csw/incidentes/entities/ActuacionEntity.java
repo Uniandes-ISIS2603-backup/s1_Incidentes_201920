@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.incidentes.entities;
 import co.edu.uniandes.csw.incidentes.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -23,7 +24,7 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 public class ActuacionEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private IncidenteEntity incidente;
 
     @Temporal(TemporalType.DATE)
@@ -31,7 +32,6 @@ public class ActuacionEntity extends BaseEntity implements Serializable {
     private Date fechaHora;
 
     private String descripcion;
-    
 
     public ActuacionEntity() {
     }

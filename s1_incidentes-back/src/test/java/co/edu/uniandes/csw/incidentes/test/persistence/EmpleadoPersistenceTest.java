@@ -30,98 +30,94 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author Daniel Reyes
  */
-
 @RunWith(Arquillian.class)
 public class EmpleadoPersistenceTest {
-    
+
     @Inject
     private EmpleadoPersistence ep;
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
     @Deployment
-    public static JavaArchive createDeployment(){
+    public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class).addClass(EmpleadoEntity.class)
                 .addPackage(EmpleadoPersistence.class.getPackage())
                 .addPackage(IncidenteEntity.class.getPackage())
                 .addPackage(IncidentePersistence.class.getPackage())
-                .addAsManifestResource("META-INF/persistence.xml","persistence.xml")
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml");
-                
+
     }
-    
+
     @Inject
     UserTransaction utx;
-    
+
     private List<EmpleadoEntity> data = new ArrayList<>();
-    
+
     @Before
-    public void configTest(){
-        try{
+    public void configTest() {
+        try {
             utx.begin();
             em.joinTransaction();
             clearData();
             insertData();
             utx.commit();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            try{
+            try {
                 utx.rollback();
-            }
-            catch(Exception e1){
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
     }
-    
-    private void clearData(){
+
+    private void clearData() {
         em.createQuery("delete from EmpleadoEntity").executeUpdate();
     }
-    
-    private void insertData(){
-            PodamFactory factory = new PodamFactoryImpl();
-            for(int i = 0 ; i < 3 ; i++){
-                EmpleadoEntity entity = factory.manufacturePojo(EmpleadoEntity.class);
-                
-                em.persist(entity);
-                data.add(entity);
-            }
+
+    private void insertData() {
+        PodamFactory factory = new PodamFactoryImpl();
+        for (int i = 0; i < 3; i++) {
+            EmpleadoEntity entity = factory.manufacturePojo(EmpleadoEntity.class);
+
+            em.persist(entity);
+            data.add(entity);
+        }
     }
-    
-    
+
     @Test
-    public void createTest(){
+    public void createTest() {
         PodamFactory factory = new PodamFactoryImpl();
         EmpleadoEntity ee = factory.manufacturePojo(EmpleadoEntity.class);
         EmpleadoEntity result = ep.create(ee);
         Assert.assertNotNull(result);
-        
+
         EmpleadoEntity entity = em.find(EmpleadoEntity.class, result.getId());
         Assert.assertEquals(ee.getNombre(), entity.getNombre());
         Assert.assertEquals(ee.getNumIncidentes(), entity.getNumIncidentes());
         Assert.assertEquals(ee.getPassword(), entity.getPassword());
         Assert.assertEquals(ee.getUsername(), entity.getUsername());
     }
-    
+
     @Test
-    public void getEmpleadosTest(){
+    public void getEmpleadosTest() {
         List<EmpleadoEntity> list = ep.listAll();
-        Assert.assertEquals(data.size(),list.size());
-        for(EmpleadoEntity ent : list){
+        Assert.assertEquals(data.size(), list.size());
+        for (EmpleadoEntity ent : list) {
             boolean found = false;
-            for(EmpleadoEntity entity : data){
-                if(ent.getId().equals(entity.getId())){
+            for (EmpleadoEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
             }
             Assert.assertTrue(found);
         }
     }
-    
+
     @Test
-    public void getEmpleadoTest(){
+    public void getEmpleadoTest() {
         EmpleadoEntity entity = data.get(0);
         EmpleadoEntity newEntity = ep.find(entity.getId());
         Assert.assertNotNull(newEntity);
@@ -130,35 +126,34 @@ public class EmpleadoPersistenceTest {
         Assert.assertEquals(entity.getPassword(), newEntity.getPassword());
         Assert.assertEquals(entity.getUsername(), newEntity.getUsername());
     }
-    
-    
+
     @Test
-    public void updateEmpleadoTest(){
+    public void updateEmpleadoTest() {
         EmpleadoEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         EmpleadoEntity newEntity = factory.manufacturePojo(EmpleadoEntity.class);
-        
+
         newEntity.setId(entity.getId());
-        
+
         ep.update(newEntity);
-        
-        EmpleadoEntity resp = em.find(EmpleadoEntity.class,entity.getId());
+
+        EmpleadoEntity resp = em.find(EmpleadoEntity.class, entity.getId());
         Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
         Assert.assertEquals(newEntity.getNumIncidentes(), resp.getNumIncidentes());
         Assert.assertEquals(newEntity.getPassword(), resp.getPassword());
         Assert.assertEquals(newEntity.getUsername(), resp.getUsername());
     }
-    
+
     @Test
-    public void deleteEmpleadoTest(){
+    public void deleteEmpleadoTest() {
         EmpleadoEntity entity = data.get(0);
         ep.delete(entity.getId());
         EmpleadoEntity deleted = em.find(EmpleadoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
+
     @Test
-    public void getCoordinadorByUsernameTest() {
+    public void getEmpleadoByUsernameTest() {
         EmpleadoEntity entity = data.get(0);
         EmpleadoEntity newEntity = ep.findByUsername(entity.getUsername());
         Assert.assertNotNull(newEntity);
