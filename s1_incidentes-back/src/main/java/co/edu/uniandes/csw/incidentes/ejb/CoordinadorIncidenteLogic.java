@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.incidentes.persistence.IncidentePersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
@@ -21,6 +22,7 @@ import javax.inject.Inject;
  *
  * @author Juan Camilo Castiblanco
  */
+@Stateless
 public class CoordinadorIncidenteLogic {
 
     private static final Logger LOGGER = Logger.getLogger(CoordinadorIncidenteLogic.class.getName());

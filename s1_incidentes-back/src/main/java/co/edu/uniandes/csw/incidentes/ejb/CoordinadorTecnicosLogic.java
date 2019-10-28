@@ -13,14 +13,17 @@ import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author Estudiante
  */
+@Stateless
 public class CoordinadorTecnicosLogic {
-   private static final Logger LOGGER = Logger.getLogger(CoordinadorTecnicosLogic.class.getName());
+
+    private static final Logger LOGGER = Logger.getLogger(CoordinadorTecnicosLogic.class.getName());
 
     @Inject
     private TecnicoPersistence tecnicoPersistence;
@@ -91,7 +94,7 @@ public class CoordinadorTecnicosLogic {
         for (TecnicoEntity tecnico : listaTecnicos) {
             if (tecnicos.contains(tecnico)) {
                 tecnico.setCoordinador(coordinadorEntity);
-            } else if (tecnico.getCoordinador()!= null && tecnico.getCoordinador().equals(coordinadorEntity)) {
+            } else if (tecnico.getCoordinador() != null && tecnico.getCoordinador().equals(coordinadorEntity)) {
                 tecnico.setCoordinador(null);
             }
         }

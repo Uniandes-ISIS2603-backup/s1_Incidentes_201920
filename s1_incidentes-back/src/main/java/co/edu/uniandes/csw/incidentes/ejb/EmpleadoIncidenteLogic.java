@@ -14,15 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
+
 /**
  * Clase que implementa la conexion con la persistencia para la relación entre
  * la entidad de Empleado e Incidente.
- * 
+ *
  * @author Julian Jaimes
  */
+@Stateless
 public class EmpleadoIncidenteLogic {
-    
+
     private static final Logger LOGGER = Logger.getLogger(EmpleadoIncidenteLogic.class.getName());
 
     @Inject
@@ -31,7 +34,6 @@ public class EmpleadoIncidenteLogic {
     @Inject
     EmpleadoPersistence empleadoPersistence;
 
-    
     /**
      * Agregar un incidente al empleado.
      *

@@ -11,13 +11,16 @@ import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
 import co.edu.uniandes.csw.incidentes.persistence.TecnicoPersistence;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author c.alcala
  */
+@Stateless
 public class TecnicoCoordinadorLogic {
+
     private static final Logger LOGGER = Logger.getLogger(TecnicoCoordinadorLogic.class.getName());
 
     @Inject
