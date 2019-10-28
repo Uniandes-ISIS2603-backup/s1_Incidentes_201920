@@ -5,9 +5,9 @@
  */
 package co.edu.uniandes.csw.incidentes.tests.postman;
 
-import co.edu.uniandes.csw.incidentes.dtos.CascaraDTO;
+import co.edu.uniandes.csw.incidentes.dtos.CoordinadorDTO;
 import co.edu.uniandes.csw.incidentes.mappers.BusinessLogicExceptionMapper;
-import co.edu.uniandes.csw.incidentes.resources.RestConfig;
+import co.edu.uniandes.csw.incidentes.resources.CoordinadorResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
 import java.io.File;
 import java.io.IOException;
@@ -38,8 +38,8 @@ public class CoordinadorIT {
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(RestConfig.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
-                .addPackage(CascaraDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
+                .addPackage(CoordinadorResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(CoordinadorDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
