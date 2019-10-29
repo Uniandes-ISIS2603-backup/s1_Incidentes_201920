@@ -20,6 +20,10 @@ public class TecnicoDetailDTO extends TecnicoDTO implements Serializable {
     public TecnicoDetailDTO(TecnicoEntity x) {
         super(x);
     }
+    public TecnicoDetailDTO()
+    {
+        
+    }
 }
 
 

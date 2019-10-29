@@ -20,7 +20,7 @@ public class TecnicoDTO implements Serializable {
 
     private Long id;
 
-    private int numCasos;
+    private Integer numCasos;
 
     private String especialidad;
 
@@ -34,6 +34,13 @@ public class TecnicoDTO implements Serializable {
      */
     private String password;
 
+    /*
+    * constructor vacio para serializacion
+    */
+    public TecnicoDTO(){
+        
+    }
+    
     public TecnicoDTO(TecnicoEntity coordinadorEntity) {
 
     }
@@ -47,7 +54,7 @@ public class TecnicoDTO implements Serializable {
         return id;
     }
 
-    public int getNumCasos() {
+    public Integer getNumCasos() {
         return numCasos;
     }
 
@@ -55,7 +62,7 @@ public class TecnicoDTO implements Serializable {
         this.id = id;
     }
 
-    public void setNumCasos(int nombre) {
+    public void setNumCasos(Integer nombre) {
         this.numCasos = nombre;
     }
 
