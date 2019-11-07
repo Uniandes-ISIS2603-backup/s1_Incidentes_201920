@@ -29,7 +29,7 @@ public class TecnicoEntity extends UserEntity implements Serializable {
 
     private String especialidad;
 
-    private int numCasos;
+    private Integer numCasos;
 
     @PodamExclude
     @ManyToOne
