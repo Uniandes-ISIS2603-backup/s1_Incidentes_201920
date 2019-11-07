@@ -20,35 +20,49 @@ public class TecnicoDTO implements Serializable {
 
     private Long id;
 
-    private int numCasos;
+    private Integer numCasos;
 
     private String especialidad;
 
-    /*
-    * Atributo que representa el usuario.
-     */
     private String username;
 
-    /*
-    * Atributo que representa la contraseña.
-     */
     private String password;
 
-    public TecnicoDTO(TecnicoEntity coordinadorEntity) {
+    public TecnicoDTO() {
+    }
+    
+    
 
+    public TecnicoDTO(TecnicoEntity tecnicoEntity) {
+        if (tecnicoEntity != null) {
+            this.id = tecnicoEntity.getId();
+            this.numCasos = tecnicoEntity.getNumCasos();
+            this.especialidad = tecnicoEntity.getEspecialidad();
+            this.username = tecnicoEntity.getUsername();
+            this.password = tecnicoEntity.getPassword();
+        }
     }
 
     public TecnicoEntity toEntity() {
         TecnicoEntity tecnicoEntity = new TecnicoEntity();
+        tecnicoEntity.setId(this.id);
+        tecnicoEntity.setNumCasos(this.numCasos);
+        tecnicoEntity.setEspecialidad(this.especialidad);
+        tecnicoEntity.setUsername(this.username);
+        tecnicoEntity.setPassword(this.password);
         return tecnicoEntity;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public int getNumCasos() {
-        return numCasos;
     }
 
     public void setId(Long id) {
@@ -57,6 +71,30 @@ public class TecnicoDTO implements Serializable {
 
     public void setNumCasos(int nombre) {
         this.numCasos = nombre;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setNumCasos(Integer numCasos) {
+        this.numCasos = numCasos;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public Integer getNumCasos() {
+        return numCasos;
     }
 
     @Override
