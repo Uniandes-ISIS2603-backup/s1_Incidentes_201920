@@ -553,57 +553,6 @@
 			"response": []
 		},
 		{
-			"name": "delete coordinador1",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
-						"exec": [
-							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s1_incidentes-api",
-						"api",
-						"coordinador",
-						"{{new_id_c1}}"
-					]
-				},
-				"description": "Se borra el coordinador 1."
-			},
-			"response": []
-		},
-		{
 			"name": "delete coordinador2",
 			"event": [
 				{
