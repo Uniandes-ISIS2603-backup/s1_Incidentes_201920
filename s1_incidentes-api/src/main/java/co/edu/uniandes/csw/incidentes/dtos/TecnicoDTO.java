@@ -63,13 +63,18 @@ public class TecnicoDTO implements Serializable {
 
     public Long getId() {
         return id;
+
+    }
+
+    public Integer getNumCasos() {
+        return numCasos;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setNumCasos(int nombre) {
+    public void setNumCasos(Integer nombre) {
         this.numCasos = nombre;
     }
 
@@ -81,20 +86,12 @@ public class TecnicoDTO implements Serializable {
         this.username = username;
     }
 
-    public void setNumCasos(Integer numCasos) {
-        this.numCasos = numCasos;
-    }
-
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
 
     public String getEspecialidad() {
         return especialidad;
-    }
-
-    public Integer getNumCasos() {
-        return numCasos;
     }
 
     @Override

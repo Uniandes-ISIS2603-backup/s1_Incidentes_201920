@@ -46,7 +46,7 @@ public class TecnicoEntity extends UserEntity implements Serializable {
         especialidad = pEspecialidad;
     }
 
-    public int getNumCasos() {
+    public Integer getNumCasos() {
         return numCasos;
     }
 
