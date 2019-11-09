@@ -27,7 +27,12 @@ VALUES('Albert', '4LB3RT', 'Albert');
 
 INSERT INTO EmpleadoEntity(nombre, password, username) 
 VALUES('Jeremy', 'OTV', 'Toast');
+INSERT INTO EmpleadoEntity(nombre, password, username, id) 
+VALUES('Jeremy', 'OTV', 'Toast',6000000);
 
+INSERT INTO TecnicoEntity(username, password, id) 
+VALUES('Jeremy',  'Toast',6000000);
+select * from tecnicoentity;
 -- Poblar tablas Incidente
 INSERT INTO IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion
 ,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id)

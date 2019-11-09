@@ -203,24 +203,24 @@ public class IncidenteLogicTest {
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void createIncidenteSolucionadoTrue() throws BusinessLogicException {
-        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
-        newEntity.setSolucionado(false);
-        IncidenteEntity resultado = iL.createIncidente(newEntity);
-    }
+    //@Test(expected = BusinessLogicException.class)
+    //public void createIncidenteSolucionadoTrue() throws BusinessLogicException {
+    //    IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
+    //    newEntity.setSolucionado(false);
+    //    IncidenteEntity resultado = iL.createIncidente(newEntity);
+    //}
 
     /**
      * Crear un incidente con reabrir true
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void createIncidenteReabrirTrue() throws BusinessLogicException {
-        IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
-        newEntity.setReabrir(false);
-        IncidenteEntity resultado = iL.createIncidente(newEntity);
-    }
+   // @Test(expected = BusinessLogicException.class)
+   // public void createIncidenteReabrirTrue() throws BusinessLogicException {
+   //     IncidenteEntity newEntity = factory.manufacturePojo(IncidenteEntity.class);
+   //     newEntity.setReabrir(false);
+   //     IncidenteEntity resultado = iL.createIncidente(newEntity);
+   // }
 
     /**
      * Prueba para consultar la lista de Incidentes.

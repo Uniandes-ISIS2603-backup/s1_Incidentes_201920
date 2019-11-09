@@ -53,12 +53,12 @@ public class IncidenteLogic {
         if (incidente.getCategoria() == null) {
             throw new BusinessLogicException("La categoria del incidente es nula");
         }
-        if (!incidente.getReabrir()) {
-            throw new BusinessLogicException("El incidente aun no se puede reabrir");
-        }
-        if (!incidente.getSolucionado()) {
-            throw new BusinessLogicException("El incidente aun no se puede solucionar");
-        }
+ //       if (!incidente.getReabrir()) {
+   //         throw new BusinessLogicException("El incidente aun no se puede reabrir");
+   //     }
+   //     if (!incidente.getSolucionado()) {
+   //         throw new BusinessLogicException("El incidente aun no se puede solucionar");
+   //     }
 
         if (incidente.getFechaHoraFinal() == null) {
             throw new BusinessLogicException("La hora final es nula");
