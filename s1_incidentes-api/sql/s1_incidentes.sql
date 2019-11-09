@@ -55,44 +55,78 @@ insert into EmpleadoEntity (id, nombre, password, username, numIncidentes) value
 --------- Poblar tablas Tecnico.----------------------
 ------------------------------------------------------
 
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (129, 'fp1EpOMN', 'mdreigher3k', 0, 'SW_SA', 769);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (130, '5CF6hp', 'smacknish3l', 0, 'SW_SA', 769);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (131, 'pdvrUeCWwT', 'meager3m', 0, 'SW_SO', 769);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (132, 'gm4QHpB', 'tcrighton3n', 0, 'SW_SO', 769);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (133, 'FdJBqL0m', 'dpaulich3o', 0, 'HARWARE', 769);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (134, 'INkoEOkkr2', 'dgiercke3p', 0, 'SW_SA', 771);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (135, 'ovPJCS9hpK', 'cblackford3q', 0, 'SW_SO', 771);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (136, 'mhLAgB8SM', 'mleuren3r', 0, 'HARWARE', 772);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (137, 'frGB4xq', 'dlabone3s', 0, 'SW_SA', 773);
-insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (138, 'y1ybgOXE', 'clinge3t', 0, 'SW_SA', 774);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (129, 'fp1EpOMN', 'mdreigher3k', 3, 'SW_SA', 769);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (130, '5CF6hp', 'smacknish3l', 2, 'SW_SA', 769);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (131, 'pdvrUeCWwT', 'meager3m', 1, 'SW_SO', 769);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (132, 'gm4QHpB', 'tcrighton3n', 1, 'SW_SO', 769);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (133, 'FdJBqL0m', 'dpaulich3o', 2, 'HARWARE', 769);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (134, 'INkoEOkkr2', 'dgiercke3p', 1, 'SW_SA', 771);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (135, 'ovPJCS9hpK', 'cblackford3q', 1, 'SW_SO', 771);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (136, 'mhLAgB8SM', 'mleuren3r', 2, 'HARWARE', 772);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (137, 'frGB4xq', 'dlabone3s', 1, 'SW_SA', 773);
+insert into TecnicoEntity (id, password, username, numcasos, especialidad, coordinador_id) values (138, 'y1ybgOXE', 'clinge3t', 3, 'SW_SA', 774);
 
 ------------------------------------------------------
 --------- Poblar tablas Incidente.--------------------
 ------------------------------------------------------
 
-INSERT INTO EmpleadoEntity(nombre, password, username) 
-VALUES('Albert', '4LB3RT', 'Albert');
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000000,'2018-03-17 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SA','alta',1,1,'equipo1',769,129,120);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000001,'2018-10-29 13:34:00.000','2019-03-29 13:34:00.000','descripcion2','observacion2',9,'SW_SA','media',1,1,'equipo2',769,129,120);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000002,'2018-06-13 13:34:00.000','2019-03-29 13:34:00.000','descripcion3','observacion3',8,'SW_SA','alta',1,1,'equipo3',771,129,120);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000003,'2018-01-04 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SA','alta',1,1,'equipo1',769,130,120);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000004,'2018-02-21 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',5,'SW_SA','media',1,1,'equipo1',769,130,122);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000005,'2018-03-30 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SO','media',1,1,'equipo1',769,131,123);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000006,'2018-04-29 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',9,'SW_SO','media',1,1,'equipo1',769,132,123);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000007,'2018-08-19 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',9,'HARWARE','baja',1,1,'equipo1',769,133,131);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000008,'2018-07-05 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',8,'HARWARE','baja',1,1,'equipo1',769,133,131);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000009,'2018-06-14 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SA','alta',1,1,'equipo1',769,134,131);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000010,'2018-05-08 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SO','baja',1,1,'equipo1',769,135,145);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000011,'2018-12-05 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'HARWARE','media',1,1,'equipo1',769,136,146);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000012,'2018-11-11 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'HARWARE','media',1,1,'equipo1',769,136,149);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000013,'2018-10-12 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',8,'SW_SA','baja',1,1,'equipo1',769,137,149);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000014,'2018-09-21 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',6,'SW_SA','media',1,1,'equipo1',769,138,150);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000015,'2018-03-23 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',7,'SW_SA','media',1,1,'equipo1',769,138,150);
+insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
+values(1000016,'2018-02-15 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',8,'SW_SA','baja',1,1,'equipo1',769,138,150);
 
-INSERT INTO EmpleadoEntity(nombre, password, username) 
-VALUES('Jeremy', 'OTV', 'Toast');
-INSERT INTO EmpleadoEntity(nombre, password, username, id) 
-VALUES('Jeremy', 'OTV', 'Toast',6000000);
+------------------------------------------------------
+--------- Poblar tablas Actuaciones.--------------------
+------------------------------------------------------
 
-INSERT INTO TecnicoEntity(username, password, id) 
-VALUES('Jeremy',  'Toast',6000000);
-select * from tecnicoentity;
--- Poblar tablas Incidente
-INSERT INTO IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion
-,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id)
-VALUES(1000000,'2018-03-29 13:34:00.000','2019-03-29 13:34:00.000',
-'descripcion1','observacion1',10,'categoria1','prioridad1',1,1,'equipo1',769);
-INSERT INTO IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion
-,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id)
-VALUES(1000001,'2018-03-29 13:34:00.000','2019-03-29 13:34:00.000',
-'descripcion2','observacion2',10,'categoria2','prioridad2',1,1,'equipo2',769);
-INSERT INTO IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion
-,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id)
-VALUES(1000002,'2018-03-29 13:34:00.000','2019-03-29 13:34:00.000',
-'descripcion3','observacion3',10,'categoria3','prioridad3',1,1,'equipo3',771);
-
-insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (1, 'que mas pues', '2019-03-29 13:34:00.000', 1000000)
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (101, 'que mas pues', '2019-01-01 10:00:00.000', 1000000);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (102, 'que mas pues', '2019-01-01 10:00:00.000', 1000000);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (103, 'que mas pues', '2019-01-01 10:00:00.000', 1000001);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (104, 'que mas pues', '2019-01-01 10:00:00.000', 1000002);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (105, 'que mas pues', '2019-01-01 10:00:00.000', 1000002);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (106, 'que mas pues', '2019-01-01 10:00:00.000', 1000003);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (107, 'que mas pues', '2019-01-01 10:00:00.000', 1000004);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (108, 'que mas pues', '2019-01-01 10:00:00.000', 1000005);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (109, 'que mas pues', '2019-01-01 10:00:00.000', 1000006);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (110, 'que mas pues', '2019-01-01 10:00:00.000', 1000007);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (111, 'que mas pues', '2019-01-01 10:00:00.000', 1000008);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (112, 'que mas pues', '2019-01-01 10:00:00.000', 1000009);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (113, 'que mas pues', '2019-01-01 10:00:00.000', 1000009);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (114, 'que mas pues', '2019-01-01 10:00:00.000', 1000010);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (115, 'que mas pues', '2019-01-01 10:00:00.000', 1000010);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (116, 'que mas pues', '2019-01-01 10:00:00.000', 1000011);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (117, 'que mas pues', '2019-01-01 10:00:00.000', 1000012);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (118, 'que mas pues', '2019-01-01 10:00:00.000', 1000013);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (119, 'que mas pues', '2019-01-01 10:00:00.000', 1000014);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (120, 'que mas pues', '2019-01-01 10:00:00.000', 1000015);
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (121, 'que mas pues', '2019-01-01 10:00:00.000', 1000016);
