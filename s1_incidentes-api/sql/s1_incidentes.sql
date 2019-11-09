@@ -94,3 +94,5 @@ INSERT INTO IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observ
 ,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id)
 VALUES(1000002,'2018-03-29 13:34:00.000','2019-03-29 13:34:00.000',
 'descripcion3','observacion3',10,'categoria3','prioridad3',1,1,'equipo3',771);
+
+insert into actuacionentity (id,descripcion, fechahora, incidente_id) values (1, 'que mas pues', '2019-03-29 13:34:00.000', 1000000)
