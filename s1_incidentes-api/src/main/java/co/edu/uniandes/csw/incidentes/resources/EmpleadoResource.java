@@ -142,7 +142,7 @@ public class EmpleadoResource {
         if (empleadoLogic.getEmpleado(empleadoId) == null) {
             throw new WebApplicationException(EMPLEADO + empleadoId + NOEXISTE, 404);
         }
-        EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(empleadoLogic.updateEmpleado(empleadoId, empleado.toEntity()));
+        EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(empleadoLogic.updateEmpleado(empleadoId ,empleado.toEntity()));
         LOGGER.log(Level.INFO, "EmpleadoResource updateEmpleado: output: {0}", detailDTO);
         return detailDTO;
     }

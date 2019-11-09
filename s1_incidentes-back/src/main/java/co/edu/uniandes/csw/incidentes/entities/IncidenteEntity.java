@@ -62,11 +62,7 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "incidente", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ActuacionEntity> actuaciones = new ArrayList<>();
 
-    /**
-     * Constrctor vacio
-     */
-    public IncidenteEntity() {
-    }
+    
     
     //Método que devuelve todas las actuaciones de un incidente
     public List<ActuacionEntity> getActuaciones() {

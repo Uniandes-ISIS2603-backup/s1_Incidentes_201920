@@ -26,11 +26,11 @@ public class CoordinadorEntity extends UserEntity implements Serializable {
 
     @PodamExclude
     @OneToMany(mappedBy = "coordinador", fetch = FetchType.LAZY)
-    private List<TecnicoEntity> tecnicos = new ArrayList<TecnicoEntity>();
+    private List<TecnicoEntity> tecnicos = new ArrayList<>();
 
     @PodamExclude
     @OneToMany(mappedBy = "coordinador", fetch = FetchType.LAZY)
-    private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
+    private List<IncidenteEntity> incidentes = new ArrayList<>();
 
     /**
      * Devuelve el nombre del coordinador.

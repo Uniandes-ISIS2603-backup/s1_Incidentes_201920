@@ -33,8 +33,7 @@ public class ActuacionEntity extends BaseEntity implements Serializable {
 
     private String descripcion;
 
-    public ActuacionEntity() {
-    }
+    
 
     /**
      * @return the fechaHora

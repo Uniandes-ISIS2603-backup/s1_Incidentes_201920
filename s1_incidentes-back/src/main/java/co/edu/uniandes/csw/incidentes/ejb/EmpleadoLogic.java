@@ -51,10 +51,7 @@ public class EmpleadoLogic {
         {
             throw new BusinessLogicException("La contraseña no puede ser vacia.");
         }
-        /* TODO Al crear un objeto con Podam asegurar que cumpla esta condición para que el test no falle. 
-        if(!checkString(user.getPassword())){
-            throw new BusinessLogicException("La contraseña debe contener una mayuscula, una minuscula y un número.");
-        }*/
+        
         
         empleado = persistence.create(empleado);
         return empleado;
@@ -66,8 +63,8 @@ public class EmpleadoLogic {
      * @return una lista de Empleados.
      */
     public List<EmpleadoEntity> getEmpleados() {
-        List<EmpleadoEntity> lista = persistence.listAll();
-        return lista;
+        return persistence.listAll();
+        
     }
     
     /**
@@ -77,8 +74,8 @@ public class EmpleadoLogic {
      * @return el empleado solicitado por medio de su id.
      */
     public EmpleadoEntity getEmpleado(Long empleadoId) {
-        EmpleadoEntity empleadoEntity = persistence.find(empleadoId);
-        return empleadoEntity;
+        return persistence.find(empleadoId);
+       
     }
     
     /**
@@ -90,9 +87,9 @@ public class EmpleadoLogic {
      * por ejemplo el nombre.
      * @return el empleado con los cambios actualizados en la base de datos.
      */
-    public EmpleadoEntity updateEmpleado(Long empleadoId, EmpleadoEntity empleado) {
-        EmpleadoEntity newEmpleadoEntity = persistence.update(empleado);
-        return newEmpleadoEntity;
+    public EmpleadoEntity updateEmpleado( long empleadoId,EmpleadoEntity empleado) {
+        return persistence.update(empleado);
+        
     }
     
     /**
@@ -104,26 +101,6 @@ public class EmpleadoLogic {
         persistence.delete(empleadoId);
     }
     
-    /*
-    private static boolean checkString(String str) {
-        char ch;
-        boolean capitalFlag = false;
-        boolean lowerCaseFlag = false;
-        boolean numberFlag = false;
-        for(int i=0;i < str.length();i++) {
-            ch = str.charAt(i);
-            if( Character.isDigit(ch)) {
-                numberFlag = true;
-            }
-            else if (Character.isUpperCase(ch)) {
-                capitalFlag = true;
-            } else if (Character.isLowerCase(ch)) {
-                lowerCaseFlag = true;
-            }
-            if(numberFlag && capitalFlag && lowerCaseFlag)
-                return true;
-        }
-        return false;
-    }*/
+   
     
 }
