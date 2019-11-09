@@ -36,7 +36,7 @@ public class TecnicoDetailDTO extends TecnicoDTO implements Serializable {
             }
         }
     }
-    
+    @Override
     public TecnicoEntity toEntity() {
         TecnicoEntity tecnicoEntity = super.toEntity();
 

@@ -34,6 +34,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class CoordinadorTecnicosResource {
     private static final Logger LOGGER = Logger.getLogger(CoordinadorTecnicosResource.class.getName());
+    private static final String NOEXISTE="no existe";
 
     @Inject
     private CoordinadorTecnicosLogic coordinadorTecnicosLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -58,7 +59,7 @@ public class CoordinadorTecnicosResource {
     public TecnicoDTO addTecnico(@PathParam("coordinadorId") Long coordinadorId, @PathParam("tecnicoId") Long tecnicoId) {
         LOGGER.log(Level.INFO, "CoordinadorTecnicosResource addTecnico: input: coordinadorId: {0} , tecnicoId: {1}", new Object[]{coordinadorId, tecnicoId});
         if (tecnicoLogic.getTecnico(tecnicoId) == null) {
-            throw new WebApplicationException("El recurso /books/" + tecnicoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /books/" + tecnicoId + NOEXISTE, 404);
         }
         TecnicoDTO tecnicoDTO = new TecnicoDTO(coordinadorTecnicosLogic.addTecnico(tecnicoId, coordinadorId));
         LOGGER.log(Level.INFO, "CoordinadorTecnicosResourse addTecnico: output: {0}", tecnicoDTO);
@@ -100,7 +101,7 @@ public class CoordinadorTecnicosResource {
     public TecnicoDetailDTO getBook(@PathParam("coordinadorId") Long coordinadorId, @PathParam("tecnicoId") Long tecnicoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CoordinadorTecnicosResource getTecnico: input: coordinadorId: {0} , tecnicoId: {1}", new Object[]{coordinadorId, tecnicoId});
         if (tecnicoLogic.getTecnico(tecnicoId) == null) {
-            throw new WebApplicationException("El recurso /coordinador/" + coordinadorId + "/tecnicos/" + tecnicoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /coordinador/" + coordinadorId + "/tecnicos/" + tecnicoId + NOEXISTE, 404);
         }
         TecnicoDetailDTO tecnicoDetailDTO = new TecnicoDetailDTO(coordinadorTecnicosLogic.getTecnico(coordinadorId, tecnicoId));
         LOGGER.log(Level.INFO, "CoordinadorTecnicosResource getTecnico: output: {0}", tecnicoDetailDTO);
@@ -124,7 +125,7 @@ public class CoordinadorTecnicosResource {
         LOGGER.log(Level.INFO, "CoordinadorTecnicosResource replaceTecnicos: input: coordinadorId: {0} , tecnicos: {1}", new Object[]{coordinadorId, tecnicos});
         for (TecnicoDetailDTO tecnico : tecnicos) {
             if (tecnicoLogic.getTecnico(tecnico.getId()) == null) {
-                throw new WebApplicationException("El recurso /tecnicos/" + tecnico.getId() + " no existe.", 404);
+                throw new WebApplicationException("El recurso /tecnicos/" + tecnico.getId() + NOEXISTE, 404);
             }
         }
         List<TecnicoDetailDTO> listaDetailDTOs = tecnicosListEntity2DTO(coordinadorTecnicosLogic.replaceTecnicos(coordinadorId, tecnicosListDTO2Entity(tecnicos)));

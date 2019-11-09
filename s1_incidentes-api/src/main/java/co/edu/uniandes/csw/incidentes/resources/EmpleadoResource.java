@@ -38,6 +38,8 @@ public class EmpleadoResource {
     
     @Inject
     private EmpleadoLogic empleadoLogic;
+        private static final String NOEXISTE = "no existe.";
+        private static final String EMPLEADO =  "El recurso /empleado/";
 
     private static final Logger LOGGER = Logger.getLogger(EmpleadoResource.class.getName());
 
@@ -79,7 +81,7 @@ public class EmpleadoResource {
         LOGGER.log(Level.INFO, "EmpleadoResource getEmpleado: input: {0}", empleadoId);
         EmpleadoEntity entidad = empleadoLogic.getEmpleado(empleadoId);
         if (entidad == null) {
-            throw new WebApplicationException("El recurso /empleado/" + empleadoId + " no existe.", 404);
+            throw new WebApplicationException(EMPLEADO + empleadoId + NOEXISTE, 404);
         }
         EmpleadoDetailDTO empleadoDetailDTO = new EmpleadoDetailDTO(entidad);
         LOGGER.log(Level.INFO, "EmpleadoResource getEmpleado: output: {0}", empleadoDetailDTO);
@@ -129,18 +131,18 @@ public class EmpleadoResource {
      * @param empleado {@link empleadoDetailDTO} El empleado que se
      * desea guardar.
      * @return JSON {@link empleadoDetailDTO} - El empleado guardado.
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * @throws BusinessLogicException
      * Error de lógica que se genera cuando se incumple una regla de negocio.
      */
     @PUT
     @Path("{empleadoId: \\d+}")
-    public EmpleadoDetailDTO updateEmpleado(@PathParam("empleadoId") Long empleadoId, EmpleadoDetailDTO empleado) throws WebApplicationException {
+    public EmpleadoDetailDTO updateEmpleado(@PathParam("empleadoId") Long empleadoId, EmpleadoDetailDTO empleado) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoResource updateEmpleado: input: id: {0} , empleado: {1}", new Object[]{empleadoId, empleado});
         empleado.setId(empleadoId);
         if (empleadoLogic.getEmpleado(empleadoId) == null) {
-            throw new WebApplicationException("El recurso /empleado/" + empleadoId + " no existe.", 404);
+            throw new WebApplicationException(EMPLEADO + empleadoId + NOEXISTE, 404);
         }
-        EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(empleadoLogic.updateEmpleado(empleadoId, empleado.toEntity()));
+        EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(empleadoLogic.updateEmpleado(empleadoId ,empleado.toEntity()));
         LOGGER.log(Level.INFO, "EmpleadoResource updateEmpleado: output: {0}", detailDTO);
         return detailDTO;
     }
@@ -161,7 +163,7 @@ public class EmpleadoResource {
         LOGGER.log(Level.INFO, "EmpleadoResource deleteEmpleado: input: {0}", empleadoId);
         EmpleadoEntity entity = empleadoLogic.getEmpleado(empleadoId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /empleado/" + empleadoId + " no existe.", 404);
+            throw new WebApplicationException(EMPLEADO + empleadoId + NOEXISTE, 404);
         }
         empleadoLogic.deleteEmpleado(empleadoId);
         LOGGER.info("EmpleadoResource deleteEmpleado: output: void");
@@ -184,7 +186,7 @@ public class EmpleadoResource {
     @Path("{empleadoId: \\d+}/incidentes")
     public Class<EmpleadoIncidenteResource> getEmpleadoIncidenteResource(@PathParam("empleadoId") Long empleadoId) {
         if (empleadoLogic.getEmpleado(empleadoId) == null) {
-            throw new WebApplicationException("El recurso /empleado/" + empleadoId + " no existe.", 404);
+            throw new WebApplicationException(EMPLEADO + empleadoId + NOEXISTE, 404);
         }
         return EmpleadoIncidenteResource.class;
     }

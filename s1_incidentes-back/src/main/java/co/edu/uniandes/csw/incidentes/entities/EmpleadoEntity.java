@@ -26,7 +26,7 @@ public class EmpleadoEntity extends UserEntity implements Serializable  {
     private Integer numIncidentes;
     @PodamExclude
     @OneToMany(mappedBy = "empleado",fetch=FetchType.LAZY)
-    private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
+    private List<IncidenteEntity> incidentes = new ArrayList<>();
 
     /**
      * Devuelve el nombre del empleado
