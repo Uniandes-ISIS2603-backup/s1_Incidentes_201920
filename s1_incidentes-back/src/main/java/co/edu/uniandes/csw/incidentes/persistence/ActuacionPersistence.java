@@ -27,7 +27,7 @@ public class ActuacionPersistence {
     protected EntityManager em;
     
     public ActuacionEntity create(ActuacionEntity actuacion) {
-        //throw new java.lang.UnsupportedOperationException("Not supported yet.");
+
         LOGGER.log(Level.INFO, "Creando una nueva actuación");
         em.persist(actuacion);
         LOGGER.log(Level.INFO, "Actuación creada");

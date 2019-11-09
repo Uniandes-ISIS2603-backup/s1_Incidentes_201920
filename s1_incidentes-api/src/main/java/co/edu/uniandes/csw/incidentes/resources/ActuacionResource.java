@@ -37,7 +37,8 @@ import javax.ws.rs.WebApplicationException;
 public class ActuacionResource {
     
     private static final Logger LOGGER = Logger.getLogger(ActuacionResource.class.getName());
-    
+    private static final String NOEXISTE="no existe";
+    private static final String ACTU="/actuacion/";
     @Inject
     private ActuacionLogic actuacionLogic;
     
@@ -66,7 +67,7 @@ public class ActuacionResource {
         LOGGER.log(Level.INFO, "ActuacionResource getAcuacion: input: {0}", idActuacion);
         ActuacionEntity entity = actuacionLogic.getActuacion(idIncidente, idActuacion);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /incidente/" + idIncidente + "/actuacion/" + idActuacion + " no existe.", 404);
+            throw new WebApplicationException("El recurso /incidente/" + idIncidente + ACTU+ idActuacion + NOEXISTE, 404);
         }
         ActuacionDTO actuacionDTO = new ActuacionDTO(entity);
         LOGGER.log(Level.INFO, "ActuacionResource getActuacion: output: {0}", actuacionDTO);
@@ -80,7 +81,7 @@ public class ActuacionResource {
         actuacion.setId(idActuacion);
         ActuacionEntity entity = actuacionLogic.getActuacion(idIncidente, idActuacion);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /incidentes/" + idIncidente + "/actuacion/" + idActuacion + " no existe.", 404);
+            throw new WebApplicationException("El recurso /incidentes/" + idIncidente + ACTU + idActuacion + NOEXISTE, 404);
         }
         ActuacionDTO actuacionDTO = new ActuacionDTO(actuacionLogic.updateActuacion(idIncidente, actuacion.toEntity()));
         LOGGER.log(Level.INFO, "ActuacionResource updateActuacion: output:{0}", actuacionDTO);
@@ -92,13 +93,13 @@ public class ActuacionResource {
     public void deleteActuacion(@PathParam("incidentesId") Long idIncidente, @PathParam("idActuacion") Long idActuacion) throws BusinessLogicException {
         ActuacionEntity entity = actuacionLogic.getActuacion(idIncidente, idActuacion);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /incidentes/" + idIncidente + "/actuacion/" + idActuacion + " no existe.", 404);
+            throw new WebApplicationException("El recurso /incidentes/" + idIncidente + ACTU + idActuacion + NOEXISTE, 404);
         }
         actuacionLogic.deleteActuacion(idIncidente, idActuacion);
     }
     
     private List<ActuacionDTO> listEntity2DTO(List<ActuacionEntity> actuaciones) {
-        List<ActuacionDTO> lista = new ArrayList<ActuacionDTO>();
+        List<ActuacionDTO> lista = new ArrayList<>();
         for (ActuacionEntity actuacion : actuaciones) {
             lista.add(new ActuacionDTO(actuacion));
         }

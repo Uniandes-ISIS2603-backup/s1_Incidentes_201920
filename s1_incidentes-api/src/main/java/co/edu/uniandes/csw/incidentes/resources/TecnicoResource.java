@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.incidentes.resources;
 
-import co.edu.uniandes.csw.incidentes.dtos.IncidenteDTO;
+
 import co.edu.uniandes.csw.incidentes.dtos.TecnicoDTO;
 import co.edu.uniandes.csw.incidentes.dtos.TecnicoDetailDTO;
 import co.edu.uniandes.csw.incidentes.ejb.TecnicoLogic;
@@ -37,7 +37,7 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class TecnicoResource {
     private static final Logger LOGGER= Logger.getLogger(TecnicoResource.class.getName());
-    
+    private static final String NOEXISTE= "no existe.";
     @Inject
     private TecnicoLogic tecnicoLogic;
     
@@ -99,7 +99,7 @@ public class TecnicoResource {
         LOGGER.log(Level.INFO, "TecnicoResource getTecnico: input: {0}", authorsId);
         TecnicoEntity authorEntity = tecnicoLogic.getTecnico(authorsId);
         if (authorEntity == null) {
-            throw new WebApplicationException("El recurso /tecnicos/" + authorsId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /tecnicos/" + authorsId + NOEXISTE, 404);
         }
         TecnicoDetailDTO detailDTO = new TecnicoDetailDTO(authorEntity);
         LOGGER.log(Level.INFO, "AuthorResource getAuthor: output: {0}", detailDTO);
@@ -124,7 +124,7 @@ public class TecnicoResource {
         LOGGER.log(Level.INFO, "AuthorResource updateAuthor: input: authorsId: {0} , author: {1}", new Object[]{authorsId, author});
         author.setId(authorsId);
         if (tecnicoLogic.getTecnico(authorsId) == null) {
-            throw new WebApplicationException("El recurso /authors/" + authorsId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /authors/" + authorsId + NOEXISTE, 404);
         }
         TecnicoDetailDTO detailDTO = new TecnicoDetailDTO(tecnicoLogic.updateTecnico(authorsId, author.toEntity()));
         LOGGER.log(Level.INFO, "AuthorResource updateAuthor: output: {0}", detailDTO);
@@ -146,7 +146,7 @@ public class TecnicoResource {
     public void deleteTecnico(@PathParam("tecnicosId") Long authorsId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "AuthorResource deleteAuthor: input: {0}", authorsId);
         if (tecnicoLogic.getTecnico(authorsId) == null) {
-            throw new WebApplicationException("El recurso /authors/" + authorsId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /authors/" + authorsId + NOEXISTE, 404);
         }
         tecnicoLogic.deleteTecnico(authorsId);
         LOGGER.info("TecnicoResource deleteTecnico: output: void");
@@ -156,7 +156,7 @@ public class TecnicoResource {
     @Path("{tecnicosId: \\d+}/incidentes")
     public Class<TecnicoIncidenteResource> getIncidenteTecnicoResource(@PathParam("tecnicosId") Long authorsId) {
         if (tecnicoLogic.getTecnico(authorsId) == null) {
-            throw new WebApplicationException("El recurso /tecnicos/" + authorsId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /tecnicos/" + authorsId + NOEXISTE, 404);
         }
         return TecnicoIncidenteResource.class;
     }

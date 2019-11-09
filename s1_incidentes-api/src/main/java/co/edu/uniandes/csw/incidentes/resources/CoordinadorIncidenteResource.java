@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package co.edu.uniandes.csw.incidentes.resources;
 
@@ -37,6 +33,7 @@ import javax.ws.rs.core.MediaType;
 public class CoordinadorIncidenteResource {
 
     private static final Logger LOGGER = Logger.getLogger(CoordinadorIncidenteResource.class.getName());
+    private static final String NOEXISTE="no existe";
 
     @Inject
     private IncidenteLogic incidenteLogic;
@@ -61,7 +58,7 @@ public class CoordinadorIncidenteResource {
     public IncidenteDTO addIncidente(@PathParam("coordinadorId") Long coordinadorId, @PathParam("incidenteId") Long incidenteId) {
         LOGGER.log(Level.INFO, "CoordinadorIncidenteResource addIncidente: input: coordinadorId: {0} , incidenteId: {1}", new Object[]{coordinadorId, incidenteId});
         if (incidenteLogic.getIncidente(incidenteId) == null) {
-            throw new WebApplicationException("El recurso /incidente/" + incidenteId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /incidente/" + incidenteId + NOEXISTE, 404);
         }
         
         IncidenteDTO incidenteDTO = new IncidenteDTO(coordinadorIncidenteLogic.addIncidente(incidenteId, coordinadorId));
@@ -104,7 +101,7 @@ public class CoordinadorIncidenteResource {
     public IncidenteDetailDTO getIncidente(@PathParam("coordinadorId") Long coordinadorId, @PathParam("incidenteId") Long incidenteId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CoordinadorIncidenteResource getIncidente: input: editorialsID: {0} , booksId: {1}", new Object[]{coordinadorId, incidenteId});
         if (incidenteLogic.getIncidente(incidenteId) == null) {
-            throw new WebApplicationException("El recurso /coordinador/" + coordinadorId + "/incidente/" + incidenteId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /coordinador/" + coordinadorId + "/incidente/" + incidenteId + NOEXISTE, 404);
         }
         IncidenteDetailDTO incidenteDetailDTO = new IncidenteDetailDTO(coordinadorIncidenteLogic.getIncidente(coordinadorId, incidenteId));
         LOGGER.log(Level.INFO, "CoordinadorIncidenteResource getIncidente: output: {0}", incidenteDetailDTO);
@@ -128,7 +125,7 @@ public class CoordinadorIncidenteResource {
         LOGGER.log(Level.INFO, "CoordinadorIncidenteResource replaceIncidentes: input: coordinadorId: {0} , incidentes: {1}", new Object[]{coordinadorId, incidentes});
         for (IncidenteDetailDTO incidente : incidentes) {
             if (incidenteLogic.getIncidente(incidente.getId()) == null) {
-                throw new WebApplicationException("El recurso /incidente/" + incidente.getId() + " no existe.", 404);
+                throw new WebApplicationException("El recurso /incidente/" + incidente.getId() + NOEXISTE, 404);
             }
         }
         List<IncidenteDetailDTO> listaDetailDTOs = incidentesListEntity2DTO(coordinadorIncidenteLogic.replaceIncidentes(coordinadorId, incidentesListDTO2Entity(incidentes)));

@@ -36,7 +36,7 @@ public class TecnicoEntity extends UserEntity implements Serializable {
     private CoordinadorEntity coordinador;
     @PodamExclude
     @OneToMany(mappedBy = "tecnico", fetch = FetchType.LAZY)
-    private List<IncidenteEntity> incidentes = new ArrayList<IncidenteEntity>();
+    private List<IncidenteEntity> incidentes = new ArrayList<>();
 
     public String getEspecialidad() {
         return especialidad;

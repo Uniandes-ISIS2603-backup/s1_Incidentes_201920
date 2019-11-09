@@ -9,7 +9,6 @@ package co.edu.uniandes.csw.incidentes.dtos;
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import java.io.Serializable;
 
 /**

@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 public class EmpleadoIncidenteResource {
     
     private static final Logger LOGGER = Logger.getLogger(EmpleadoIncidenteResource.class.getName());
-
+    private static final String NOEXISTE = "no existe.";
     @Inject
     private IncidenteLogic incidenteLogic;
 
@@ -60,7 +60,7 @@ public class EmpleadoIncidenteResource {
     public IncidenteDTO addIncidente(@PathParam("empleadoId") Long empleadoId, @PathParam("incidenteId") Long incidenteId) {
         LOGGER.log(Level.INFO, "EmpleadoIncidenteResource addIncidente: input: empleadoId: {0} , incidenteId: {1}", new Object[]{empleadoId, incidenteId});
         if (incidenteLogic.getIncidente(incidenteId) == null) {
-            throw new WebApplicationException("El recurso /incidente/" + incidenteId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /incidente/" + incidenteId + NOEXISTE, 404);
         }
         
         IncidenteDTO incidenteDTO = new IncidenteDTO(empleadoIncidenteLogic.addIncidente(incidenteId, empleadoId));
@@ -103,7 +103,7 @@ public class EmpleadoIncidenteResource {
     public IncidenteDetailDTO getIncidente(@PathParam("empleadoId") Long empleadoId, @PathParam("incidenteId") Long incidenteId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoIncidenteResource getIncidente: input: editorialsID: {0} , booksId: {1}", new Object[]{empleadoId, incidenteId});
         if (incidenteLogic.getIncidente(incidenteId) == null) {
-            throw new WebApplicationException("El recurso /empleado/" + empleadoId + "/incidente/" + incidenteId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /empleado/" + empleadoId + "/incidente/" + incidenteId + NOEXISTE, 404);
         }
         IncidenteDetailDTO incidenteDetailDTO = new IncidenteDetailDTO(empleadoIncidenteLogic.getIncidente(empleadoId, incidenteId));
         LOGGER.log(Level.INFO, "EmpleadoIncidenteResource getIncidente: output: {0}", incidenteDetailDTO);
@@ -127,7 +127,7 @@ public class EmpleadoIncidenteResource {
         LOGGER.log(Level.INFO, "EmpleadoIncidenteResource replaceIncidentes: input: empleadoId: {0} , incidentes: {1}", new Object[]{empleadoId, incidentes});
         for (IncidenteDetailDTO incidente : incidentes) {
             if (incidenteLogic.getIncidente(incidente.getId()) == null) {
-                throw new WebApplicationException("El recurso /incidente/" + incidente.getId() + " no existe.", 404);
+                throw new WebApplicationException("El recurso /incidente/" + incidente.getId() + NOEXISTE, 404);
             }
         }
         List<IncidenteDetailDTO> listaDetailDTOs = incidentesListEntity2DTO(empleadoIncidenteLogic.replaceIncidentes(empleadoId, incidentesListDTO2Entity(incidentes)));

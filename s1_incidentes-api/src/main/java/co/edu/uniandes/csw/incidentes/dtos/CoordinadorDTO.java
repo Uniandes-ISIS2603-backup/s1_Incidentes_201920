@@ -134,10 +134,10 @@ public class CoordinadorDTO implements Serializable {
     /**
      * Modifica la contraseña del coordinador.
      *
-     * @param contraseña the password to set
+     * @param contrasena the password to set
      */
-    public void setPassword(String contraseña) {
-        this.password = contraseña;
+    public void setPassword(String contrasena) {
+        this.password = contrasena;
     }
 
     /**

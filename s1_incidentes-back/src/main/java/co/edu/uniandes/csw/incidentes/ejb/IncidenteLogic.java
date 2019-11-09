@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.incidentes.ejb;
 
-import co.edu.uniandes.csw.incidentes.entities.ActuacionEntity;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;
@@ -53,12 +52,7 @@ public class IncidenteLogic {
         if (incidente.getCategoria() == null) {
             throw new BusinessLogicException("La categoria del incidente es nula");
         }
- //       if (!incidente.getReabrir()) {
-   //         throw new BusinessLogicException("El incidente aun no se puede reabrir");
-   //     }
-   //     if (!incidente.getSolucionado()) {
-   //         throw new BusinessLogicException("El incidente aun no se puede solucionar");
-   //     }
+
 
         if (incidente.getFechaHoraFinal() == null) {
             throw new BusinessLogicException("La hora final es nula");
@@ -84,8 +78,8 @@ public class IncidenteLogic {
      * @return Colección de objetos de IncidenteEntity.
      */
     public List<IncidenteEntity> getIncidentes() {
-        List<IncidenteEntity> lista = persistence.findAll();
-        return lista;
+        
+        return persistence.findAll();
     }
 
     /**
@@ -96,8 +90,8 @@ public class IncidenteLogic {
      * consultado.
      */
     public IncidenteEntity getIncidente(Long incidenteId) {
-        IncidenteEntity incidenteEntity = persistence.find(incidenteId);
-        return incidenteEntity;
+        return persistence.find(incidenteId);
+        
     }
 
     /**
@@ -108,8 +102,8 @@ public class IncidenteLogic {
      * @return Instancia de IncidenteEntity con los datos actualizados.
      */
     public IncidenteEntity updateIncidente(Long incidenteId, IncidenteEntity incidenteEntity) {
-        IncidenteEntity newIncidenteEntity = persistence.update(incidenteEntity);
-        return newIncidenteEntity;
+        return persistence.update(incidenteEntity);
+        
     }
 
     /**

@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.incidentes.entities;
-
 import co.edu.uniandes.csw.incidentes.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -67,12 +60,14 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     // Atributo que determina la relacion de Incidente-Actuacion
     @PodamExclude
     @OneToMany(mappedBy = "incidente", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<ActuacionEntity> actuaciones = new ArrayList<ActuacionEntity>();
+    private List<ActuacionEntity> actuaciones = new ArrayList<>();
 
-    //Constructor vacio
+    /**
+     * Constrctor vacio
+     */
     public IncidenteEntity() {
     }
-
+    
     //Método que devuelve todas las actuaciones de un incidente
     public List<ActuacionEntity> getActuaciones() {
         return actuaciones;

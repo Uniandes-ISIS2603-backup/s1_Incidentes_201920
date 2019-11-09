@@ -42,6 +42,8 @@ import javax.ws.rs.WebApplicationException;
         
 public class IncidenteResource {
     private static final Logger LOGGER = Logger.getLogger(IncidenteResource.class.getName());
+    private static final String NOEXISTE = "no existe.";
+        private static final String INCI =  "El recurso /incidentes/";
      @Inject
     private IncidenteLogic incidenteLogic;
      
@@ -65,7 +67,7 @@ public class IncidenteResource {
         IncidenteEntity entidad=incidenteLogic.getIncidente(incidenteId);
         if(entidad==null)
         {
-            throw new WebApplicationException("El recurso /incidentes/"+incidenteId+" no existe.",404);
+            throw new WebApplicationException(INCI+incidenteId+NOEXISTE,404);
         }
         return new IncidenteDetailDTO(entidad);        
     }
@@ -86,13 +88,13 @@ public class IncidenteResource {
     }
     @PUT
     @Path("{incidentesId: \\d+}")
-    public IncidenteDetailDTO updateIncidente(@PathParam("incidentesId") Long incidentesId, IncidenteDetailDTO incidente) throws WebApplicationException {
+    public IncidenteDetailDTO updateIncidente(@PathParam("incidentesId") Long incidentesId, IncidenteDetailDTO incidente) throws BusinessLogicException {
         incidente.setId(incidentesId);
         if (incidenteLogic.getIncidente(incidentesId) == null) {
-            throw new WebApplicationException("El recurso /incidentes/" + incidentesId + " no existe.", 404);
+            throw new WebApplicationException(INCI + incidentesId + NOEXISTE, 404);
         }
-        IncidenteDetailDTO detailDTO = new IncidenteDetailDTO(incidenteLogic.updateIncidente(incidentesId, incidente.toEntity()));
-        return detailDTO;
+        return new IncidenteDetailDTO(incidenteLogic.updateIncidente(incidentesId, incidente.toEntity()));
+        
 
     }
     @DELETE
@@ -101,7 +103,7 @@ public class IncidenteResource {
         LOGGER.log(Level.INFO, "CoordinadorResource deleteCoordinador: input: {0}", incidenteId);
         IncidenteEntity entity = incidenteLogic.getIncidente(incidenteId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /incidentes/" + incidenteId + " no existe.", 404);
+            throw new WebApplicationException(INCI + incidenteId + NOEXISTE, 404);
         }
         else{
         incidenteLogic.deleteIncidente(incidenteId);
@@ -110,7 +112,7 @@ public class IncidenteResource {
     @Path("{incidentesId: \\d+}/actuacion")
     public Class<ActuacionResource> getActuacionResource(@PathParam("incidentesId") Long incidentesId) {
         if (incidenteLogic.getIncidente(incidentesId) == null) {
-            throw new WebApplicationException("El recurso /incidentes/" + incidentesId + "/actuacion no existe.", 404);
+            throw new WebApplicationException(INCI + incidentesId + "/actuacion no existe.", 404);
         }
         return ActuacionResource.class;
     }

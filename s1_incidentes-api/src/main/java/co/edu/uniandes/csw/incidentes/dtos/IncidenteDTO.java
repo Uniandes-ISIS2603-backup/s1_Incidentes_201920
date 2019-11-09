@@ -7,15 +7,11 @@ package co.edu.uniandes.csw.incidentes.dtos;
 
 import co.edu.uniandes.csw.incidentes.adapters.DateAdapter;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
-import co.edu.uniandes.csw.incidentes.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *

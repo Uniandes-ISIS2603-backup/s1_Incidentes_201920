@@ -10,9 +10,7 @@ import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
