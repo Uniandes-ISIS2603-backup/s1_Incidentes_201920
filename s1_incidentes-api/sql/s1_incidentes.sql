@@ -89,21 +89,21 @@ values(1000007,'2018-08-19 13:34:00.000','2019-03-29 13:34:00.000','descripcion1
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
 values(1000008,'2018-07-05 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',8,'HARWARE','baja',1,1,'equipo1',769,133,131);
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
-values(1000009,'2018-06-14 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SA','alta',1,1,'equipo1',769,134,131);
+values(1000009,'2018-06-14 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SA','alta',1,1,'equipo1',770,134,131);
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
-values(1000010,'2018-05-08 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SO','baja',1,1,'equipo1',769,135,145);
+values(1000010,'2018-05-08 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'SW_SO','baja',1,1,'equipo1',770,135,145);
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
-values(1000011,'2018-12-05 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'HARWARE','media',1,1,'equipo1',769,136,146);
+values(1000011,'2018-12-05 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'HARWARE','media',1,1,'equipo1',772,136,146);
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
-values(1000012,'2018-11-11 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'HARWARE','media',1,1,'equipo1',769,136,149);
+values(1000012,'2018-11-11 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',10,'HARWARE','media',1,1,'equipo1',772,136,149);
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
-values(1000013,'2018-10-12 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',8,'SW_SA','baja',1,1,'equipo1',769,137,149);
+values(1000013,'2018-10-12 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',8,'SW_SA','baja',1,1,'equipo1',773,137,149);
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
-values(1000014,'2018-09-21 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',6,'SW_SA','media',1,1,'equipo1',769,138,150);
+values(1000014,'2018-09-21 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',6,'SW_SA','media',1,1,'equipo1',774,138,150);
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
-values(1000015,'2018-03-23 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',7,'SW_SA','media',1,1,'equipo1',769,138,150);
+values(1000015,'2018-03-23 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',7,'SW_SA','media',1,1,'equipo1',774,138,150);
 insert into IncidenteEntity(id,fechaHoraInicio,fechaHoraFinal,descripcion,observaciones,calificacion,categoria,prioridad,solucionado,reabrir,equipo,coordinador_id,tecnico_id,empleado_id)
-values(1000016,'2018-02-15 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',8,'SW_SA','baja',1,1,'equipo1',769,138,150);
+values(1000016,'2018-02-15 13:34:00.000','2019-03-29 13:34:00.000','descripcion1','observacion1',8,'SW_SA','baja',1,1,'equipo1',774,138,150);
 
 ------------------------------------------------------
 --------- Poblar tablas Actuaciones.--------------------
