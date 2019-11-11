@@ -150,7 +150,6 @@ public class TecnicoResource {
         if (tecnicoLogic.getTecnico(authorsId) == null) {
             throw new WebApplicationException("El recurso /authors/" + authorsId + NOEXISTE, 404);
         }
-        tecnicoCoordinadorLogic.removeCoordinador(authorsId);
         tecnicoLogic.deleteTecnico(authorsId);
         LOGGER.info("TecnicoResource deleteTecnico: output: void");
     }
