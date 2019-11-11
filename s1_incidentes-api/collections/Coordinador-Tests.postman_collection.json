@@ -642,7 +642,7 @@
 			"response": []
 		},
 		{
-			"name": "delete coordinador1 Copy",
+			"name": "delete coordinador2",
 			"event": [
 				{
 					"listen": "test",

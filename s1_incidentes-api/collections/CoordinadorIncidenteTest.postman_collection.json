@@ -409,14 +409,14 @@
 			"response": []
 		},
 		{
-			"name": "Ver los incidentes de un coordinador",
+			"name": "get Coordinadores",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "c96675bf-923e-486c-809c-00b21626a440",
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
 						"exec": [
-							""
+							"tests[\"No genera error en el get\"] = responseCode.code == 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -430,7 +430,9 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -438,7 +440,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}/incidentes",
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -447,12 +449,10 @@
 					"path": [
 						"s1_incidentes-api",
 						"api",
-						"coordinador",
-						"{{new_id_c1}}",
-						"incidentes"
+						"coordinador"
 					]
 				},
-				"description": "Se muestran los incidentes del coordinador al que se agrego el incidente para confirmar que se esta agregando correctamente."
+				"description": "Se revisa que el primer coordinador tenga un incidente y el segundo no."
 			},
 			"response": []
 		},
@@ -505,7 +505,55 @@
 			"response": []
 		},
 		{
-			"name": "get Coordinadores",
+			"name": "Ver los incidentes de un coordinador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c96675bf-923e-486c-809c-00b21626a440",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}/incidentes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador",
+						"{{new_id_c1}}",
+						"incidentes"
+					]
+				},
+				"description": "Se muestran los incidentes del coordinador al que se agrego el incidente para confirmar que se esta agregando correctamente."
+			},
+			"response": []
+		},
+		{
+			"name": "get Incidente de un coordinador",
 			"event": [
 				{
 					"listen": "test",
@@ -536,7 +584,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador",
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}/incidentes/{{new_id_i1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -545,10 +593,212 @@
 					"path": [
 						"s1_incidentes-api",
 						"api",
-						"coordinador"
+						"coordinador",
+						"{{new_id_c1}}",
+						"incidentes",
+						"{{new_id_i1}}"
 					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete coordinador1 con incidentes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
-				"description": "Se revisa que el primer coordinador tenga un incidente y el segundo no."
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete incidente1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete incidente2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete coordinador1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador",
+						"{{new_id_c1}}"
+					]
+				}
 			},
 			"response": []
 		},
