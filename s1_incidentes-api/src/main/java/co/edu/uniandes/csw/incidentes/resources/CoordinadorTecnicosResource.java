@@ -98,7 +98,7 @@ public class CoordinadorTecnicosResource {
      */
     @GET
     @Path("{tecnicoId: \\d+}")
-    public TecnicoDetailDTO getBook(@PathParam("coordinadorId") Long coordinadorId, @PathParam("tecnicoId") Long tecnicoId) throws BusinessLogicException {
+    public TecnicoDetailDTO getTecnico(@PathParam("coordinadorId") Long coordinadorId, @PathParam("tecnicoId") Long tecnicoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CoordinadorTecnicosResource getTecnico: input: coordinadorId: {0} , tecnicoId: {1}", new Object[]{coordinadorId, tecnicoId});
         if (tecnicoLogic.getTecnico(tecnicoId) == null) {
             throw new WebApplicationException("El recurso /coordinador/" + coordinadorId + "/tecnicos/" + tecnicoId + NOEXISTE, 404);

@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.incidentes.resources;
 
 import co.edu.uniandes.csw.incidentes.dtos.TecnicoDTO;
 import co.edu.uniandes.csw.incidentes.dtos.TecnicoDetailDTO;
+import co.edu.uniandes.csw.incidentes.ejb.TecnicoCoordinadorLogic;
 import co.edu.uniandes.csw.incidentes.ejb.TecnicoLogic;
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
@@ -40,7 +41,8 @@ public class TecnicoResource {
     private static final String NOEXISTE= "no existe.";
     @Inject
     private TecnicoLogic tecnicoLogic;
-    
+    @Inject
+    private TecnicoCoordinadorLogic tecnicoCoordinadorLogic;
     @POST
     public TecnicoDTO createTecnico(TecnicoDTO tecnico) throws BusinessLogicException
     {
@@ -59,7 +61,7 @@ public class TecnicoResource {
      * aplicación. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<TecnicoDetailDTO> getAuthors() {
+    public List<TecnicoDetailDTO> getTecnicos() {
         LOGGER.info("AuthorResource getAuthors: input: void");
         List<TecnicoDetailDTO> listaAuthors = listEntity2DTO(tecnicoLogic.getTecnicos());
         LOGGER.log(Level.INFO, "AuthorResource getAuthors: output: {0}", listaAuthors);
@@ -148,6 +150,7 @@ public class TecnicoResource {
         if (tecnicoLogic.getTecnico(authorsId) == null) {
             throw new WebApplicationException("El recurso /authors/" + authorsId + NOEXISTE, 404);
         }
+        tecnicoCoordinadorLogic.removeCoordinador(authorsId);
         tecnicoLogic.deleteTecnico(authorsId);
         LOGGER.info("TecnicoResource deleteTecnico: output: void");
     }

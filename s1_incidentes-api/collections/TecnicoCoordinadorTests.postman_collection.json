@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "299c5915-205e-4fd4-9ae6-437f84544473",
+		"name": "TecnicoCoordinadorTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "crear coordinador 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8b44e88-4199-4724-a468-3a0f744e26c2",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c1\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "xoxp-767593931670-767593933510-752612757074-ca80b98ce13c93017d5943c7bd635a7c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula1\",\n\t\"password\" : \"clave\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador"
+					]
+				},
+				"description": "Crea un coordinador"
+			},
+			"response": []
+		},
+		{
+			"name": "crear coordinador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8b44e88-4199-4724-a468-3a0f744e26c2",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c2\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "xoxp-767593931670-767593933510-752612757074-ca80b98ce13c93017d5943c7bd635a7c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\" : \"Juan\",\n\t\"username\" : \"Juan1\",\n\t\"password\" : \"clave\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador"
+					]
+				},
+				"description": "Crea otro coordinador"
+			},
+			"response": []
+		},
+		{
+			"name": "crear tecnico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8b44e88-4199-4724-a468-3a0f744e26c2",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_t1\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "xoxp-767593931670-767593933510-752612757074-ca80b98ce13c93017d5943c7bd635a7c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numCasos\" : 1,\n\t\"especialidad\" : \"HARDWARE\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"clave\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/tecnico",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"tecnico"
+					]
+				},
+				"description": "Crea un tecnico"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar un coordinador a un tecnico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da37850e-cc74-4ab8-b8c1-510b3e28848d",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : {{new_id_c1}},\n\t\"nombre\" : \"Camilo\",\n\t\"username\" : \"Camilo\",\n\t\"password\" : \"1234\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/tecnico/{{new_id_t1}}/coordinador",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"tecnico",
+						"{{new_id_t1}}",
+						"coordinador"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar un coordinador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16e3ba71-952f-4135-a2d9-df0b67bfa964",
+						"exec": [
+							"tests[\"No actualiza con coordinador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /coordinador/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 0\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/tecnico/{{new_id_t1}}/coordinador",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"tecnico",
+						"{{new_id_t1}}",
+						"coordinador"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar un coordinador a un tecnico que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "57e75c83-46a7-4c1d-ad92-2054d829defb",
+						"exec": [
+							"tests[\"No actualiza con un tecnico que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /tecnico/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : {{new_id_c1}},\n\t\"nombre\" : \"Camilo\",\n\t\"username\" : \"Camilo\",\n\t\"password\" : \"1234\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/tecnico/0/coordinador",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"tecnico",
+						"0",
+						"coordinador"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar tecnico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e1fcab1-ae36-4e78-a0ef-311ef68e6278",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/tecnico/{{new_id_t1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"tecnico",
+						"{{new_id_t1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar coordinador 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "319f4281-abeb-41fb-b94d-3698fb30f53d",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar coordinador2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68434895-ebae-4b4f-a743-c7e139ef7701",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/coordinador/{{new_id_c2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"coordinador",
+						"{{new_id_c2}}"
+					]
+				},
+				"description": "Se borra el coordinador 2."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
