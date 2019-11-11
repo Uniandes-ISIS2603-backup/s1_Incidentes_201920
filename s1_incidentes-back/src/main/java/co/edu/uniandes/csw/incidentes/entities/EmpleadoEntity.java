@@ -17,7 +17,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  * Clase que representa un empleado en la persistencia y permite su
  * serialización.
  * 
- * @author Daniel Reyes
+ * @author Julian Jaimes
  */
 
 @Entity
@@ -25,7 +25,7 @@ public class EmpleadoEntity extends UserEntity implements Serializable  {
     private String nombre;
     private Integer numIncidentes;
     @PodamExclude
-    @OneToMany(mappedBy = "empleado",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "empleado",fetch=FetchType.LAZY,orphanRemoval=true)
     private List<IncidenteEntity> incidentes = new ArrayList<>();
 
     /**
