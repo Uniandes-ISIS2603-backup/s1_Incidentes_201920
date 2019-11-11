@@ -16,7 +16,7 @@ import javax.persistence.TypedQuery;
  * Clase que maneja la persistencia para Empleado. Se conecta a través Entity
  * Manager de javax.persistance con la base de datos SQL.
  * 
- * @author Daniel Reyes
+ * @author Julian Jaimes
  */
 
 @Stateless
