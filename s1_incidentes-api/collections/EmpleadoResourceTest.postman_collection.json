@@ -58,57 +58,6 @@
 			"response": []
 		},
 		{
-			"name": "Crear empleado 2",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "a2ab2d1d-3e13-4472-8a2a-4708ad949ec5",
-						"exec": [
-							"tests[\"No genera error en el post\"] = responseCode.code == 200;",
-							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_c2\", data.id);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Juan\",\n\t\"username\" : \"Juan\",\n\t\"password\" : \"clave\",\n\t\"numIncidentes\":3\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s1_incidentes-api",
-						"api",
-						"empleado"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Crear empleado existente",
 			"event": [
 				{
@@ -451,7 +400,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\" : \"Paula\",\n\t\"username\" : \"Paula\",\n\t\"password\" : \"nueva clave\",\n\t\"numIncidentes\":3\n}",
+					"raw": "{\n\t\"nombre\" : \"Jeremy\",\n\t\"username\" : \"Toast\",\n\t\"password\" : \"hearthstone\",\n\t\"numIncidentes\":0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
