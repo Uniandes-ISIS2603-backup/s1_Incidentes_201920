@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "feb7e426-21b8-47b5-acca-61ba96049c2a",
+		"_postman_id": "80966d15-9d78-48cd-aa9b-14f24bf412b3",
 		"name": "EmpleadoIncidenteResourceTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -542,7 +542,145 @@
 			"response": []
 		},
 		{
-			"name": "Borrar un empleado Copy",
+			"name": "Borrar un empleado 1 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59775b18-4032-4817-aed8-fdc8b4c071f3",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 401;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar incidente  1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59775b18-4032-4817-aed8-fdc8b4c071f3",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i1}}"
+					]
+				},
+				"description": "Borra el incidente 1."
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar incidente  2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59775b18-4032-4817-aed8-fdc8b4c071f3",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/incidentes/{{new_id_i2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"incidentes",
+						"{{new_id_i2}}"
+					]
+				},
+				"description": "Borra el incidente 2."
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un empleado 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59775b18-4032-4817-aed8-fdc8b4c071f3",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code == 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_incidentes-api/api/empleado/{{new_id_c2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_incidentes-api",
+						"api",
+						"empleado",
+						"{{new_id_c2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un empleado 1",
 			"event": [
 				{
 					"listen": "test",
