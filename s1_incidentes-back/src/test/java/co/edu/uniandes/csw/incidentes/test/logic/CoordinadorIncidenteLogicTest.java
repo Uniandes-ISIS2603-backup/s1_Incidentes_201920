@@ -172,4 +172,19 @@ public class CoordinadorIncidenteLogicTest {
         coordinadorIncidenteLogic.getIncidente(entity.getId(), incidenteEntity.getId());
     }
     
+    /**
+     * Prueba para remplazar las instancias de Books asociadas a una instancia
+     * de Editorial.
+     */
+    @Test
+    public void replaceIncidenteTest() {
+        CoordinadorEntity entity = data.get(0);
+        List<IncidenteEntity> list = incidentesData.subList(1, 3);
+        coordinadorIncidenteLogic.replaceIncidentes(entity.getId(), list);
+
+        entity = coordinadorLogic.getCoordinador(entity.getId());
+        Assert.assertFalse(entity.getIncidentes().contains(incidentesData.get(0)));
+        Assert.assertTrue(entity.getIncidentes().contains(incidentesData.get(1)));
+        Assert.assertTrue(entity.getIncidentes().contains(incidentesData.get(2)));
+    }
 }
