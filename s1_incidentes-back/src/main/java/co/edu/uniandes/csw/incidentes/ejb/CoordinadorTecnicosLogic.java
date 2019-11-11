@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Estudiante
+ * @author c.alcala
  */
 @Stateless
 public class CoordinadorTecnicosLogic {
