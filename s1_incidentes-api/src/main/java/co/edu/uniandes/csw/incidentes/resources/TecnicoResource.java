@@ -120,7 +120,7 @@ public class TecnicoResource {
      */
     @PUT
     @Path("{tecnicosId: \\d+}")
-    public TecnicoDetailDTO updateAuthor(@PathParam("authorsId") Long authorsId, TecnicoDetailDTO author) {
+    public TecnicoDetailDTO updateAuthor(@PathParam("tecnicosId") Long authorsId, TecnicoDetailDTO author) {
         LOGGER.log(Level.INFO, "AuthorResource updateAuthor: input: authorsId: {0} , author: {1}", new Object[]{authorsId, author});
         author.setId(authorsId);
         if (tecnicoLogic.getTecnico(authorsId) == null) {
@@ -142,7 +142,7 @@ public class TecnicoResource {
      * Error de lógica que se genera cuando no se encuentra el autor a borrar.
      */
     @DELETE
-    @Path("{authorsId: \\d+}")
+    @Path("{tecnicosId: \\d+}")
     public void deleteTecnico(@PathParam("tecnicosId") Long authorsId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "AuthorResource deleteAuthor: input: {0}", authorsId);
         if (tecnicoLogic.getTecnico(authorsId) == null) {

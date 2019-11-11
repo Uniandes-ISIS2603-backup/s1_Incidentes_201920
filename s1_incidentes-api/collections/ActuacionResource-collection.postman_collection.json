@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "aa578d22-a4a0-4127-ab5d-aef4d1e8ebeb",
+		"_postman_id": "0163ab37-35e1-4711-b70d-07f9ed1680f0",
 		"name": "ActuacionResourceTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -336,7 +336,8 @@
 						"exec": [
 							"tests[\"No se puede editar una actuacion que no existe.\"] = responseCode.code === 404;",
 							"let id = pm.variables.get(\"new_id_i\");",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/\"+id+\"/actuacion/0 no existe.\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/\"+id+\"/actuacion/0no existe\");",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -431,7 +432,7 @@
 						"exec": [
 							"tests[\"No s epuede borrar una actuación que no existe.\"] = responseCode.code === 404;",
 							"let id = pm.variables.get(\"new_id_i\");",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/\"+id+\"/actuacion/0 no existe.\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /incidentes/\"+id+\"/actuacion/0no existe\");"
 						],
 						"type": "text/javascript"
 					}
@@ -602,5 +603,6 @@
 			},
 			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
