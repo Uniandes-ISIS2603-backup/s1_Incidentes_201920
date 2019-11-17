@@ -53,21 +53,6 @@ public class IncidenteLogic {
             throw new BusinessLogicException("La categoria del incidente es nula");
         }
 
-
-        if (incidente.getFechaHoraFinal() == null) {
-            throw new BusinessLogicException("La hora final es nula");
-        }
-        /**
-         * if(!(incidente.getCoordinador().getClass().getName().equals("CoordinadorEntity"))
-         * && incidente.getCoordinador()!=null) { throw new
-         * BusinessLogicException("El coordinador no es correcto"); }
-         * if(!(incidente.getEmpleado().getClass().getName().equals("EmpleadoEntity"))
-         * && incidente.getEmpleado()!=null) { throw new
-         * BusinessLogicException("El empleado es incorrecto"); }
-         * if(!(incidente.getTecnico().getClass().getName().equals("TecnicoEntity"))
-         * && incidente.getTecnico()!=null) { throw new
-         * BusinessLogicException("El tecnico es incorrecto"); }
-         */
         incidente = persistence.create(incidente);
         return incidente;
     }
