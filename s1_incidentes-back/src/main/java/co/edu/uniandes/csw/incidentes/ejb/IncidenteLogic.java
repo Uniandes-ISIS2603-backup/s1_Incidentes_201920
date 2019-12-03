@@ -46,13 +46,9 @@ public class IncidenteLogic {
         if (incidente.getPrioridad() == null) {
             throw new BusinessLogicException("La prioridad del incidente es nula");
         }
-        if (incidente.getFechaHoraInicio() == null) {
-            throw new BusinessLogicException("La fecha del incidente es nula");
-        }
         if (incidente.getCategoria() == null) {
-            throw new BusinessLogicException("La categoria del incidente es nula");
+            throw new BusinessLogicException("La categoria del incidente es nula  ");
         }
-
         incidente = persistence.create(incidente);
         return incidente;
     }

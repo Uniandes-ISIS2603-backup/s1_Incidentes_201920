@@ -123,7 +123,7 @@ public class IncidenteLogicTest {
         IncidenteEntity entity = em.find(IncidenteEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
-        Assert.assertEquals(newEntity.getFechaHoraInicio(), entity.getFechaHoraInicio());
+
     }
 
     /**
@@ -162,11 +162,7 @@ public class IncidenteLogicTest {
         IncidenteEntity resultado = iL.createIncidente(newEntity);
     }
 
-    /**
-     * Crear un incidente con fecha inicial null
-     *
-     * @throws BusinessLogicException
-     */
+    
 
 
     /**
