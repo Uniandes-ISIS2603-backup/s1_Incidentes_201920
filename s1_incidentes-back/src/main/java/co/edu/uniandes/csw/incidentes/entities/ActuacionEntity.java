@@ -80,5 +80,12 @@ public class ActuacionEntity extends BaseEntity implements Serializable {
         String actuacion=aOb.getDescripcion();
         return actuacion.equals(aOb.getDescripcion());
     }
+    @Override
+    public int hashCode(){
+        if(this.getDescripcion()!=null){
+            return this.getDescripcion().hashCode();
+        }
+        return super.hashCode();
+    }
 
 }

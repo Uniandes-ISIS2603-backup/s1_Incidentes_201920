@@ -51,6 +51,22 @@ public class EmpleadoEntity extends UserEntity implements Serializable  {
     public Integer getNumIncidentes() {
         return numIncidentes;
     }
+    @Override
+    public boolean equals(Object ob){
+        if(! super.equals(ob)){
+            return false;
+        }
+        EmpleadoEntity aOb=(EmpleadoEntity) ob;
+        String empleado=aOb.getNombre();
+        return empleado.equals(aOb.getNombre());
+    }
+    @Override
+    public int hashCode(){
+        if(this.getNombre()!=null){
+            return this.getNombre().hashCode();
+        }
+        return super.hashCode();
+    }
 
     /**
      * Modifica el numero de incidentes del empleado

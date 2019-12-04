@@ -57,7 +57,22 @@ public class TecnicoEntity extends UserEntity implements Serializable {
     public void setNumCasos(int pEspecialidad) {
         numCasos = pEspecialidad;
     }
-
+    @Override
+    public boolean equals(Object ob){
+        if(! super.equals(ob)){
+            return false;
+        }
+        TecnicoEntity aOb=(TecnicoEntity) ob;
+        String tecnico=aOb.getEspecialidad();
+        return tecnico.equals(aOb.getEspecialidad());
+    }
+    @Override
+    public int hashCode(){
+        if(this.getEspecialidad()!=null){
+            return this.getEspecialidad().hashCode();
+        }
+        return super.hashCode();
+    }
     public CoordinadorEntity getCoordinador() {
         return coordinador;
     }

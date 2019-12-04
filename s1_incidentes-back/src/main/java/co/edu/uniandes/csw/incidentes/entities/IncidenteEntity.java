@@ -86,7 +86,22 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
         this.actuaciones.add(actu);
     }
 
-    
+    @Override
+    public boolean equals(Object ob){
+        if(! super.equals(ob)){
+            return false;
+        }
+        IncidenteEntity aOb=(IncidenteEntity) ob;
+        String incidente=aOb.getDescripcion();
+        return incidente.equals(aOb.getDescripcion());
+    }
+    @Override
+    public int hashCode(){
+        if(this.getDescripcion()!=null){
+            return this.getDescripcion().hashCode();
+        }
+        return super.hashCode();
+    }
 
     //Método que da el Tecnico del incidente
     public TecnicoEntity getTecnico() {

@@ -67,6 +67,22 @@ public class CoordinadorEntity extends UserEntity implements Serializable {
     public void setTecnicos(List<TecnicoEntity> tecnicos) {
         this.tecnicos = tecnicos;
     }
+    @Override
+    public boolean equals(Object ob){
+        if(! super.equals(ob)){
+            return false;
+        }
+        CoordinadorEntity aOb=(CoordinadorEntity) ob;
+        String coordinador=aOb.getName();
+        return coordinador.equals(aOb.getName());
+    }
+    @Override
+    public int hashCode(){
+        if(this.getName()!=null){
+            return this.getName().hashCode();
+        }
+        return super.hashCode();
+    }
 
     /**
      * Modifica los incidentes del coordinador.
