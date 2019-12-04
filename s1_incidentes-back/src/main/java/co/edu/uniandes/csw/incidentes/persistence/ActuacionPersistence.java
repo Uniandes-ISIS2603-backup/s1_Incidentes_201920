@@ -35,7 +35,9 @@ public class ActuacionPersistence {
     }
     
     public ActuacionEntity find(Long idIncidente, Long actuacionId) {
-        LOGGER.log(Level.INFO,"Consultando la actuación con id = {0} del libro con id = " + idIncidente, actuacionId);
+        String util="Consultando la actuación con id = {0} del libro con id = " + idIncidente;
+        String util2="Saliendo de consultar la actuación con id = {0} del incidente con id = " + idIncidente;
+        LOGGER.log(Level.INFO,util, actuacionId);
         TypedQuery<ActuacionEntity> q = em.createQuery("select p from ActuacionEntity p where (p.incidente.id = :idIncidente) "
                 + " and (p.id = :actuacionId)", ActuacionEntity.class);
         q.setParameter("idIncidente", idIncidente);
@@ -47,7 +49,7 @@ public class ActuacionPersistence {
         } else {
             actuacion = resultados.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar la actuación con id = {0} del incidente con id = " + idIncidente, actuacionId);
+        LOGGER.log(Level.INFO, util2, actuacionId);
         return actuacion;
     }
     

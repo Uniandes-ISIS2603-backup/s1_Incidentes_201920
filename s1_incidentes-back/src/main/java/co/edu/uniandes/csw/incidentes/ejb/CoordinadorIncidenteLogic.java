@@ -71,11 +71,13 @@ public class CoordinadorIncidenteLogic {
      * coordinador
      */
     public IncidenteEntity getIncidente(Long coordinadorId, Long incidenteId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el incidente con id = {0} del coordinador con id = " + coordinadorId, incidenteId);
+        String util="Inicia proceso de consultar el incidente con id = {0} del coordinador con id = " + coordinadorId;
+        String util2="Termina proceso de consultar el incidente con id = {0} del coordinador con id = " + coordinadorId;
+        LOGGER.log(Level.INFO, util, incidenteId);
         List<IncidenteEntity> incidentes = coordinadorPersistence.find(coordinadorId).getIncidentes();
         IncidenteEntity incidenteEntity = incidentePersistence.find(incidenteId);
         int index = incidentes.indexOf(incidenteEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el incidente con id = {0} del coordinador con id = " + coordinadorId, incidenteId);
+        LOGGER.log(Level.INFO, util2, incidenteId);
         if (index >= 0) {
             return incidentes.get(index);
         }

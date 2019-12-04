@@ -75,11 +75,13 @@ public class EmpleadoIncidenteLogic {
      * empleado
      */
     public IncidenteEntity getIncidente(Long empleadoId, Long incidenteId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el incidente con id = {0} del empleado con id = " + empleadoId, incidenteId);
+        String util="Inicia proceso de consultar el incidente con id = {0} del empleado con id = " + empleadoId;
+        String util2= "Termina proceso de consultar el incidente con id = {0} del empleado con id = " + empleadoId;
+        LOGGER.log(Level.INFO, util, incidenteId);
         List<IncidenteEntity> incidentes = empleadoPersistence.find(empleadoId).getIncidentes();
         IncidenteEntity incidenteEntity = incidentePersistence.find(incidenteId);
         int index = incidentes.indexOf(incidenteEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el incidente con id = {0} del empleado con id = " + empleadoId, incidenteId);
+        LOGGER.log(Level.INFO,util2, incidenteId);
         if (index >= 0) {
             return incidentes.get(index);
         }

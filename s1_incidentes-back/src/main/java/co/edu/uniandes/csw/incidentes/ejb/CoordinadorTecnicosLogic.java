@@ -69,11 +69,13 @@ public class CoordinadorTecnicosLogic {
      * editorial
      */
     public TecnicoEntity getTecnico(Long coordinadorId, Long tecnicoId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el libro con id = {0} de la editorial con id = " + coordinadorId, tecnicoId);
+        String util="Inicia proceso de consultar el libro con id = {0} de la editorial con id = " + coordinadorId;
+        String util2="Termina proceso de consultar el libro con id = {0} de la editorial con id = " + coordinadorId;
+        LOGGER.log(Level.INFO,util , tecnicoId);
         List<TecnicoEntity> tecnicos = coordinadorPersistence.find(coordinadorId).getTecnicos();
         TecnicoEntity tecnicoEntity = tecnicoPersistence.find(tecnicoId);
         int index = tecnicos.indexOf(tecnicoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el libro con id = {0} de la editorial con id = " + coordinadorId, tecnicoId);
+        LOGGER.log(Level.INFO, util2, tecnicoId);
         if (index >= 0) {
             return tecnicos.get(index);
         }
