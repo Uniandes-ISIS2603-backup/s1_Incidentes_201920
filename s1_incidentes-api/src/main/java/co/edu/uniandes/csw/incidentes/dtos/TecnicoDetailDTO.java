@@ -27,7 +27,6 @@ public class TecnicoDetailDTO extends TecnicoDTO implements Serializable {
     public TecnicoDetailDTO(TecnicoEntity tecnicoEntity) {
         super(tecnicoEntity);
         if (tecnicoEntity != null) {
-
             if (tecnicoEntity.getIncidentes() != null) {
                 incidentes = new ArrayList<>();
                 for (IncidenteEntity entityIncidente : tecnicoEntity.getIncidentes()) {
@@ -64,6 +63,3 @@ public class TecnicoDetailDTO extends TecnicoDTO implements Serializable {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
-
-
-

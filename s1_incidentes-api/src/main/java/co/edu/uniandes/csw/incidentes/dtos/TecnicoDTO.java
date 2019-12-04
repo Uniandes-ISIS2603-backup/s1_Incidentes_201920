@@ -26,6 +26,8 @@ public class TecnicoDTO implements Serializable {
     private String username;
 
     private String password;
+    
+    private CoordinadorDTO coordinador;
 
     public TecnicoDTO() {
     }
@@ -39,6 +41,11 @@ public class TecnicoDTO implements Serializable {
             this.especialidad = tecnicoEntity.getEspecialidad();
             this.username = tecnicoEntity.getUsername();
             this.password = tecnicoEntity.getPassword();
+            if (tecnicoEntity.getCoordinador() != null) {
+                this.coordinador = new CoordinadorDTO(tecnicoEntity.getCoordinador());
+            } else {
+                this.coordinador = null;
+             }
         }
     }
 
@@ -49,6 +56,9 @@ public class TecnicoDTO implements Serializable {
         tecnicoEntity.setEspecialidad(this.especialidad);
         tecnicoEntity.setUsername(this.username);
         tecnicoEntity.setPassword(this.password);
+        if (this.getCoordinador() != null) {
+            tecnicoEntity.setCoordinador(this.coordinador.toEntity());
+        }
         return tecnicoEntity;
     }
 
@@ -91,6 +101,16 @@ public class TecnicoDTO implements Serializable {
 
     public String getEspecialidad() {
         return especialidad;
+    }
+    public CoordinadorDTO getCoordinador() {
+        return coordinador;
+    }
+
+    /**
+     * @param coordinador the coordinador to set
+     */
+    public void setCoordinador(CoordinadorDTO coordinador) {
+        this.coordinador = coordinador;
     }
 
     @Override

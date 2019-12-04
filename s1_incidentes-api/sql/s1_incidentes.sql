@@ -8,7 +8,7 @@ delete from CoordinadorEntity;
 ------ Poblar tablas Coordinador.---------------------
 ------------------------------------------------------
 
-insert into CoordinadorEntity(name, password, username,id) values('David', '1234', 'David',769);
+insert into CoordinadorEntity(name, password, username,id) values('David', '1234', 'ContraseñaSuperSegura',769);
 insert into CoordinadorEntity(name, password, username,id) values('Andres', 'ABC987', 'Andres',770);
 insert into CoordinadorEntity(name, password, username,id) values('Adriana', 'qwerty', 'Adriana',771);
 insert into CoordinadorEntity(name, password, username,id) values('Pedro', 'clavePedro', 'pedrito',772);

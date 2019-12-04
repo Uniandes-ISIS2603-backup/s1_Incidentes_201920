@@ -41,17 +41,19 @@ public class TecnicoResource {
     private static final String NOEXISTE= "no existe.";
     @Inject
     private TecnicoLogic tecnicoLogic;
-    @Inject
-    private TecnicoCoordinadorLogic tecnicoCoordinadorLogic;
+
     @POST
     public TecnicoDTO createTecnico(TecnicoDTO tecnico) throws BusinessLogicException
     {
          LOGGER.log(Level.INFO, "EditorialResource createEditorial: input: {0}", tecnico);
         // Invoca la lógica para crear la editorial nueva
-         TecnicoDTO tecnicoDTO = new TecnicoDTO(tecnicoLogic.createTecnico(tecnico.toEntity()));
+         
+        TecnicoEntity tecnicoEntity = tecnico.toEntity();
+        TecnicoEntity newTecnicoEntity = tecnicoLogic.createTecnico(tecnicoEntity);
+        TecnicoDTO newTecnicoDTO = new TecnicoDTO(newTecnicoEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
-        LOGGER.log(Level.INFO, "IncidenteResource createIncidente: output: {0}", tecnicoDTO);
-        return tecnicoDTO; 
+        LOGGER.log(Level.INFO, "IncidenteResource createIncidente: output: {0}", newTecnicoDTO.toString());
+        return newTecnicoDTO; 
     }
     
     /**
@@ -63,9 +65,11 @@ public class TecnicoResource {
     @GET
     public List<TecnicoDetailDTO> getTecnicos() {
         LOGGER.info("AuthorResource getAuthors: input: void");
-        List<TecnicoDetailDTO> listaAuthors = listEntity2DTO(tecnicoLogic.getTecnicos());
-        LOGGER.log(Level.INFO, "AuthorResource getAuthors: output: {0}", listaAuthors);
-        return listaAuthors;
+        
+        List<TecnicoDetailDTO> listaTecnicos;
+        listaTecnicos = listEntity2DetailDTO(tecnicoLogic.getTecnicos());
+        LOGGER.log(Level.INFO, "AuthorResource getAuthors: output: {0}", listaTecnicos);
+        return listaTecnicos;
     }
     
     
@@ -76,15 +80,13 @@ public class TecnicoResource {
      * @param entityList Lista de AuthorEntity a convertir.
      * @return Lista de AuthorDetailDTO convertida.
      */
-    private List<TecnicoDetailDTO> listEntity2DTO(List<TecnicoEntity> entityList) {
+    private List<TecnicoDetailDTO> listEntity2DetailDTO(List<TecnicoEntity> entityList) {
         List<TecnicoDetailDTO> list = new ArrayList<>();
         for (TecnicoEntity entity : entityList) {
             list.add(new TecnicoDetailDTO(entity));
         }
         return list;
-    
-    
-}
+    }
     
     /**
      * Busca el autor con el id asociado recibido en la URL y lo devuelve.
@@ -97,15 +99,15 @@ public class TecnicoResource {
      */
     @GET
     @Path("{tecnicosId: \\d+}")
-    public TecnicoDetailDTO getTecnico(@PathParam("tecnicosId") Long authorsId) {
-        LOGGER.log(Level.INFO, "TecnicoResource getTecnico: input: {0}", authorsId);
-        TecnicoEntity authorEntity = tecnicoLogic.getTecnico(authorsId);
-        if (authorEntity == null) {
-            throw new WebApplicationException("El recurso /tecnicos/" + authorsId + NOEXISTE, 404);
+    public TecnicoDetailDTO getTecnico(@PathParam("tecnicosId") Long tecnicoId) {
+        LOGGER.log(Level.INFO, "TecnicoResource getTecnico: input: {0}", tecnicoId);
+        TecnicoEntity entidad = tecnicoLogic.getTecnico(tecnicoId);
+        if (entidad == null) {
+            throw new WebApplicationException("El recurso /tecnicos/" + tecnicoId + NOEXISTE, 404);
         }
-        TecnicoDetailDTO detailDTO = new TecnicoDetailDTO(authorEntity);
-        LOGGER.log(Level.INFO, "AuthorResource getAuthor: output: {0}", detailDTO);
-        return detailDTO;
+        TecnicoDetailDTO tecnicoDetailDTO = new TecnicoDetailDTO(entidad);
+        LOGGER.log(Level.INFO, "TecnicoResource getTecnico: output: {0}", tecnicoDetailDTO);
+        return tecnicoDetailDTO;
     }
     
     /**
@@ -120,16 +122,17 @@ public class TecnicoResource {
      * Error de lógica que se genera cuando no se encuentra el autor a
      * actualizar.
      */
+    
     @PUT
     @Path("{tecnicosId: \\d+}")
-    public TecnicoDetailDTO updateAuthor(@PathParam("tecnicosId") Long authorsId, TecnicoDetailDTO author) {
-        LOGGER.log(Level.INFO, "AuthorResource updateAuthor: input: authorsId: {0} , author: {1}", new Object[]{authorsId, author});
-        author.setId(authorsId);
-        if (tecnicoLogic.getTecnico(authorsId) == null) {
-            throw new WebApplicationException("El recurso /authors/" + authorsId + NOEXISTE, 404);
+    public TecnicoDetailDTO updateTecnico(@PathParam("tecnicosId") Long tecnicoId, TecnicoDetailDTO tecnico) {
+        LOGGER.log(Level.INFO, "TecnicoResource updateTecnico: input: tecnicoId: {0} , tecnico: {1}", new Object[]{tecnicoId, tecnico});
+        tecnico.setId(tecnicoId);
+        if (tecnicoLogic.getTecnico(tecnicoId) == null) {
+            throw new WebApplicationException("El recurso /tecnicos/" + tecnicoId + NOEXISTE, 404);
         }
-        TecnicoDetailDTO detailDTO = new TecnicoDetailDTO(tecnicoLogic.updateTecnico(authorsId, author.toEntity()));
-        LOGGER.log(Level.INFO, "AuthorResource updateAuthor: output: {0}", detailDTO);
+        TecnicoDetailDTO detailDTO = new TecnicoDetailDTO(tecnicoLogic.updateTecnico(tecnicoId, tecnico.toEntity()));
+        LOGGER.log(Level.INFO, "TecnicoResource updateTecnico: output: {0}", detailDTO);
         return detailDTO;
     }
     
@@ -145,20 +148,19 @@ public class TecnicoResource {
      */
     @DELETE
     @Path("{tecnicosId: \\d+}")
-    public void deleteTecnico(@PathParam("tecnicosId") Long authorsId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "AuthorResource deleteAuthor: input: {0}", authorsId);
-        if (tecnicoLogic.getTecnico(authorsId) == null) {
-            throw new WebApplicationException("El recurso /authors/" + authorsId + NOEXISTE, 404);
+    public void deleteTecnico(@PathParam("tecnicosId") Long tecnicoId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "TecnicoResource deleteTecnico: input: {0}", tecnicoId);
+        if (tecnicoLogic.getTecnico(tecnicoId) == null) {
+            throw new WebApplicationException("El recurso /tecnicos/" + tecnicoId + NOEXISTE, 404);
         }
-        tecnicoLogic.deleteTecnico(authorsId);
+        tecnicoLogic.deleteTecnico(tecnicoId);
         LOGGER.info("TecnicoResource deleteTecnico: output: void");
     }
     
-    
     @Path("{tecnicosId: \\d+}/incidentes")
-    public Class<TecnicoIncidenteResource> getIncidenteTecnicoResource(@PathParam("tecnicosId") Long authorsId) {
-        if (tecnicoLogic.getTecnico(authorsId) == null) {
-            throw new WebApplicationException("El recurso /tecnicos/" + authorsId + NOEXISTE, 404);
+    public Class<TecnicoIncidenteResource> getIncidenteTecnicoResource(@PathParam("tecnicosId") Long tecnicoId) {
+        if (tecnicoLogic.getTecnico(tecnicoId) == null) {
+            throw new WebApplicationException("El recurso /tecnicos/" + tecnicoId + NOEXISTE, 404);
         }
         return TecnicoIncidenteResource.class;
     }

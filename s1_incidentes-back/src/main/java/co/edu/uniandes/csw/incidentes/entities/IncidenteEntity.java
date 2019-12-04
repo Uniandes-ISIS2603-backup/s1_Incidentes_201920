@@ -64,40 +64,40 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
 
     
     
-    //Método que devuelve todas las actuaciones de un incidente
-    public List<ActuacionEntity> getActuaciones() {
-        return actuaciones;
-    }
+    
 
     //Método que asigna las actuaciones a un incidente
     public void setActuaciones(List<ActuacionEntity> actu) {
         this.actuaciones = actu;
     }
-
-    //Método que añade una actuacion a la lista de actuaciones
-    public void addActuacion(ActuacionEntity actu) {
-        this.actuaciones.add(actu);
+    //Método que devuelve todas las actuaciones de un incidente
+    public List<ActuacionEntity> getActuaciones() {
+        return actuaciones;
     }
+
+    
 
     //Método que da el coordinador
     public CoordinadorEntity getCoordinador() {
         return coordinador;
     }
-
-    //Método que determina el coordinador
-    public void setCoordinador(CoordinadorEntity coordinador) {
-        this.coordinador = coordinador;
+    //Método que añade una actuacion a la lista de actuaciones
+    public void addActuacion(ActuacionEntity actu) {
+        this.actuaciones.add(actu);
     }
+
+    
 
     //Método que da el Tecnico del incidente
     public TecnicoEntity getTecnico() {
         return tecnico;
     }
-    //Método que asigna el tecnico al incidente  
-
-    public void setTecnico(TecnicoEntity tec) {
-        this.tecnico = tec;
+    
+    //Método que determina el coordinador
+    public void setCoordinador(CoordinadorEntity coordinador) {
+        this.coordinador = coordinador;
     }
+    
 
     /**
      * @return the empleado
@@ -105,13 +105,13 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public EmpleadoEntity getEmpleado() {
         return empleado;
     }
+    //Método que asigna el tecnico al incidente  
 
-    /**
-     * @param empleado the empleado to set
-     */
-    public void setEmpleado(EmpleadoEntity empleado) {
-        this.empleado = empleado;
+    public void setTecnico(TecnicoEntity tec) {
+        this.tecnico = tec;
     }
+
+    
 
     /**
      * @return the fechaHoraInicio
@@ -119,13 +119,15 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public Date getFechaHoraInicio() {
         return fechaHoraInicio;
     }
-
+    
     /**
-     * @param fechaHoraInicio the fechaHoraInicio to set
+     * @param empleado the empleado to set
      */
-    public void setFechaHoraInicio(Date fechaHoraInicio) {
-        this.fechaHoraInicio = fechaHoraInicio;
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
     }
+
+    
 
     /**
      * @return the fechaHoraFinal
@@ -133,13 +135,14 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public Date getFechaHoraFinal() {
         return fechaHoraFinal;
     }
-
     /**
-     * @param fechaHoraFinal the fechaHoraFinal to set
+     * @param fechaHoraInicio the fechaHoraInicio to set
      */
-    public void setFechaHoraFinal(Date fechaHoraFinal) {
-        this.fechaHoraFinal = fechaHoraFinal;
+    public void setFechaHoraInicio(Date fechaHoraInicio) {
+        this.fechaHoraInicio = fechaHoraInicio;
     }
+
+   
 
     /**
      * @return the descripcion
@@ -147,13 +150,14 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public String getDescripcion() {
         return descripcion;
     }
-
-    /**
-     * @param descripcion the descripcion to set
+     /**
+     * @param fechaHoraFinal the fechaHoraFinal to set
      */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setFechaHoraFinal(Date fechaHoraFinal) {
+        this.fechaHoraFinal = fechaHoraFinal;
     }
+
+    
 
     /**
      * @return the observaciones
@@ -161,27 +165,28 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public String getObservaciones() {
         return observaciones;
     }
-
     /**
-     * @param observaciones the observaciones to set
+     * @param descripcion the descripcion to set
      */
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
+
+    
 
     /**
      * @return the calificacion
      */
     public Integer getCalificacion() {
         return calificacion;
+    }/**
+     * @param observaciones the observaciones to set
+     */
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
-    /**
-     * @param calificacion the calificacion to set
-     */
-    public void setCalificacion(Integer calificacion) {
-        this.calificacion = calificacion;
-    }
+    
 
     /**
      * @return the categoria
@@ -189,13 +194,15 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public String getCategoria() {
         return categoria;
     }
-
+    
     /**
-     * @param categoria the categoria to set
+     * @param calificacion the calificacion to set
      */
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
     }
+
+    
 
     /**
      * @return the prioridad
@@ -203,13 +210,14 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public String getPrioridad() {
         return prioridad;
     }
-
     /**
-     * @param prioridad the prioridad to set
+     * @param categoria the categoria to set
      */
-    public void setPrioridad(String prioridad) {
-        this.prioridad = prioridad;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
+
+    
 
     /**
      * @return the solucionado
@@ -217,7 +225,13 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public Boolean getSolucionado() {
         return solucionado;
     }
-
+    /**
+     * @param prioridad the prioridad to set
+     */
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
+    }
+    
     /**
      * @param solucionado the solucionado to set
      */
