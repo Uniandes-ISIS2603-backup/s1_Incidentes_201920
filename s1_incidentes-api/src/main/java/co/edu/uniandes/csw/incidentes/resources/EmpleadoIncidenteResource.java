@@ -109,6 +109,23 @@ public class EmpleadoIncidenteResource {
         LOGGER.log(Level.INFO, "EmpleadoIncidenteResource getIncidente: output: {0}", incidenteDetailDTO);
         return incidenteDetailDTO;
     }
+    
+
+    /**
+     * Convierte una lista de IncidenteEntity a una lista de IncidenteDetailDTO.
+     *
+     * @param incidentes Lista de IncidenteEntity a convertir.
+     * @return Lista de IncidenteDTO convertida.
+     */
+    private List<IncidenteDetailDTO> incidentesListEntity2DTO(List<IncidenteEntity> incidentes) {
+        List<IncidenteDetailDTO> list = new ArrayList();
+        for (IncidenteEntity entity : incidentes) {
+            list.add(new IncidenteDetailDTO(entity));
+        }
+        return list;
+    }
+
+    
 
     /**
      * Remplaza las instancias de Incidente asociadas a una instancia de Empleado
@@ -134,21 +151,6 @@ public class EmpleadoIncidenteResource {
         LOGGER.log(Level.INFO, "EmpleadoIncidenteResource replaceIncidentes: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
-
-    /**
-     * Convierte una lista de IncidenteEntity a una lista de IncidenteDetailDTO.
-     *
-     * @param incidentes Lista de IncidenteEntity a convertir.
-     * @return Lista de IncidenteDTO convertida.
-     */
-    private List<IncidenteDetailDTO> incidentesListEntity2DTO(List<IncidenteEntity> incidentes) {
-        List<IncidenteDetailDTO> list = new ArrayList();
-        for (IncidenteEntity entity : incidentes) {
-            list.add(new IncidenteDetailDTO(entity));
-        }
-        return list;
-    }
-
     /**
      * Convierte una lista de IncidenteDetailDTO a una lista de IncidenteEntity.
      *

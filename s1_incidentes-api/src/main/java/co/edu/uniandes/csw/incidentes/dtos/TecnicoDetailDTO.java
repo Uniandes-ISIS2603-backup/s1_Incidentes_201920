@@ -27,7 +27,8 @@ public class TecnicoDetailDTO extends TecnicoDTO implements Serializable {
     public TecnicoDetailDTO(TecnicoEntity tecnicoEntity) {
         super(tecnicoEntity);
         if (tecnicoEntity != null) {
-            if (tecnicoEntity.getIncidentes() != null) {
+            TecnicoEntity entidad = tecnicoEntity;
+            if (entidad.getIncidentes() != null) {
                 incidentes = new ArrayList<>();
                 for (IncidenteEntity entityIncidente : tecnicoEntity.getIncidentes()) {
                     incidentes.add(new IncidenteDTO(entityIncidente));

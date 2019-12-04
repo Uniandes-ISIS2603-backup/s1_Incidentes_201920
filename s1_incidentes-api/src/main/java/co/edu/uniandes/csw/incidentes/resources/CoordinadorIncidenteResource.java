@@ -134,20 +134,6 @@ public class CoordinadorIncidenteResource {
     }
 
     /**
-     * Convierte una lista de IncidenteEntity a una lista de IncidenteDetailDTO.
-     *
-     * @param incidentes Lista de IncidenteEntity a convertir.
-     * @return Lista de IncidenteDTO convertida.
-     */
-    private List<IncidenteDetailDTO> incidentesListEntity2DTO(List<IncidenteEntity> incidentes) {
-        List<IncidenteDetailDTO> list = new ArrayList();
-        for (IncidenteEntity entity : incidentes) {
-            list.add(new IncidenteDetailDTO(entity));
-        }
-        return list;
-    }
-
-    /**
      * Convierte una lista de IncidenteDetailDTO a una lista de IncidenteEntity.
      *
      * @param dtos Lista de IncidenteDetailDTO a convertir.
@@ -157,6 +143,20 @@ public class CoordinadorIncidenteResource {
         List<IncidenteEntity> list = new ArrayList<>();
         for (IncidenteDetailDTO dto : dtos) {
             list.add(dto.toEntity());
+        }
+        return list;
+    }
+
+    /**
+     * Convierte una lista de IncidenteEntity a una lista de IncidenteDetailDTO.
+     *
+     * @param incidentes Lista de IncidenteEntity a convertir.
+     * @return Lista de IncidenteDTO convertida.
+     */
+    private List<IncidenteDetailDTO> incidentesListEntity2DTO(List<IncidenteEntity> incidentes) {
+        List<IncidenteDetailDTO> list = new ArrayList();
+        for (IncidenteEntity entity : incidentes) {
+            list.add(new IncidenteDetailDTO(entity));
         }
         return list;
     }

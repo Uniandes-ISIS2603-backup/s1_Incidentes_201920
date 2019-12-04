@@ -48,7 +48,8 @@ public class ActuacionLogic {
         IncidenteEntity incidente = incidentePersistence.find(idIncidente);
         if (incidente == null) {
             LOGGER.log(Level.SEVERE, "El incidente con el id = {0} no existe", idIncidente);
-            return null;
+            List<ActuacionEntity> respuesta=null;
+            return respuesta;
         }
         LOGGER.log(Level.INFO, "Termina proceso de consultar todas las actuaciones");
         return incidente.getActuaciones();

@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.incidentes.dtos.IncidenteDTO;
 import co.edu.uniandes.csw.incidentes.dtos.IncidenteDetailDTO;
 import co.edu.uniandes.csw.incidentes.ejb.IncidenteLogic;
 import co.edu.uniandes.csw.incidentes.ejb.TecnicoIncidenteLogic;
-import co.edu.uniandes.csw.incidentes.ejb.TecnicoLogic;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -84,6 +83,19 @@ public class TecnicoIncidenteResource {
         LOGGER.log(Level.INFO, "TecnicoIncidenteResource getIncidentes: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
+    /**
+     * Convierte una lista de IncidenteEntity a una lista de IncidenteDetailDTO.
+     *
+     * @param incidentes Lista de IncidenteEntity a convertir.
+     * @return Lista de IncidenteDTO convertida.
+     */
+    private List<IncidenteDetailDTO> incidentesListEntity2DTO(List<IncidenteEntity> incidentes) {
+        List<IncidenteDetailDTO> list = new ArrayList();
+        for (IncidenteEntity entity : incidentes) {
+            list.add(new IncidenteDetailDTO(entity));
+        }
+        return list;
+    }
 
     /**
      * Busca el incidente con el id asociado dentro del coordinador con id asociado.
@@ -136,19 +148,7 @@ public class TecnicoIncidenteResource {
         return listaDetailDTOs;
     }
 
-    /**
-     * Convierte una lista de IncidenteEntity a una lista de IncidenteDetailDTO.
-     *
-     * @param incidentes Lista de IncidenteEntity a convertir.
-     * @return Lista de IncidenteDTO convertida.
-     */
-    private List<IncidenteDetailDTO> incidentesListEntity2DTO(List<IncidenteEntity> incidentes) {
-        List<IncidenteDetailDTO> list = new ArrayList();
-        for (IncidenteEntity entity : incidentes) {
-            list.add(new IncidenteDetailDTO(entity));
-        }
-        return list;
-    }
+    
 
     /**
      * Convierte una lista de IncidenteDetailDTO a una lista de IncidenteEntity.

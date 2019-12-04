@@ -242,24 +242,28 @@ public class IncidenteDTO implements Serializable{
     }
 
     /**
+     * @param reabrir the reabrir to set
+     */
+    public void setReabrir(Boolean reabrir) {
+        this.reabrir = reabrir;
+    }
+    /**
      * @param solucionado the solucionado to set
      */
     public void setSolucionado(Boolean solucionado) {
         this.solucionado = solucionado;
     }
-
+    /**
+     * @param equipo the equipo to set
+     */
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }
     /**
      * @return the reabrir
      */
     public Boolean getReabrir() {
         return reabrir;
-    }
-
-    /**
-     * @param reabrir the reabrir to set
-     */
-    public void setReabrir(Boolean reabrir) {
-        this.reabrir = reabrir;
     }
 
     /**
@@ -269,12 +273,7 @@ public class IncidenteDTO implements Serializable{
         return equipo;
     }
 
-    /**
-     * @param equipo the equipo to set
-     */
-    public void setEquipo(String equipo) {
-        this.equipo = equipo;
-    }
+    
 
     /**
      * @return the tecnico

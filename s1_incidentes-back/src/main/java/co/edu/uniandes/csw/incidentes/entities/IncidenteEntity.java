@@ -219,18 +219,21 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
 
     
 
-    /**
-     * @return the solucionado
-     */
-    public Boolean getSolucionado() {
-        return solucionado;
-    }
+    
     /**
      * @param prioridad the prioridad to set
      */
     public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
     }
+    /**
+     * @return the solucionado
+     */
+    public Boolean getSolucionado() {
+        return solucionado;
+    }
+    
+
     
     /**
      * @param solucionado the solucionado to set
@@ -238,32 +241,30 @@ public class IncidenteEntity extends BaseEntity implements Serializable {
     public void setSolucionado(Boolean solucionado) {
         this.solucionado = solucionado;
     }
-
+    
     /**
      * @return the reabrir
      */
     public Boolean getReabrir() {
         return reabrir;
     }
-
+    
     /**
      * @param reabrir the reabrir to set
      */
     public void setReabrir(Boolean reabrir) {
         this.reabrir = reabrir;
     }
-
-    /**
-     * @return the equipo
-     */
-    public String getEquipo() {
-        return equipo;
-    }
-
     /**
      * @param equipo the equipo to set
      */
     public void setEquipo(String equipo) {
         this.equipo = equipo;
+    }
+    /**
+     * @return the equipo
+     */
+    public String getEquipo() {
+        return equipo;
     }
 }

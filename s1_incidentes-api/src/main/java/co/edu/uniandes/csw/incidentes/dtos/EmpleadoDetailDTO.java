@@ -28,7 +28,8 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
     public EmpleadoDetailDTO(EmpleadoEntity empleadoEntity) {
         super(empleadoEntity);
         if (empleadoEntity != null) {
-            if (empleadoEntity.getIncidentes() != null) {
+            EmpleadoEntity entidad=empleadoEntity;
+            if (entidad.getIncidentes() != null) {
                 incidentes = new ArrayList<>();
                 for (IncidenteEntity entityIncidente : empleadoEntity.getIncidentes()) {
                     incidentes.add(new IncidenteDTO(entityIncidente));

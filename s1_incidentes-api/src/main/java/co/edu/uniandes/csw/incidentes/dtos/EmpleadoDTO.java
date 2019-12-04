@@ -50,12 +50,7 @@ public class EmpleadoDTO implements Serializable{
         return empleadoEntity;
     }
 
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
+    
 
     /**
      * @param id the id to set
@@ -63,13 +58,14 @@ public class EmpleadoDTO implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-
     /**
-     * @return the username
+     * @return the id
      */
-    public String getUsername() {
-        return username;
+    public Long getId() {
+        return id;
     }
+
+    
 
     /**
      * @param username the username to set
@@ -77,7 +73,20 @@ public class EmpleadoDTO implements Serializable{
     public void setUsername(String username) {
         this.username = username;
     }
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
 
+    
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
     /**
      * @return the password
      */
@@ -85,19 +94,8 @@ public class EmpleadoDTO implements Serializable{
         return password;
     }
 
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
+    
 
     /**
      * @param nombre the nombre to set
@@ -105,19 +103,26 @@ public class EmpleadoDTO implements Serializable{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     /**
-     * @return the numIncidentes
+     * @return the nombre
      */
-    public Integer getNumIncidentes() {
-        return numIncidentes;
+    public String getNombre() {
+        return nombre;
     }
+
+   
 
     /**
      * @param numIncidentes the numIncidentes to set
      */
     public void setNumIncidentes(Integer numIncidentes) {
         this.numIncidentes = numIncidentes;
+    }
+     /**
+     * @return the numIncidentes
+     */
+    public Integer getNumIncidentes() {
+        return numIncidentes;
     }
 
     @Override

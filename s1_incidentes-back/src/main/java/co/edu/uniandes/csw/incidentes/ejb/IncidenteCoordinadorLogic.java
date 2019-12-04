@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.incidentes.ejb;
 
-import co.edu.uniandes.csw.incidentes.ejb.TecnicoCoordinadorLogic;
+
 import co.edu.uniandes.csw.incidentes.entities.CoordinadorEntity;
 import co.edu.uniandes.csw.incidentes.entities.IncidenteEntity;
 import co.edu.uniandes.csw.incidentes.persistence.CoordinadorPersistence;

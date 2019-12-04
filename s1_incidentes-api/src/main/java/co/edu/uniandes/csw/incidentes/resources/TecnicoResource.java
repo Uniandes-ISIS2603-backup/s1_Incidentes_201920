@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.incidentes.resources;
 
 import co.edu.uniandes.csw.incidentes.dtos.TecnicoDTO;
 import co.edu.uniandes.csw.incidentes.dtos.TecnicoDetailDTO;
-import co.edu.uniandes.csw.incidentes.ejb.TecnicoCoordinadorLogic;
 import co.edu.uniandes.csw.incidentes.ejb.TecnicoLogic;
 import co.edu.uniandes.csw.incidentes.entities.TecnicoEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
@@ -39,6 +38,7 @@ import javax.ws.rs.WebApplicationException;
 public class TecnicoResource {
     private static final Logger LOGGER= Logger.getLogger(TecnicoResource.class.getName());
     private static final String NOEXISTE= "no existe.";
+    private static final String TEC="El recurso /tecnicos/";
     @Inject
     private TecnicoLogic tecnicoLogic;
 
@@ -52,7 +52,7 @@ public class TecnicoResource {
         TecnicoEntity newTecnicoEntity = tecnicoLogic.createTecnico(tecnicoEntity);
         TecnicoDTO newTecnicoDTO = new TecnicoDTO(newTecnicoEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
-        LOGGER.log(Level.INFO, "IncidenteResource createIncidente: output: {0}", newTecnicoDTO.toString());
+        LOGGER.log(Level.INFO, "IncidenteResource createIncidente: output: {0}", newTecnicoDTO);
         return newTecnicoDTO; 
     }
     
@@ -103,7 +103,7 @@ public class TecnicoResource {
         LOGGER.log(Level.INFO, "TecnicoResource getTecnico: input: {0}", tecnicoId);
         TecnicoEntity entidad = tecnicoLogic.getTecnico(tecnicoId);
         if (entidad == null) {
-            throw new WebApplicationException("El recurso /tecnicos/" + tecnicoId + NOEXISTE, 404);
+            throw new WebApplicationException(TEC + tecnicoId + NOEXISTE, 404);
         }
         TecnicoDetailDTO tecnicoDetailDTO = new TecnicoDetailDTO(entidad);
         LOGGER.log(Level.INFO, "TecnicoResource getTecnico: output: {0}", tecnicoDetailDTO);
@@ -129,7 +129,7 @@ public class TecnicoResource {
         LOGGER.log(Level.INFO, "TecnicoResource updateTecnico: input: tecnicoId: {0} , tecnico: {1}", new Object[]{tecnicoId, tecnico});
         tecnico.setId(tecnicoId);
         if (tecnicoLogic.getTecnico(tecnicoId) == null) {
-            throw new WebApplicationException("El recurso /tecnicos/" + tecnicoId + NOEXISTE, 404);
+            throw new WebApplicationException(TEC + tecnicoId + NOEXISTE, 404);
         }
         TecnicoDetailDTO detailDTO = new TecnicoDetailDTO(tecnicoLogic.updateTecnico(tecnicoId, tecnico.toEntity()));
         LOGGER.log(Level.INFO, "TecnicoResource updateTecnico: output: {0}", detailDTO);
@@ -151,7 +151,7 @@ public class TecnicoResource {
     public void deleteTecnico(@PathParam("tecnicosId") Long tecnicoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "TecnicoResource deleteTecnico: input: {0}", tecnicoId);
         if (tecnicoLogic.getTecnico(tecnicoId) == null) {
-            throw new WebApplicationException("El recurso /tecnicos/" + tecnicoId + NOEXISTE, 404);
+            throw new WebApplicationException(TEC + tecnicoId + NOEXISTE, 404);
         }
         tecnicoLogic.deleteTecnico(tecnicoId);
         LOGGER.info("TecnicoResource deleteTecnico: output: void");
@@ -160,7 +160,7 @@ public class TecnicoResource {
     @Path("{tecnicosId: \\d+}/incidentes")
     public Class<TecnicoIncidenteResource> getIncidenteTecnicoResource(@PathParam("tecnicosId") Long tecnicoId) {
         if (tecnicoLogic.getTecnico(tecnicoId) == null) {
-            throw new WebApplicationException("El recurso /tecnicos/" + tecnicoId + NOEXISTE, 404);
+            throw new WebApplicationException(TEC + tecnicoId + NOEXISTE, 404);
         }
         return TecnicoIncidenteResource.class;
     }
