@@ -44,11 +44,12 @@ public class ActuacionLogic {
     }
     
     public List<ActuacionEntity> getActuaciones(Long idIncidente) {
+        List<ActuacionEntity> respuesta=null;
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las actuaciones");
         IncidenteEntity incidente = incidentePersistence.find(idIncidente);
         if (incidente == null) {
             LOGGER.log(Level.SEVERE, "El incidente con el id = {0} no existe", idIncidente);
-            List<ActuacionEntity> respuesta=null;
+            
             return respuesta;
         }
         LOGGER.log(Level.INFO, "Termina proceso de consultar todas las actuaciones");
@@ -66,7 +67,8 @@ public class ActuacionLogic {
     }
     
     public ActuacionEntity updateActuacion(Long idIncidente, ActuacionEntity actuacionEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la actuación con id = {0} del incidente con id = " + idIncidente, actuacionEntity);
+        String util= "Inicia proceso de actualizar la actuación con id = {0} del incidente con id = " + idIncidente;
+        LOGGER.log(Level.INFO,util, actuacionEntity);
         if (!validarDescripcion(actuacionEntity.getDescripcion())) {
             throw new BusinessLogicException("La descripción es inválida");
         }
@@ -78,13 +80,15 @@ public class ActuacionLogic {
     }
     
     public void deleteActuacion(Long idIncidente, Long idActuacion) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar actuacion con id = {0} del libro con id = " + idIncidente, idActuacion);
+        String util= "Inicia proceso de borrar actuacion con id = {0} del libro con id = " + idIncidente;
+        String util2="Termina proceso de la actuación con id = {0} del libro con id = " + idIncidente;
+        LOGGER.log(Level.INFO,util, idActuacion);
         ActuacionEntity old = getActuacion(idIncidente, idActuacion);
         if (old == null) {
             throw new BusinessLogicException("La actuacion con id = " + idActuacion + " no está asociado al incidente con id = " + idIncidente);
         }
         persistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de la actuación con id = {0} del libro con id = " + idIncidente, idActuacion);
+        LOGGER.log(Level.INFO, util2, idActuacion);
     }
     
     private boolean validarDescripcion(String descripcion) {
