@@ -8,7 +8,9 @@ package co.edu.uniandes.csw.incidentes.ejb;
 import co.edu.uniandes.csw.incidentes.entities.EmpleadoEntity;
 import co.edu.uniandes.csw.incidentes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.incidentes.persistence.EmpleadoPersistence;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -88,8 +90,10 @@ public class EmpleadoLogic {
      * @return el empleado con los cambios actualizados en la base de datos.
      */
     public EmpleadoEntity updateEmpleado( long empleadoId,EmpleadoEntity empleado) {
-        return persistence.update(empleado);
-        
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el empleado con id = {0}", empleadoId);
+        EmpleadoEntity newEmpleadoEntity = persistence.update(empleado);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el empleado con id = {0}", empleado.getId());
+        return newEmpleadoEntity;
     }
     
     /**

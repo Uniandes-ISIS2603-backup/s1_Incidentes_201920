@@ -58,11 +58,11 @@ public class EmpleadoResource {
      */
     @POST
     public EmpleadoDTO createEmpleado(EmpleadoDTO empleado) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: input: {0}", empleado.toString());
+        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: input: {0}", empleado);
         EmpleadoEntity empleadoEntity = empleado.toEntity();
         EmpleadoEntity newEmpleadoEntity = empleadoLogic.createEmpleado(empleadoEntity);
         EmpleadoDTO newEmpleadoDTO = new EmpleadoDTO(newEmpleadoEntity);
-        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: output: '{'0'}'{0}", newEmpleadoDTO.toString());
+        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: output: '{'0'}'{0}", newEmpleadoDTO);
         return newEmpleadoDTO;
     }
 
