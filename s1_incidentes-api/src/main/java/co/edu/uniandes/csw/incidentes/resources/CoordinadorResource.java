@@ -58,13 +58,11 @@ public class CoordinadorResource {
      */
     @POST
     public CoordinadorDTO createCoordinador(CoordinadorDTO coordinador) throws BusinessLogicException {
-        String util="CoordinadorResource createCoordinador: input: " + coordinador.toString();
-        LOGGER.log(Level.INFO,util);
+        LOGGER.info("CoordinadorResource createCoordinador: input: " + coordinador.toString());
         CoordinadorEntity coordinadorEntity = coordinador.toEntity();
         CoordinadorEntity newCoordinadorEntity = coordinadorLogic.createCoordinador(coordinadorEntity);
         CoordinadorDTO newCoordinadorDTO = new CoordinadorDTO(newCoordinadorEntity);
-        util="CoordinadorResource createCoordinador: output: {0}" + newCoordinadorDTO.toString();
-        LOGGER.log(Level.INFO,util);
+        LOGGER.info("CoordinadorResource createCoordinador: output: {0}" + newCoordinadorDTO.toString());
         return newCoordinadorDTO;
     }
 
